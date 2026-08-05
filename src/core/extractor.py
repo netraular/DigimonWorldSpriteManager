@@ -82,19 +82,30 @@ def _keeps_sprite(before, after, p):
 
 
 def _cell_color(rgb, already_bg, rect, p):
-    """The flat colour a box sits on, or None.
+    """The flat colour a box sits on and the share of its FULL border ring it
+    owns, or (None, 0.0).
 
     Looks only at the box's border ring, ignoring pixels the sheet background
     already keys out. A colour has to dominate that ring (``cell_bg_frac``) to
     count — on a tight box the ring is mostly sprite, and no single colour gets
     close, so nothing is keyed.
+
+    The share comes back measured over the WHOLE ring, sheet-background pixels
+    included, because that is the part the dominance test above cannot see:
+    where the sheet background reaches the box's own border, only a handful of
+    ring pixels are left to vote and the sprite's outline can carry them. Such a
+    "cell" is harmless to flood — it never touches the crop border, so the flood
+    finds nothing — but keying every pixel of it would eat the outline, so the
+    caller uses the share to tell a real frame from that accident.
     """
-    ring = _ring_mask(rgb.shape[:2], rect, p.cell_ring_px) & ~already_bg
-    px = rgb[ring]
+    ring = _ring_mask(rgb.shape[:2], rect, p.cell_ring_px)
+    px = rgb[ring & ~already_bg]
     if len(px) < 8:
-        return None
+        return None, 0.0
     color, n = collections.Counter(map(tuple, px)).most_common(1)[0]
-    return color if (n / len(px)) >= p.cell_bg_frac else None
+    if (n / len(px)) < p.cell_bg_frac:
+        return None, 0.0
+    return color, n / max(int(ring.sum()), 1)
 
 
 def extract_box(arr, bg, box, p):
@@ -163,11 +174,12 @@ def extract_box(arr, bg, box, p):
         enclosed = (matching(colors, p.bg_enclosed_tol) if p.bg_enclosed
                     else np.zeros(sub.shape[:2], dtype=bool))
 
-        def keyed(cols):
+        def keyed(cols, enc=None):
             """Alpha for a set of background colours: the border flood, plus
-            every enclosed pixel that is exactly a sheet background colour."""
+            every pixel of ``enc`` (defaults to the sheet-colour enclosed mask)."""
             like = matching(cols)
-            return np.where(flooded(like) | enclosed, 0, 255).astype(np.uint8), like
+            enc = enclosed if enc is None else enc
+            return np.where(flooded(like) | enc, 0, 255).astype(np.uint8), like
 
         alpha, bg_like = keyed(colors)
         if enclosed.any():
@@ -186,18 +198,38 @@ def extract_box(arr, bg, box, p):
             # The sheet background rarely reaches inside a cell box, so key the
             # cell's own colour as well. Kept only if a sprite actually survives:
             # if the "cell" turned out to be the sprite, we drop the whole idea.
-            cell = _cell_color(rgb, bg_like, (bx - x0, by - y0, bw, bh), p)
+            cell, ring_share = _cell_color(rgb, bg_like, (bx - x0, by - y0, bw, bh), p)
             if cell is not None:
-                # Border flood only for the cell colour: it is a GUESS (the modal
-                # colour of the box's border ring), and on a tight box that ring is
-                # mostly sprite, so the guess lands on the outline or on the
-                # armour's grey. Keying every pixel of it then eats exactly those.
-                cand, _ = keyed(list(colors) + [cell])
+                cols = list(colors) + [cell]
+                # Two candidate keyings, best first.
+                #
+                # The cell is backdrop exactly as the sheet colour is, so where it
+                # frames the box (``ring_share``) EVERY pixel of it goes, the ones
+                # the sprite walls off included: the patch inside the curl of a
+                # tail, between the legs, under an arm. Those are not connected to
+                # the crop border, so a flood leaves them opaque — that is the
+                # backdrop that used to survive inside finished sprites.
+                #
+                # Where it does not frame the box the colour is a bad guess rather
+                # than a cell: the sheet background already reaches the box's
+                # border, so the ring vote came down to a few sprite pixels and
+                # elected the outline. Flooding it is a harmless no-op (it touches
+                # nothing at the crop border) but keying every pixel of it would
+                # dissolve the sprite, hence flood-only there — and no cell keying
+                # at all if even that fails to keep a sprite.
+                cands = []
+                if p.bg_enclosed and ring_share >= p.cell_bg_frac:
+                    cands.append(enclosed | matching([cell], p.bg_enclosed_tol))
+                cands.append(enclosed)
                 # Judge the DE-FRINGED masks: the 1px erosion below is what turns a
                 # thin bridge into a break, so comparing raw masks would wave through
                 # a keying that only falls apart at the very last step.
-                if _keeps_sprite(_defringe(alpha), _defringe(cand), p):
-                    alpha = cand
+                base = _defringe(alpha)
+                for enc in cands:
+                    cand, _ = keyed(cols, enc)
+                    if _keeps_sprite(base, _defringe(cand), p):
+                        alpha = cand
+                        break
 
     # De-fringe: erode the opaque mask by 1px to shave the chroma-key rim.
     alpha = _defringe(alpha)
