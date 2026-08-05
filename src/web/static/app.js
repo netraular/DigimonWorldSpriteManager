@@ -637,16 +637,19 @@ $("#pv-toggle").onclick = () => {
   $("#pv-toggle").textContent = state.pvPlaying ? "❚❚ pause" : "► play";
   restartPreview();
 };
-$("#btn-save").onclick = saveSpec;
 $("#btn-bake").onclick = bake;
 // live timing → preview
 ["t-tick", "t-walkdur", "t-idlems", "t-sleepms"].forEach((id) => { $("#" + id).oninput = () => { pullUIToSpec(); restartPreview(); }; });
 
 document.addEventListener("keydown", (e) => {
   if ($("#view-editor").hidden) return;
-  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") { e.preventDefault(); saveSpec(); return; }
+  // Ctrl/⌘+S fires from inside a field too, only to stop the browser offering to
+  // save the page; plain S is the shortcut (same as /crop) and waits until you
+  // are out of the creature/timing inputs, where "s" is just a letter.
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") { e.preventDefault(); bake(); return; }
   if (document.activeElement && /INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return;
   if (e.key === "Escape") { closeEditor(); return; }
+  if (e.key === "s" || e.key === "S") { bake(); return; }
   if (state.spec && e.key >= "1" && e.key <= "4" && !isFlatClip(state.activeClip)) {
     const idx = +e.key - 1, dirs = activeDirs();
     if (idx < dirs.length) { state.activeDir = dirs[idx]; state.pvDir = dirs[idx]; syncPvDir(); renderSlots(); renderPalette(); refreshAssignHint(); restartPreview(); }

@@ -158,13 +158,15 @@
     </div>
 
     <div class="ed-actions">
-      <button id="btn-save" class="btn" title="Ctrl+S — write specs/digimon/<id>.extract.json (your editable recipe: boxes, clip assignments, timing, creature fields). Nothing is rendered.">Save spec</button>
-      <button id="btn-bake" class="btn primary" title="Save the spec, then render output/digimon/<id>.png + <id>.json (SpriteLayout) + pet_<id>.json (creature node).">Bake asset</button>
+      <!-- One action: the spec is the recipe for the bake, so writing it and
+           rendering it were never worth two buttons. A refused bake still leaves
+           the spec on disk. -->
+      <button id="btn-bake" class="btn primary" title="S — write specs/digimon/<id>.extract.json (your editable recipe: boxes, clip assignments, timing, creature fields), then render output/digimon/<id>.png + <id>.json (SpriteLayout) + pet_<id>.json (creature node). If the bake is refused, the spec is saved all the same.">Save &amp; bake <kbd>S</kbd></button>
       <label class="chk" title="After baking, also copy the PNG + layout + creature node into the content-editor's local-content dev tree, so it shows up there without a manual copy."><input id="stage-toggle" type="checkbox" /> stage to content-editor</label>
       <!-- The gallery appbar (with #status) is off screen in the editor, so Save
            and Bake report right here — see setStatus in app.js. -->
       <span id="ed-status" class="ed-status"></span>
-      <span class="kbd-hint">click add · <kbd>⇧</kbd>click remove · <kbd>1</kbd>–<kbd>4</kbd> facing · <kbd>Ctrl</kbd>+<kbd>S</kbd> save · <kbd>Esc</kbd> back</span>
+      <span class="kbd-hint">click add · <kbd>⇧</kbd>click remove · <kbd>1</kbd>–<kbd>4</kbd> facing · <kbd>S</kbd> save &amp; bake · <kbd>Esc</kbd> back</span>
     </div>
   </div>
 

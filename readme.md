@@ -189,14 +189,18 @@ Assembling a creature:
   and one back view fills all four slots with two ticks.
 - **idle = SW walk[0]** — one click fills the idle clip with the front walk's first
   frame. Leaving idle empty bakes that same pose.
-- **Save spec** and **Bake asset** report on the foot line next to the buttons (the
-  editor covers the gallery's status bar) — including *why* a bake was refused, e.g.
-  `walk has no frames for NW (up_left)`.
-- Fill in the creature (id, name, type, color, stage) + timing, then **Bake asset** —
-  writes `output/digimon/<id>.png` + `<id>.json` (+ `pet_<id>.json`), the same
+- Fill in the creature (id, name, type, color, stage) + timing, then **Save & bake**
+  (or press <kbd>S</kbd>, as in `/crop`). One action, because the spec IS the recipe
+  for the bake: it writes `specs/digimon/<id>.extract.json` (boxes, clip assignments,
+  timing, creature fields — the editable part) and then renders
+  `output/digimon/<id>.png` + `<id>.json` (+ `pet_<id>.json`), the same
   `SpriteLayout` shape [PMDSpriteManager](../PMDSpriteManager) emits and the
   content-editor consumes. Tick *stage to content-editor* to also copy them into the
   content-editor's dev tree.
+- It reports on the foot line next to the button (the editor covers the gallery's
+  status bar) — including *why* a bake was refused, e.g. `walk has no frames for
+  NW (up_left)`. A refused bake still leaves the spec saved, so a half-assembled
+  creature is never lost.
 
 > **Backdrops are keyed automatically.** A crop box is normally the sprite's flat
 > "cell" rectangle, and that cell colour is *not* the sheet background — so extraction

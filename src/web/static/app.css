@@ -131,6 +131,10 @@
   font-family:var(--mono);font-size:12px;padding:5px 7px;width:100%;outline:none}
 .form input:focus,.form select:focus{border-color:var(--accent)}
 
+/* The shortcut chip rides inside the teal action button, so it wears the button's
+   ink instead of the dark default (same treatment as /crop's pick button). */
+.btn.primary kbd{background:rgba(6,32,30,.22);border-color:rgba(6,32,30,.35);color:var(--accent-ink)}
+
 /* The editor is a full-window view, so the gallery appbar's #status never shows
    while you assemble — Save/Bake report on this foot line instead. */
 .ed-status{flex:0 1 auto;min-width:0;font-family:var(--mono);font-size:10.5px;color:var(--done);
