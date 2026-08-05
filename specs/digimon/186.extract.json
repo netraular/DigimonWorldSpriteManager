@@ -1,0 +1,120 @@
+{
+  "spec_version": 1,
+  "species": "digimon",
+  "id": 186,
+  "source": "raw_sheets/48610.png",
+  "sheet_id": "48610",
+  "background": null,
+  "background_tolerance": 40,
+  "background_mode": "alpha",
+  "seg_params": {
+    "tol": 40,
+    "extra_bg": []
+  },
+  "trim": true,
+  "export_scale": 1,
+  "pad": 1,
+  "boxes": [
+    {
+      "id": "b44",
+      "x": 7,
+      "y": 222,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b45",
+      "x": 41,
+      "y": 222,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b46",
+      "x": 75,
+      "y": 222,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b47",
+      "x": 109,
+      "y": 222,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b48",
+      "x": 143,
+      "y": 222,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b49",
+      "x": 177,
+      "y": 222,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b50",
+      "x": 211,
+      "y": 222,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b51",
+      "x": 245,
+      "y": 222,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b52",
+      "x": 279,
+      "y": 222,
+      "w": 32,
+      "h": 32
+    }
+  ],
+  "clips": {
+    "walk": {
+      "down_left": [
+        "b44",
+        "b45",
+        "b46"
+      ],
+      "up_left": [
+        "b47",
+        "b48",
+        "b49"
+      ]
+    },
+    "idle": [
+      "b50",
+      "b51",
+      "b52"
+    ],
+    "sleep": []
+  },
+  "mirror": {
+    "down_right": "down_left",
+    "up_right": "up_left"
+  },
+  "diagonals": true,
+  "anchor": "bottom_center",
+  "walk_style": "stride",
+  "tick_ms": 33,
+  "walk_durations": [
+    6
+  ],
+  "idle_frame_ms": 300,
+  "sleep_frame_ms": 400,
+  "notes": "",
+  "creature_name": "",
+  "creature_type": "Data",
+  "creature_color": "0x8899AA",
+  "creature_stage": 1
+}

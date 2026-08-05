@@ -1,0 +1,144 @@
+{
+  "spec_version": 1,
+  "species": "digimon",
+  "id": 110,
+  "source": "raw_sheets/48331.png",
+  "sheet_id": "48331",
+  "background": null,
+  "background_tolerance": 8,
+  "background_mode": "alpha",
+  "seg_params": {
+    "tol": 8,
+    "extra_bg": []
+  },
+  "trim": true,
+  "export_scale": 1,
+  "pad": 1,
+  "boxes": [
+    {
+      "id": "b5",
+      "x": 544,
+      "y": 199,
+      "w": 78,
+      "h": 69
+    },
+    {
+      "id": "b6",
+      "x": 622,
+      "y": 199,
+      "w": 78,
+      "h": 69
+    },
+    {
+      "id": "b7",
+      "x": 700,
+      "y": 199,
+      "w": 78,
+      "h": 69
+    },
+    {
+      "id": "b10",
+      "x": 544,
+      "y": 268,
+      "w": 78,
+      "h": 69
+    },
+    {
+      "id": "b11",
+      "x": 622,
+      "y": 268,
+      "w": 78,
+      "h": 69
+    },
+    {
+      "id": "b12",
+      "x": 700,
+      "y": 268,
+      "w": 78,
+      "h": 69
+    },
+    {
+      "id": "b13",
+      "x": 544,
+      "y": 337,
+      "w": 78,
+      "h": 69
+    },
+    {
+      "id": "b14",
+      "x": 622,
+      "y": 337,
+      "w": 78,
+      "h": 69
+    },
+    {
+      "id": "b15",
+      "x": 700,
+      "y": 337,
+      "w": 78,
+      "h": 69
+    },
+    {
+      "id": "b22",
+      "x": 544,
+      "y": 406,
+      "w": 78,
+      "h": 69
+    },
+    {
+      "id": "b23",
+      "x": 622,
+      "y": 406,
+      "w": 78,
+      "h": 69
+    },
+    {
+      "id": "b24",
+      "x": 700,
+      "y": 406,
+      "w": 78,
+      "h": 69
+    }
+  ],
+  "clips": {
+    "walk": {
+      "down_left": [
+        "b5",
+        "b6",
+        "b7"
+      ],
+      "down_right": [
+        "b10",
+        "b11",
+        "b12"
+      ],
+      "up_left": [
+        "b13",
+        "b14",
+        "b15"
+      ],
+      "up_right": [
+        "b22",
+        "b23",
+        "b24"
+      ]
+    },
+    "idle": [],
+    "sleep": []
+  },
+  "mirror": {},
+  "diagonals": true,
+  "anchor": "bottom_center",
+  "walk_style": "stride",
+  "tick_ms": 33,
+  "walk_durations": [
+    6
+  ],
+  "idle_frame_ms": 300,
+  "sleep_frame_ms": 400,
+  "notes": "",
+  "creature_name": "",
+  "creature_type": "Data",
+  "creature_color": "0x8899AA",
+  "creature_stage": 1
+}
