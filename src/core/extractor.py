@@ -1,0 +1,241 @@
+"""Clean per-box sprite extraction.
+
+Given a chosen bounding box on a sheet, crop it, key out the background to
+transparent alpha (EVERY pixel of a background colour, enclosed ones included —
+the gap between an arm and the body is backdrop and has to read through; see
+``bg_enclosed``), de-fringe the anti-aliased rim, and hand back the box-sized
+frame plus where its content landed inside it.
+
+Rips usually park each sprite on its own flat "cell" rectangle over the outer
+chroma key (grey/green/blue cells on teal). The crop view keeps those cell boxes
+on purpose — they are what makes every sprite the same size — so the cell colour
+is NOT part of the sheet background and would ride along into the sprite. Hence
+``_cell_color``: whatever flat colour dominates a box's own border ring is keyed
+out too, per box, so sprites come out transparent without anybody eyedropping
+each cell shade by hand.
+"""
+import collections
+
+import numpy as np
+from PIL import Image
+from scipy import ndimage
+
+
+def _clamp(v, lo, hi):
+    return max(lo, min(hi, v))
+
+
+def _ring_mask(shape, rect, width=1):
+    """Boolean mask of the ``width``-px frame of ``rect`` inside a (h, w) crop.
+
+    The frame follows the OPERATOR'S box, not the padded crop: the pad lies in the
+    sheet background, so a ring taken from the crop's own edge would be all
+    background and say nothing about what the sprite sits on.
+    """
+    m = np.zeros(shape, dtype=bool)
+    x, y, w, h = rect
+    x0, y0 = max(0, x), max(0, y)
+    x1, y1 = min(shape[1], x + w), min(shape[0], y + h)
+    if x1 - x0 < 2 or y1 - y0 < 2:
+        return m
+    d = max(1, int(width))
+    m[y0:min(y0 + d, y1), x0:x1] = True
+    m[max(y0, y1 - d):y1, x0:x1] = True
+    m[y0:y1, x0:min(x0 + d, x1)] = True
+    m[y0:y1, max(x0, x1 - d):x1] = True
+    return m
+
+
+def _defringe(alpha):
+    """Erode the opaque mask by 1px to shave the chroma-key rim."""
+    opaque = alpha > 0
+    if not opaque.any():
+        return alpha
+    eroded = ndimage.binary_erosion(opaque, iterations=1, border_value=1)
+    return np.where(eroded, alpha, 0).astype(np.uint8)
+
+
+def _largest_share(mask):
+    """Share of the opaque pixels that belong to their biggest blob (1.0 = one piece)."""
+    if not mask.any():
+        return 0.0
+    lbl, n = ndimage.label(mask, structure=np.ones((3, 3), int))
+    if n <= 1:
+        return 1.0
+    sizes = ndimage.sum(mask, lbl, range(1, n + 1))
+    return float(sizes.max() / sizes.sum())
+
+
+def _keeps_sprite(before, after, p):
+    """Did keying the cell colour peel a backdrop, or eat the sprite?
+
+    Removing a cell leaves the sprite whole; keying a colour the sprite is MADE of
+    shatters it into crumbs (a white Digimon on a white cell). So the survivor has
+    to stay essentially one piece — or at least be no more broken up than it
+    already was on sheets whose sprites genuinely have detached parts.
+    """
+    op = after > 0
+    if op.mean() < p.cell_min_keep:
+        return False
+    share = _largest_share(op)
+    return share >= p.cell_min_solid or share >= _largest_share(before > 0) - 0.05
+
+
+def _cell_color(rgb, already_bg, rect, p):
+    """The flat colour a box sits on, or None.
+
+    Looks only at the box's border ring, ignoring pixels the sheet background
+    already keys out. A colour has to dominate that ring (``cell_bg_frac``) to
+    count — on a tight box the ring is mostly sprite, and no single colour gets
+    close, so nothing is keyed.
+    """
+    ring = _ring_mask(rgb.shape[:2], rect, p.cell_ring_px) & ~already_bg
+    px = rgb[ring]
+    if len(px) < 8:
+        return None
+    color, n = collections.Counter(map(tuple, px)).most_common(1)[0]
+    return color if (n / len(px)) >= p.cell_bg_frac else None
+
+
+def extract_box(arr, bg, box, p):
+    """Extract one box to a clean RGBA PIL image.
+
+    ``arr``  : (H, W, 4) uint8 sheet.
+    ``bg``   : background dict from segmenter.infer_background.
+    ``box``  : object/dict with x, y, w, h (sheet pixel coords).
+    ``p``    : SegParams (uses tol, crop_pad).
+
+    Returns (PIL.Image RGBA, info) where info = {orig_box, content_box, offset}.
+    ``offset`` is the returned image's top-left relative to the box's top-left,
+    and ``content_box`` the opaque content's bounds in sheet coordinates.
+
+    By default the image keeps the operator's BOX as its canvas (``trim_content``
+    off). That geometry is the animation: a jump frame sits high inside its cell
+    and a landing frame sits low, so trimming each frame to its own content would
+    glue every pose to the same baseline and flatten the jump — the baker anchors
+    what it is handed and has no idea a frame was airborne.
+    """
+    H, W = arr.shape[:2]
+    bx = box["x"] if isinstance(box, dict) else box.x
+    by = box["y"] if isinstance(box, dict) else box.y
+    bw = box["w"] if isinstance(box, dict) else box.w
+    bh = box["h"] if isinstance(box, dict) else box.h
+
+    pad = p.crop_pad
+    x0 = _clamp(bx - pad, 0, W)
+    y0 = _clamp(by - pad, 0, H)
+    x1 = _clamp(bx + bw + pad, 0, W)
+    y1 = _clamp(by + bh + pad, 0, H)
+    sub = arr[y0:y1, x0:x1].copy()
+    sh, sw = sub.shape[:2]
+
+    if bg["mode"] == "alpha":
+        alpha = sub[:, :, 3].copy()
+    else:
+        rgb = sub[:, :, :3].astype(np.int32)
+        colors = bg.get("colors") or ([bg["color"]] if bg.get("color") else [])
+
+        def matching(cols, tol=None):
+            """Pixels within ``tol`` (default ``p.tol``) of any of ``cols``."""
+            like = np.zeros(sub.shape[:2], dtype=bool)
+            radius = p.tol if tol is None else tol
+            for c in cols:
+                bgc = np.array(c, dtype=np.int32)
+                like |= np.sqrt(np.sum((rgb - bgc) ** 2, axis=-1)) <= radius
+            return like
+
+        def flooded(like):
+            """Only the regions of ``like`` CONNECTED to the crop border."""
+            lbl, n = ndimage.label(like)
+            border_labels = set()
+            if n:
+                border_labels.update(np.unique(lbl[0, :]))
+                border_labels.update(np.unique(lbl[-1, :]))
+                border_labels.update(np.unique(lbl[:, 0]))
+                border_labels.update(np.unique(lbl[:, -1]))
+                border_labels.discard(0)
+            return np.isin(lbl, list(border_labels)) if border_labels else np.zeros_like(like)
+
+        # Backdrop-coloured pixels wherever they sit, the ones the sprite walls in
+        # included: the gap an arm or a tail encloses is backdrop and has to read
+        # through. Only the SHEET colours qualify (they are what the operator
+        # eyedropped in /crop), and only at ``bg_enclosed_tol`` — see the param.
+        enclosed = (matching(colors, p.bg_enclosed_tol) if p.bg_enclosed
+                    else np.zeros(sub.shape[:2], dtype=bool))
+
+        def keyed(cols):
+            """Alpha for a set of background colours: the border flood, plus
+            every enclosed pixel that is exactly a sheet background colour."""
+            like = matching(cols)
+            return np.where(flooded(like) | enclosed, 0, 255).astype(np.uint8), like
+
+        alpha, bg_like = keyed(colors)
+        if enclosed.any():
+            # Same survival test the cell keying gets: drop the enclosed pixels
+            # rather than hand back a shattered sprite. It catches the gross case
+            # only — on a sheet keyed on a colour the artist DREW with (a black
+            # key over black outlines), the holes are indistinguishable from the
+            # art by any measure of mass or connectivity, and that sheet has to
+            # opt out by hand (``bg_enclosed``). Clearing the mask here also
+            # keeps it out of the cell candidate below, which closes over it.
+            flood_only = np.where(flooded(bg_like), 0, 255).astype(np.uint8)
+            if not _keeps_sprite(_defringe(flood_only), _defringe(alpha), p):
+                enclosed = np.zeros_like(enclosed)
+                alpha = flood_only
+        if p.auto_cell_bg:
+            # The sheet background rarely reaches inside a cell box, so key the
+            # cell's own colour as well. Kept only if a sprite actually survives:
+            # if the "cell" turned out to be the sprite, we drop the whole idea.
+            cell = _cell_color(rgb, bg_like, (bx - x0, by - y0, bw, bh), p)
+            if cell is not None:
+                # Border flood only for the cell colour: it is a GUESS (the modal
+                # colour of the box's border ring), and on a tight box that ring is
+                # mostly sprite, so the guess lands on the outline or on the
+                # armour's grey. Keying every pixel of it then eats exactly those.
+                cand, _ = keyed(list(colors) + [cell])
+                # Judge the DE-FRINGED masks: the 1px erosion below is what turns a
+                # thin bridge into a break, so comparing raw masks would wave through
+                # a keying that only falls apart at the very last step.
+                if _keeps_sprite(_defringe(alpha), _defringe(cand), p):
+                    alpha = cand
+
+    # De-fringe: erode the opaque mask by 1px to shave the chroma-key rim.
+    alpha = _defringe(alpha)
+
+    out = sub.copy()
+    out[:, :, 3] = alpha
+
+    if p.trim_content:
+        canvas, cvx, cvy = out, x0, y0            # bbox measured on the padded crop
+    else:
+        # Keep the operator's box as the canvas. The pad only ever existed to give
+        # the border flood a ring of background to start from, so it is dropped
+        # again here — every frame of a sheet comes back the same size, holding the
+        # sprite exactly where it sits inside its cell.
+        rx, ry = bx - x0, by - y0
+        canvas, cvx, cvy = out[ry:ry + bh, rx:rx + bw], bx, by
+
+    # Content bounds of whatever we are actually returning, in sheet coordinates.
+    ys, xs = np.where(canvas[:, :, 3] > 0)
+    empty = len(ys) == 0
+    if empty:
+        content_box = [bx, by, 0, 0]
+    else:
+        cy0, cy1 = int(ys.min()), int(ys.max()) + 1
+        cx0, cx1 = int(xs.min()), int(xs.max()) + 1
+        content_box = [cvx + cx0, cvy + cy0, cx1 - cx0, cy1 - cy0]
+
+    if p.trim_content:
+        if empty:
+            # nothing survived — return a 1x1 transparent pixel
+            img = Image.fromarray(np.zeros((1, 1, 4), np.uint8), "RGBA")
+            return img, {"orig_box": [bx, by, bw, bh], "content_box": content_box,
+                         "offset": [0, 0], "empty": True}
+        img = Image.fromarray(canvas[cy0:cy1, cx0:cx1], "RGBA")
+        off = [content_box[0] - bx, content_box[1] - by]
+    else:
+        img = Image.fromarray(canvas, "RGBA")
+        off = [0, 0]
+
+    return img, {"orig_box": [bx, by, bw, bh], "content_box": content_box,
+                 "offset": off, "empty": empty}

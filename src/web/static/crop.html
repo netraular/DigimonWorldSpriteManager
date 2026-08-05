@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Crop sprites — Digimon Sprite Manager</title>
+  <link rel="stylesheet" href="/static/crop.css" />
+</head>
+<body>
+
+  <!-- ============ GALLERY VIEW ============ -->
+  <div id="view-gallery">
+    <div class="appbar">
+      <div class="brand">
+        <span class="logo">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+            <rect x="1" y="1" width="4" height="4" fill="#06201e"/>
+            <rect x="8" y="1" width="4" height="4" fill="#06201e"/>
+            <rect x="1" y="8" width="4" height="4" fill="#06201e"/>
+            <rect x="8" y="8" width="4" height="4" fill="#06201e" opacity=".45"/>
+          </svg>
+        </span>
+        <span class="name">Crop sprites<small>sheet slicer</small></span>
+      </div>
+
+      <nav class="viewnav">
+        <a href="/">▶ Animate</a>
+        <a href="/crop" class="active">✂ Crop sheets</a>
+      </nav>
+
+      <div class="progress-wrap">
+        <div class="bar"><i id="progress-bar"></i></div>
+        <span class="count" id="progress-count"><b>0</b> / 0 done</span>
+      </div>
+
+      <div class="chips" id="chips">
+        <span class="chip active" data-filter="all"><span class="dot" style="background:var(--ink-dim)"></span>All <span class="num" id="count-all">0</span></span>
+        <span class="chip" data-filter="todo"><span class="dot" style="background:var(--todo)"></span>To-do <span class="num" id="count-todo">0</span></span>
+        <span class="chip" data-filter="done"><span class="dot" style="background:var(--done)"></span>Done <span class="num" id="count-done">0</span></span>
+        <span class="chip" data-filter="deleted"><span class="dot" style="background:var(--del)"></span>Deleted <span class="num" id="count-deleted">0</span></span>
+      </div>
+
+      <span class="spacer"></span>
+      <span id="status" class="status"></span>
+    </div>
+
+    <div class="gallery-body">
+      <div id="grid" class="grid"></div>
+      <div id="empty" class="empty" hidden></div>
+    </div>
+  </div>
+
+  <!-- ============ EDITOR VIEW ============ -->
+  <div id="view-editor" class="editor" hidden>
+    <div class="ed-top">
+      <span id="btn-back" class="back">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 6.5H2"/><path d="M5.5 3 2 6.5 5.5 10"/></svg>
+        Gallery
+      </span>
+      <div class="ed-title">
+        <span id="ed-path" class="path">—</span>
+        <span id="ed-crumb" class="crumb"></span>
+      </div>
+      <span class="spacer"></span>
+      <span class="ed-count" title="Sprites currently detected on this sheet"><b id="ed-count">0</b> sprites detected</span>
+    </div>
+
+    <div class="ed-main">
+      <div class="toolrail">
+        <div class="t on" title="Pointer — drag to select sprites, Alt+drag to draw a box">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="currentColor"><path d="M3 2l9 4-3.6 1.2L7.2 12z"/></svg>
+        </div>
+      </div>
+
+      <div class="stage-wrap">
+        <div class="stage-info">
+          <span class="zoomctl"><b>zoom</b>
+            <input id="zoom" type="range" min="1" max="12" step="1" value="3" />
+            <span id="zoom-val">300%</span>
+            <span id="btn-fit" class="back" style="padding:2px 8px">Fit</span>
+          </span>
+        </div>
+        <div id="stage" class="stage">
+          <canvas id="canvas"></canvas>
+        </div>
+      </div>
+
+      <div class="panel-r">
+        <div class="p-sec">
+          <button id="btn-auto" class="btn primary auto" title="Key out the sheet's corner colour, then keep only the most repeated sprite size (A)">
+            ✦ Auto-detect sprites <kbd>A</kbd>
+          </button>
+          <div class="hero">
+            <button id="btn-eyedrop" class="pick-btn" title="Click the background between the sprites to crop the rest (B)">
+              <span class="eye"></span>
+              Pick background &amp; crop sprites
+              <kbd>B</kbd>
+            </button>
+          </div>
+          <div id="bg-chips" class="chosen"></div>
+        </div>
+
+        <div class="p-sec">
+          <button id="btn-grow" class="btn auto" title="Grow every box on the sheet until they tile, so each sprite gets back the empty room it moves into (G)">
+            ⤢ Grow to the sprite cell <kbd>G</kbd>
+          </button>
+        </div>
+
+        <!-- Nudge what's selected, one px at a time, on the side you pick. The box in
+             the middle IS the selection: an arrow pointing away from it gives that
+             edge a px, one pointing into it takes a px back. Shown whenever there is
+             a selection — sizes don't have to match, since each box just moves its
+             own edge. Press and hold to keep going. -->
+        <div class="p-sec" id="size-sec" hidden>
+          <p class="p-h">Size <span id="size-count" class="p-h-sub"></span></p>
+          <div class="nudge" id="nudge">
+            <div class="n-side n-top">
+              <button data-side="t" data-d="1" title="Add 1px on top">▲</button>
+              <button data-side="t" data-d="-1" title="Trim 1px off the top">▼</button>
+            </div>
+            <div class="n-side n-left">
+              <button data-side="l" data-d="1" title="Add 1px on the left">◀</button>
+              <button data-side="l" data-d="-1" title="Trim 1px off the left">▶</button>
+            </div>
+            <div class="n-cell">
+              <span id="size-now" class="size-now"></span>
+              <span class="n-all">
+                <button data-side="a" data-d="-1" title="Trim 1px off every side">−</button>
+                <b>all</b>
+                <button data-side="a" data-d="1" title="Add 1px on every side">+</button>
+              </span>
+            </div>
+            <div class="n-side n-right">
+              <button data-side="r" data-d="-1" title="Trim 1px off the right">◀</button>
+              <button data-side="r" data-d="1" title="Add 1px on the right">▶</button>
+            </div>
+            <div class="n-side n-bottom">
+              <button data-side="b" data-d="-1" title="Trim 1px off the bottom">▲</button>
+              <button data-side="b" data-d="1" title="Add 1px at the bottom">▼</button>
+            </div>
+          </div>
+        </div>
+
+        <p id="grow-result" class="p-foot" hidden></p>
+      </div>
+    </div>
+
+    <div class="ed-actions">
+      <button id="btn-save" class="btn primary">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2h7l2 2v7H2z"/><path d="M4 2v3h4V2"/><rect x="4" y="7" width="5" height="4"/></svg>
+        Save
+      </button>
+      <button id="btn-delete" class="btn danger">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4h8"/><path d="M5 4V2.5h3V4"/><path d="M3.5 4 4 11h5l.5-7"/></svg>
+        Delete — no sprites here
+      </button>
+      <span class="kbd-hint"><kbd>A</kbd> auto-detect · <kbd>B</kbd> pick background · drag to select · <kbd>G</kbd> grow to cell · <kbd>Ctrl</kbd>+<kbd>A</kbd> select all · <kbd>Del</kbd> delete selected · <kbd>Alt</kbd>+drag new box · <kbd>S</kbd> save · <kbd>Esc</kbd> back</span>
+    </div>
+  </div>
+
+  <script src="/static/crop.js"></script>
+</body>
+</html>

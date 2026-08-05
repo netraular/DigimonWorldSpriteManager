@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+venv/
+.venv/
+.vscode/
+
+# Bulk-downloaded copyrighted sprite rips (reproducible via Scripts/download_sheets.py)
+raw_sheets/
+
+# Cached auto-detect results (regenerable from raw_sheets/)
+boxcache/
+
+# Cached gallery thumbnails (regenerable from raw_sheets/)
+thumbcache/
+
+# Baked output is regenerable from specs/ + raw_sheets/; keep the editable specs.
+output/

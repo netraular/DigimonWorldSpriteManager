@@ -1,0 +1,151 @@
+{
+  "spec_version": 1,
+  "species": "digimon",
+  "id": 1,
+  "source": "raw_sheets/20456.png",
+  "sheet_id": "20456",
+  "background": "0x8003AF",
+  "background_tolerance": 8,
+  "background_mode": "solid",
+  "seg_params": {
+    "alpha_thresh": 16,
+    "area_min": 20,
+    "auto_secondary_bg": true,
+    "border_frac": 0.02,
+    "connectivity": 8,
+    "crop_pad": 2,
+    "dilate_px": 1,
+    "extra_bg": [],
+    "fill_min": 0.04,
+    "grid_spread": 0.18,
+    "hue_tol": 0.05,
+    "max_bg_colors": 3,
+    "max_box_frac": 0.9,
+    "merge_gap": 2,
+    "morph_px": 1,
+    "row_tol_frac": 0.5,
+    "sat_min": 0.3,
+    "sec_bg_frac": 0.1,
+    "sec_bg_sat": 46,
+    "snap_dist": 40,
+    "tol": 8,
+    "use_hsv": true,
+    "val_min": 0.15,
+    "wh_min": 4
+  },
+  "trim": true,
+  "export_scale": 1,
+  "pad": 1,
+  "boxes": [
+    {
+      "id": "b24",
+      "x": 5,
+      "y": 135,
+      "w": 27,
+      "h": 24
+    },
+    {
+      "id": "b25",
+      "x": 32,
+      "y": 135,
+      "w": 27,
+      "h": 24
+    },
+    {
+      "id": "b26",
+      "x": 59,
+      "y": 135,
+      "w": 27,
+      "h": 24
+    },
+    {
+      "id": "b28",
+      "x": 5,
+      "y": 159,
+      "w": 27,
+      "h": 24
+    },
+    {
+      "id": "b29",
+      "x": 32,
+      "y": 159,
+      "w": 27,
+      "h": 24
+    },
+    {
+      "id": "b30",
+      "x": 59,
+      "y": 159,
+      "w": 27,
+      "h": 24
+    },
+    {
+      "id": "b34",
+      "x": 5,
+      "y": 183,
+      "w": 27,
+      "h": 24
+    },
+    {
+      "id": "b35",
+      "x": 32,
+      "y": 183,
+      "w": 27,
+      "h": 24
+    },
+    {
+      "id": "b36",
+      "x": 59,
+      "y": 183,
+      "w": 27,
+      "h": 24
+    },
+    {
+      "id": "b37",
+      "x": 5,
+      "y": 207,
+      "w": 27,
+      "h": 24
+    },
+    {
+      "id": "b38",
+      "x": 32,
+      "y": 207,
+      "w": 27,
+      "h": 24
+    },
+    {
+      "id": "b39",
+      "x": 59,
+      "y": 207,
+      "w": 27,
+      "h": 24
+    }
+  ],
+  "clips": {
+    "walk": {
+      "down": [
+        "b24",
+        "b25",
+        "b26"
+      ]
+    },
+    "idle": [],
+    "sleep": []
+  },
+  "mirror": {},
+  "diagonals": false,
+  "anchor": "bottom_center",
+  "walk_style": "stride",
+  "tick_ms": 33,
+  "walk_durations": [
+    6
+  ],
+  "idle_frame_ms": 300,
+  "sleep_frame_ms": 400,
+  "notes": "",
+  "creature_name": "",
+  "creature_type": "Data",
+  "creature_color": "0x8899AA",
+  "creature_stage": 1
+}

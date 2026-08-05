@@ -1,0 +1,143 @@
+/* Shared "Pro Pixel Editor" theme (dark, precise, Aseprite-like).
+   The design tokens + chrome primitives used by BOTH the /crop view and the
+   main animate view (/). View-specific rules live in crop.css / app.css.
+   (crop.css predates this file and remains self-contained, so /crop never
+   depends on theme.css; the animate view builds on top of it.) */
+
+:root{
+  --bg:#191b1f; --bg2:#212429; --panel:#23262c; --panel2:#2a2e35;
+  --chrome:#15171a; --line:#34383f; --line2:#3f444c;
+  --ink:#e6e8ea; --ink-dim:#9aa0a8; --ink-faint:#6b727b;
+  --accent:#4bd1c6; --accent-ink:#06201e;
+  --todo:#e0a94a; --done:#5fce7f; --del:#e46a6a; --sel:#6ea8fe;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  /* transparency checkerboard (used by thumbs / stages) */
+  --check:linear-gradient(45deg,#202329 25%,transparent 25%),
+          linear-gradient(-45deg,#202329 25%,transparent 25%),
+          linear-gradient(45deg,transparent 75%,#202329 75%),
+          linear-gradient(-45deg,transparent 75%,#202329 75%);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:13px;
+  -webkit-font-smoothing:antialiased;line-height:1.4}
+.mono{font-family:var(--mono)}
+.spacer{flex:1 1 auto}
+
+/* ---------- app bar ---------- */
+.appbar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:0 14px;min-height:48px;position:sticky;top:0;z-index:5;
+  background:linear-gradient(#26292f,#1e2126);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:9px;padding-right:14px;border-right:1px solid var(--line);align-self:stretch}
+.brand .logo{width:22px;height:22px;border-radius:4px;
+  background:conic-gradient(from 45deg,var(--accent),#3b8f88,var(--accent));
+  display:grid;place-items:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.brand .name{font-weight:600;font-size:14px}
+.brand .name small{display:block;font-family:var(--mono);font-size:9px;color:var(--ink-faint);letter-spacing:.14em;text-transform:uppercase}
+
+.progress-wrap{display:flex;align-items:center;gap:10px}
+.progress-wrap .count{font-family:var(--mono);font-size:12px;color:var(--ink-dim);white-space:nowrap}
+.progress-wrap .count b{color:var(--ink)}
+.bar{width:150px;height:7px;border-radius:4px;background:#14161a;border:1px solid var(--line);overflow:hidden}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--done),#8ee0a3);transition:width .3s}
+
+.chips{display:flex;align-items:center;gap:4px;padding:3px;background:#15171a;border:1px solid var(--line);border-radius:6px}
+.chip{display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:4px;font-size:12px;color:var(--ink-dim);
+  cursor:pointer;border:1px solid transparent;user-select:none;white-space:nowrap}
+.chip .dot{width:7px;height:7px;border-radius:50%}
+.chip:hover{color:var(--ink)}
+.chip.active{background:var(--panel2);color:var(--ink);border-color:var(--line2);box-shadow:0 1px 0 rgba(0,0,0,.4)}
+.chip .num{font-family:var(--mono);font-size:10px;color:var(--ink-faint)}
+
+/* shared view switch (Animate <-> Crop), present in both app bars */
+.viewnav{display:flex;gap:3px;padding:3px;background:#15171a;border:1px solid var(--line);border-radius:7px}
+.viewnav a{display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border-radius:5px;font-size:12px;font-weight:600;
+  color:var(--ink-dim);text-decoration:none;border:1px solid transparent;white-space:nowrap}
+.viewnav a:hover{color:var(--ink);background:#22262c}
+.viewnav a.active{background:linear-gradient(#7d92ff,#5a6ee6);color:#0a0f2e;border-color:#4a5cd0;box-shadow:0 1px 0 rgba(255,255,255,.28) inset}
+.viewnav a.active:hover{background:linear-gradient(#8fa2ff,#6a7ef0)}
+
+.search{display:flex;align-items:center;gap:7px;background:#14161a;border:1px solid var(--line);border-radius:6px;padding:6px 10px;min-width:170px}
+.search svg{flex:none}
+.search input{background:none;border:none;outline:none;color:var(--ink);font-family:var(--mono);font-size:12px;width:100%}
+.search input::placeholder{color:var(--ink-faint)}
+
+.btn{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:500;cursor:pointer;user-select:none;text-decoration:none;
+  padding:7px 12px;border-radius:6px;border:1px solid var(--line2);background:linear-gradient(#2c3037,#23262c);color:var(--ink)}
+.btn:hover{border-color:#4c525b;background:linear-gradient(#31353d,#282c33)}
+.btn.primary{background:linear-gradient(#54ddd1,#33b7ac);color:var(--accent-ink);border-color:#2c9c92;font-weight:600;box-shadow:0 1px 0 rgba(255,255,255,.2) inset}
+.btn.primary:hover{background:linear-gradient(#63e6da,#3cc4b8)}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--ink-dim)}
+.btn.ghost:hover{color:var(--ink);background:#2a2e35}
+.btn.danger{color:var(--del);border-color:#5a3131}
+.btn.danger:hover{background:#331d1d;border-color:#7a4040}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.dl-status{font-family:var(--mono);font-size:11px;color:var(--ink-faint)}
+.status{font-family:var(--mono);font-size:11px;color:var(--done)}
+.status.err{color:#f08a8a}
+
+/* ---------- gallery grid + cards ---------- */
+.gallery-body{padding:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(184px,1fr));gap:12px}
+.tile{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;
+  transition:border-color .12s,transform .12s;cursor:pointer}
+.tile:hover{border-color:var(--accent);transform:translateY(-2px)}
+.thumb{position:relative;height:120px;background-color:#0e1013;
+  background-image:linear-gradient(45deg,#191b1f 25%,transparent 25%),linear-gradient(-45deg,#191b1f 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#191b1f 75%),linear-gradient(-45deg,transparent 75%,#191b1f 75%);
+  background-size:16px 16px;background-position:0 0,0 8px,8px -8px,-8px 0;
+  /* flex, not grid: an auto grid column grows to the image's intrinsic width, so
+     max-width:100% would resolve against the grown column and tall/wide thumbs
+     spilled over the id row below. overflow:hidden is the belt to that braces. */
+  display:flex;align-items:center;justify-content:center;overflow:hidden}
+.thumb img{max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block}
+.meta{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border-top:1px solid var(--line)}
+.sid{font-family:var(--mono);font-size:11px;color:var(--ink-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mcount{font-family:var(--mono);font-size:10px;color:var(--ink-faint)}
+.badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;
+  text-transform:uppercase;padding:3px 7px;border-radius:3px;border:1px solid;white-space:nowrap}
+.badge .d{width:6px;height:6px;border-radius:50%}
+.badge.todo{color:var(--todo);border-color:#5c4a24;background:#2a2416}
+.badge.done{color:var(--done);border-color:#2f5c3c;background:#182619}
+.badge.deleted{color:var(--del);border-color:#5c2f2f;background:#2a1717}
+.badge.accent{color:var(--accent);border-color:#235049;background:#14211f}
+.corner-badge{position:absolute;top:8px;left:8px;z-index:2}
+
+.quick{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,11,13,.92),rgba(10,11,13,.12) 55%,transparent);
+  display:flex;align-items:flex-end;justify-content:center;gap:8px;padding:12px;opacity:0;transition:opacity .12s}
+.tile:hover .quick{opacity:1}
+.qbtn{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:6px 11px;border-radius:5px;
+  cursor:pointer;background:#2c3037;border:1px solid var(--line2);color:var(--ink);text-decoration:none}
+.qbtn:hover{background:#373c44}
+.qbtn.go{background:var(--accent);color:var(--accent-ink);border-color:#2c9c92}
+.qbtn.rm{color:var(--del);border-color:#5a3131}
+.qbtn.rm:hover{background:#331d1d}
+.empty{padding:60px 20px;text-align:center;color:var(--ink-faint);font-family:var(--mono);font-size:13px;line-height:1.7}
+
+/* ---------- generic editor shell ---------- */
+.editor{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;background:var(--bg)}
+.ed-top{display:flex;align-items:center;gap:14px;height:46px;padding:0 12px;
+  background:linear-gradient(#26292f,#1e2126);border-bottom:1px solid var(--line)}
+.back{display:inline-flex;align-items:center;gap:7px;color:var(--ink-dim);cursor:pointer;font-size:12px;padding:6px 8px;border-radius:5px;text-decoration:none}
+.back:hover{color:var(--ink);background:#2a2e35}
+.ed-title{display:flex;align-items:baseline;gap:10px;min-width:0}
+.ed-title .path{font-family:var(--mono);font-size:13px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ed-title .crumb{font-size:11px;color:var(--ink-faint);white-space:nowrap}
+.ed-count{font-family:var(--mono);font-size:12px;color:var(--accent);background:#14211f;border:1px solid #235049;padding:5px 11px;border-radius:5px}
+.ed-count b{color:#7fe8de}
+.ed-main{flex:1;display:flex;min-height:0}
+
+.panel-r{width:330px;background:var(--panel);border-left:1px solid var(--line);display:flex;flex-direction:column;overflow-y:auto}
+.p-sec{border-bottom:1px solid var(--line);padding:12px}
+.p-h{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 10px}
+.p-h .spacer{flex:1 1 auto}
+
+.hint{display:flex;gap:9px;align-items:flex-start;background:#1a1d21;border:1px solid var(--line);border-left:2px solid var(--accent);
+  border-radius:5px;padding:9px 11px;font-size:11.5px;color:var(--ink-dim);line-height:1.55}
+.hint b{color:var(--ink)}
+kbd{font-family:var(--mono);font-size:10px;background:#2a2e35;border:1px solid var(--line2);border-bottom-width:2px;border-radius:3px;padding:1px 5px;color:var(--ink)}
+
+.ed-actions{display:flex;align-items:center;gap:10px;padding:12px;border-top:1px solid var(--line);background:var(--chrome)}
+.ed-actions .btn{padding:9px 16px}
+.kbd-hint{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--ink-faint)}
