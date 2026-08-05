@@ -225,11 +225,30 @@ Assembling a creature:
 > animate view copies the flag into the spec's `seg_params`, so the bake keys exactly
 > what the palette showed.
 
+### Auto-assemble: the whole backlog in one click
+
+The rips animate in **blocks of three frames**, in reading order, so a sheet's
+sprite count already says which facings it carries:
+
+| sprites | blocks |
+|---|---|
+| **15** | SW · SE · NW · NE · idle |
+| **12** | SW · SE · NW · NE (no idle block — the baker holds the first SW pose) |
+| **9** | SW · NW · idle, with **SE mirrored from SW and NE from NW** |
+
+**Auto-assemble** in the gallery appbar (badge = how many sheets are waiting)
+writes each of those sheets the spec the editor would have written and bakes it,
+so they leave the *To animate* chip on their own. Only sheets that are cropped,
+not marked "no sprites" and **not already baked** are touched — a second click is
+harmless, and hand-assembled work is never overwritten. `core/autoassemble.py`
+holds the layout table; the same code backs the CLI below.
+
 ## CLIs
 
 ```bash
 python3 Scripts/download_sheets.py [--limit N] [--urls-only]
 python3 Scripts/autodetect_all.py  [--force]     # warm the box cache
+python3 Scripts/animate_blocks.py  [--dry-run] [--counts 9 12 15] [--limit N] [--stage]
 python3 Scripts/bake_all.py        [--stage]     # bake every saved spec
 ```
 

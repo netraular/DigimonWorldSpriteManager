@@ -14,6 +14,7 @@ from PIL import Image
 import config
 from core import segmenter as S
 from core import extractor as E
+from core import autoassemble
 from core import baker
 from core import scaffold
 
@@ -21,6 +22,8 @@ _STATIC = os.path.join(os.path.dirname(__file__), "web", "static")
 
 # Simple in-process progress state for the background downloader.
 _dl_state = {"running": False, "done": 0, "total": 0, "fail": 0}
+# …and for the bulk auto-assembler (the gallery's Auto-assemble button).
+_aa_state = {"running": False, "done": 0, "total": 0, "fail": 0, "errors": []}
 
 
 def create_app():
@@ -280,6 +283,35 @@ def create_app():
             res[k] = os.path.relpath(res[k], config.ROOT)
         return jsonify(res)
 
+    # ---- bulk auto-assembler ----
+    @app.get("/api/auto-assemble")
+    def auto_assemble_preview():
+        """What one click would do: how many sheets per known sprite count."""
+        todo = autoassemble.candidates()
+        groups = {}
+        for c in todo:
+            g = groups.setdefault(c["count"], {"count": c["count"], "sheets": 0,
+                                               "plan": autoassemble.describe(c["count"])})
+            g["sheets"] += 1
+        return jsonify({"total": len(todo),
+                        "groups": [groups[k] for k in sorted(groups)],
+                        "state": _aa_state})
+
+    @app.get("/api/auto-assemble/status")
+    def auto_assemble_status():
+        return jsonify(_aa_state)
+
+    @app.post("/api/auto-assemble")
+    def start_auto_assemble():
+        if _aa_state["running"]:
+            return jsonify(_aa_state)
+        body = request.get_json(silent=True) or {}
+        counts = body.get("counts") or None
+        threading.Thread(target=_run_auto_assemble,
+                         args=(counts, bool(body.get("stage")), body.get("limit")),
+                         daemon=True).start()
+        return jsonify({"started": True})
+
     # ---- downloader ----
     @app.get("/api/download/status")
     def download_status():
@@ -496,6 +528,23 @@ def _validate_spec(spec):
             if bid not in box_ids:
                 return f"clip {clip} references unknown box id {bid!r}"
     return None
+
+
+def _run_auto_assemble(counts, stage, limit):
+    """Background worker for the Auto-assemble button (same code as the CLI)."""
+    _aa_state.update(running=True, done=0, total=0, fail=0, errors=[])
+
+    def progress(done, total, fail):
+        _aa_state.update(done=done, total=total, fail=fail)
+
+    try:
+        res = autoassemble.run(counts=counts, limit=limit, stage=stage,
+                               validate=_validate_spec, log=lambda *_: None,
+                               progress=progress)
+        _aa_state.update(done=res["ok"], total=res["total"], fail=res["fail"],
+                         errors=res["errors"][:20])
+    finally:
+        _aa_state["running"] = False
 
 
 def _run_download(limit):

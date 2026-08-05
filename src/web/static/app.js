@@ -614,6 +614,20 @@ $("#chips").querySelectorAll(".chip").forEach((chip) => {
 });
 $("#btn-download").onclick = async () => { await fetch("/api/download", { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" }); pollDownload(); };
 
+// Auto-assemble: the sheets whose sprite count IS the assembly (15/12/9 — see
+// core/autoassemble.py) get the spec the editor would have written, then the
+// same bake. It writes a spec per sheet, so it asks first — and it never touches
+// a sheet that is already baked, which is what makes a second click harmless.
+$("#btn-auto").onclick = async () => {
+  const pre = await fetch("/api/auto-assemble").then((x) => x.json());
+  if (!pre.total) { $("#auto-status").textContent = "nothing to assemble"; return; }
+  const lines = pre.groups.map((g) => `  ${g.sheets} × ${g.count} sprites → ${g.plan}`).join("\n");
+  if (!confirm(`Assemble + bake ${pre.total} sheets?\n\n${lines}\n\nAlready-baked sheets are left alone.`)) return;
+  $("#btn-auto").disabled = true;
+  await fetch("/api/auto-assemble", { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" });
+  pollAuto();
+};
+
 // editor
 $("#btn-back").onclick = closeEditor;
 $("#clip-tabs").querySelectorAll("button").forEach((btn) => {
@@ -656,6 +670,33 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
+async function pollAuto() {
+  const tick = async () => {
+    const s = await fetch("/api/auto-assemble/status").then((x) => x.json());
+    $("#auto-status").textContent = s.running
+      ? `assembling ${s.done}/${s.total}…`
+      : (s.total ? `baked ${s.done}/${s.total}${s.fail ? ` (${s.fail} failed)` : ""}` : "");
+    if (s.running) { setTimeout(tick, 800); return; }
+    $("#btn-auto").disabled = false;
+    if (s.fail && s.errors && s.errors.length) console.warn("auto-assemble:", s.errors);
+    loadSheets().then(refreshAutoCount);
+  };
+  tick();
+}
+
+// How many sheets the button would take on right now (also picks a run back up
+// if the page was reloaded mid-assembly).
+async function refreshAutoCount() {
+  try {
+    const pre = await fetch("/api/auto-assemble").then((x) => x.json());
+    $("#auto-count").textContent = pre.total || "";
+    $("#btn-auto").title = pre.total
+      ? `Assemble + bake ${pre.total} sheets:\n` + pre.groups.map((g) => `${g.sheets} × ${g.count} sprites → ${g.plan}`).join("\n")
+      : "Nothing left with a known 15/12/9 block layout";
+    if (pre.state && pre.state.running) { $("#btn-auto").disabled = true; pollAuto(); }
+  } catch { /* offline */ }
+}
+
 async function pollDownload() {
   const tick = async () => {
     const s = await fetch("/api/download/status").then((x) => x.json());
@@ -674,3 +715,4 @@ window.addEventListener("popstate", () => {
   else if (!$("#view-editor").hidden) closeEditor(false);
 });
 loadSheets().then(() => { const sid = pathSid(); if (sid) openEditor(sid, false); });
+refreshAutoCount();
