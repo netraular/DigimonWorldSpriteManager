@@ -29,6 +29,7 @@ import os
 
 import config
 from core import baker
+from core import detect as D
 from core import scaffold
 
 BLOCK_SIZE = 3
@@ -122,6 +123,73 @@ def candidates(counts=None):
     return out
 
 
+def unreviewed():
+    """Raw sheets nobody has cropped yet — neither saved nor marked "no sprites".
+
+    Cheap (it only stats the box cache): the sprite count of a new sheet is not
+    known until ``scan_new`` actually detects it.
+    """
+    out = []
+    for name in sorted(os.listdir(config.RAW_DIR)):
+        if not name.endswith(".png"):
+            continue
+        sheet_id = name[:-4]
+        cache = os.path.join(config.BOX_DIR, f"{sheet_id}.boxes.json")
+        if os.path.exists(cache):
+            try:
+                with open(cache, "r", encoding="utf-8") as f:
+                    d = json.load(f)
+                if d.get("edited") or d.get("skip"):
+                    continue      # already reviewed in /crop
+            except Exception:  # noqa: BLE001
+                pass
+        out.append(sheet_id)
+    out.sort(key=lambda s: int(s) if s.isdigit() else 0)
+    return out
+
+
+def scan_new(counts=None, dry_run=False, log=print, progress=None):
+    """Auto-crop the never-reviewed sheets whose detection lands on a known count.
+
+    Runs /crop's own one-click Auto (corner colour → separate → keep the modal
+    sprite size, ``detect.auto_crop``), and when it finds 15/12/9 sprites saves
+    the boxes as a reviewed crop — which is what promotes the sheet to
+    ``candidates()`` below, so the very same click goes on to bake it. A sheet
+    whose detection lands on any other count is left untouched in the To-do
+    chip: an unusual layout is exactly the case a human should look at.
+
+    Returns ``[{sheet_id, count}]`` for the sheets it cropped.
+    """
+    counts = set(counts or LAYOUTS)
+    todo = unreviewed()
+    picked = []
+    for i, sheet_id in enumerate(todo):
+        if progress:
+            progress(i, len(todo), 0, "scan")
+        try:
+            res = D.auto_crop(sheet_id)
+        except Exception as exc:  # noqa: BLE001 — a broken PNG must not stop the run
+            log(f"  ! {sheet_id}: detect failed — {exc}")
+            continue
+        if res is None:
+            continue
+        n = len(res.get("boxes") or [])
+        if n not in counts:
+            continue
+        picked.append({"sheet_id": sheet_id, "count": n})
+        log(f"  {sheet_id}: {n} sprites → cropped")
+        if dry_run:
+            continue
+        res["edited"] = True
+        res["skip"] = False
+        with open(os.path.join(config.BOX_DIR, f"{sheet_id}.boxes.json"), "w",
+                  encoding="utf-8") as f:
+            json.dump(res, f)
+    if progress:
+        progress(len(todo), len(todo), 0, "scan")
+    return picked
+
+
 def build_spec(sheet_id, cache, spec_id):
     """The spec the animate view would have written for this sheet."""
     boxes = cache["boxes"]
@@ -159,25 +227,40 @@ def build_spec(sheet_id, cache, spec_id):
     }
 
 
-def run(counts=None, limit=None, stage=False, dry_run=False, validate=None,
-        log=print, progress=None):
+def run(counts=None, limit=None, stage=False, dry_run=False, include_new=False,
+        validate=None, log=print, progress=None):
     """Assemble + bake every candidate. Returns a summary dict.
 
-    ``validate`` is the app's spec check (passed in so ``core`` keeps its no-Flask
-    rule); ``progress(done, total, fail)`` is called after each sheet so a caller
+    ``include_new`` first runs ``scan_new``, so a batch of freshly downloaded
+    sheets goes from raw PNG to baked creature in one call. ``validate`` is the
+    app's spec check (passed in so ``core`` keeps its no-Flask rule);
+    ``progress(done, total, fail, phase)`` is called as work advances so a caller
     can drive a progress bar.
     """
     config.ensure_dirs()
+    cropped = scan_new(counts, dry_run=dry_run, log=log,
+                       progress=progress) if include_new else []
     todo = candidates(counts)
+    if dry_run and include_new:
+        # Nothing was written, so the sheets scan_new picked are not candidates
+        # yet — report them as what the run would take on.
+        known = {c["sheet_id"] for c in todo}
+        todo += [{"sheet_id": c["sheet_id"], "count": c["count"], "cache": None,
+                  "spec_id": None} for c in cropped if c["sheet_id"] not in known]
     if limit:
         todo = todo[:limit]
     total = len(todo)
     done = fail = 0
     items, errors = [], []
     if progress:
-        progress(done, total, fail)
+        progress(done, total, fail, "assemble")
     for c in todo:
         sheet_id, spec_id = c["sheet_id"], c["spec_id"]
+        if c["cache"] is None:  # dry run, sheet not cropped yet — plan only
+            items.append({"sheet_id": sheet_id, "id": None, "count": c["count"],
+                          "plan": describe(c["count"]) + " (new)"})
+            done += 1
+            continue
         spec = build_spec(sheet_id, c["cache"], spec_id)
         err = validate(spec) if validate else None
         if not err and dry_run:
@@ -209,6 +292,6 @@ def run(counts=None, limit=None, stage=False, dry_run=False, validate=None,
             errors.append({"sheet_id": sheet_id, "error": err})
             log(f"  ! {sheet_id}: {err}")
         if progress:
-            progress(done + fail, total, fail)
+            progress(done + fail, total, fail, "assemble")
     return {"total": total, "ok": done, "fail": fail, "items": items,
-            "errors": errors}
+            "errors": errors, "cropped": cropped}

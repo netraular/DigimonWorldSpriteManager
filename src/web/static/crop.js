@@ -119,6 +119,60 @@ async function setState(sid, state) {
   await loadSheets();
 }
 
+// ---- Auto-process new sheets -------------------------------------------
+// The DWDS rips animate in blocks of three, so a sheet whose detection lands on
+// 15/12/9 sprites needs no human call at all: it is cropped, assembled into the
+// iso facings and baked in one pass (core/autoassemble.py). Any other count is
+// left in To-do — an unusual layout is exactly what a person should see.
+$("#btn-autonew").onclick = async () => {
+  const pre = await fetch("/api/auto-assemble").then((x) => x.json());
+  const st = $("#autonew-status");
+  if (!pre.new && !pre.total) { st.textContent = "nothing new to process"; return; }
+  const bits = [];
+  if (pre.new) bits.push(`scan ${pre.new} un-reviewed sheet${pre.new === 1 ? "" : "s"} (those with 15/12/9 sprites get cropped + baked)`);
+  if (pre.total) bits.push(`bake ${pre.total} already-cropped sheet${pre.total === 1 ? "" : "s"}`);
+  if (!confirm(`Auto-process:\n\n  • ${bits.join("\n  • ")}\n\nReviewed sheets and anything already baked are left alone.`)) return;
+  $("#btn-autonew").disabled = true;
+  await fetch("/api/auto-assemble", {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ include_new: true }),
+  });
+  pollAutoNew();
+};
+
+async function pollAutoNew() {
+  const st = $("#autonew-status");
+  const tick = async () => {
+    const s = await fetch("/api/auto-assemble/status").then((x) => x.json());
+    if (s.running) {
+      st.textContent = s.phase === "scan" ? `scanning ${s.done}/${s.total}…` : `baking ${s.done}/${s.total}…`;
+      setTimeout(tick, 800);
+      return;
+    }
+    st.textContent = s.total || s.cropped
+      ? `cropped ${s.cropped}, baked ${s.done}${s.fail ? ` (${s.fail} failed)` : ""}`
+      : "nothing to process";
+    if (s.fail && s.errors && s.errors.length) console.warn("auto-process:", s.errors);
+    $("#btn-autonew").disabled = false;
+    loadSheets().then(refreshAutoNewCount);
+  };
+  tick();
+}
+
+// Badge = how many sheets one click would take on (un-reviewed + cropped-not-baked).
+async function refreshAutoNewCount() {
+  try {
+    const pre = await fetch("/api/auto-assemble").then((x) => x.json());
+    const n = (pre.new || 0) + (pre.total || 0);
+    $("#autonew-count").textContent = n || "";
+    $("#btn-autonew").title = n
+      ? `Auto-process ${n} sheets: ${pre.new || 0} to detect, ${pre.total || 0} cropped and waiting to bake.\n` +
+        "Only 15/12/9-sprite sheets are taken; the rest stay in To-do."
+      : "Nothing new to process";
+    if (pre.state && pre.state.running) { $("#btn-autonew").disabled = true; pollAutoNew(); }
+  } catch { /* offline */ }
+}
+
 $("#chips").onclick = (e) => {
   const chip = e.target.closest(".chip"); if (!chip) return;
   S.filter = chip.dataset.filter;
@@ -844,3 +898,4 @@ window.addEventListener("popstate", () => {
   else if (!$("#view-editor").hidden) closeEditor(false);
 });
 loadSheets().then(() => { const sid = pathSid(); if (sid) openEditor(sid, false); });
+refreshAutoNewCount();

@@ -37,6 +37,8 @@ def main():
     ap.add_argument("--limit", type=int, help="only the first N sheets")
     ap.add_argument("--counts", type=int, nargs="+", choices=sorted(autoassemble.LAYOUTS),
                     help="only sheets with these sprite counts (default: all known)")
+    ap.add_argument("--new", action="store_true",
+                    help="also detect never-reviewed sheets and crop the matching ones")
     ap.add_argument("--stage", action="store_true",
                     help="also copy each baked asset into the content-editor tree")
     args = ap.parse_args()
@@ -44,15 +46,19 @@ def main():
     counts = args.counts or sorted(autoassemble.LAYOUTS)
     for n in counts:
         print(f"  {n:>2} sprites → {autoassemble.describe(n)}")
-    print(f"{len(autoassemble.candidates(counts))} sheets to animate")
+    if args.new:
+        print(f"{len(autoassemble.unreviewed())} un-reviewed sheets to detect")
+    print(f"{len(autoassemble.candidates(counts))} cropped sheets to animate")
 
     res = autoassemble.run(counts=counts, limit=args.limit, stage=args.stage,
-                           dry_run=args.dry_run, validate=_validate_spec)
+                           dry_run=args.dry_run, include_new=args.new,
+                           validate=_validate_spec)
     if args.dry_run:
         for it in res["items"]:
-            print(f"  {it['sheet_id']} → {it['id']:03d}  {it['count']} sprites: {it['plan']}")
+            nnn = "%03d" % it["id"] if it["id"] else " new"
+            print(f"  {it['sheet_id']} → {nnn}  {it['count']} sprites: {it['plan']}")
     verb = "would assemble" if args.dry_run else "baked"
-    print(f"{verb} {res['ok']}, failed {res['fail']}")
+    print(f"cropped {len(res['cropped'])}, {verb} {res['ok']}, failed {res['fail']}")
 
 
 if __name__ == "__main__":

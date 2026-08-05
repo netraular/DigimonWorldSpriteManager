@@ -16,6 +16,7 @@ from core import segmenter as S
 from core import extractor as E
 from core import autoassemble
 from core import baker
+from core import detect as D
 from core import scaffold
 
 _STATIC = os.path.join(os.path.dirname(__file__), "web", "static")
@@ -23,7 +24,8 @@ _STATIC = os.path.join(os.path.dirname(__file__), "web", "static")
 # Simple in-process progress state for the background downloader.
 _dl_state = {"running": False, "done": 0, "total": 0, "fail": 0}
 # …and for the bulk auto-assembler (the gallery's Auto-assemble button).
-_aa_state = {"running": False, "done": 0, "total": 0, "fail": 0, "errors": []}
+_aa_state = {"running": False, "phase": "", "done": 0, "total": 0, "fail": 0,
+             "cropped": 0, "errors": []}
 
 
 def create_app():
@@ -286,7 +288,8 @@ def create_app():
     # ---- bulk auto-assembler ----
     @app.get("/api/auto-assemble")
     def auto_assemble_preview():
-        """What one click would do: how many sheets per known sprite count."""
+        """What one click would do: cropped sheets per sprite count, plus how many
+        never-reviewed sheets a ``new`` run would still have to detect."""
         todo = autoassemble.candidates()
         groups = {}
         for c in todo:
@@ -295,6 +298,7 @@ def create_app():
             g["sheets"] += 1
         return jsonify({"total": len(todo),
                         "groups": [groups[k] for k in sorted(groups)],
+                        "new": len(autoassemble.unreviewed()),
                         "state": _aa_state})
 
     @app.get("/api/auto-assemble/status")
@@ -308,7 +312,8 @@ def create_app():
         body = request.get_json(silent=True) or {}
         counts = body.get("counts") or None
         threading.Thread(target=_run_auto_assemble,
-                         args=(counts, bool(body.get("stage")), body.get("limit")),
+                         args=(counts, bool(body.get("stage")), body.get("limit"),
+                               bool(body.get("include_new"))),
                          daemon=True).start()
         return jsonify({"started": True})
 
@@ -441,61 +446,9 @@ def _spec_path(nnn):
     return os.path.join(config.SPEC_DIR, f"{int(nnn):03d}.extract.json")
 
 
-def _detect(sid, overrides):
-    path = os.path.join(config.RAW_DIR, f"{_safe(sid)}.png")
-    if not os.path.exists(path):
-        return None
-    arr = S.load_rgba(path)
-    full_h, full_w = int(arr.shape[0]), int(arr.shape[1])
-
-    # An optional work-area rectangle limits detection (and background inference)
-    # to the meaningful part of a sheet, so credit text / labels outside it are
-    # ignored. Boxes are offset back into full-image coordinates.
-    region = None
-    if isinstance(overrides, dict):
-        region = overrides.pop("region", None)
-    p = S.SegParams.merged(overrides)
-
-    ox, oy = 0, 0
-    sub = arr
-    if region:
-        try:
-            rx, ry, rw, rh = (int(round(float(v))) for v in region)
-        except (TypeError, ValueError):
-            rx = ry = rw = rh = 0
-        if rw > 0 and rh > 0:
-            rx = max(0, min(rx, full_w - 1)); ry = max(0, min(ry, full_h - 1))
-            rw = max(1, min(rw, full_w - rx)); rh = max(1, min(rh, full_h - ry))
-            ox, oy = rx, ry
-            sub = arr[ry:ry + rh, rx:rx + rw]
-
-    boxes, meta = S.detect_boxes(sub, p)
-    box_dicts = []
-    for b in boxes:
-        d = b.as_dict(); d["x"] += ox; d["y"] += oy
-        box_dicts.append(d)
-    return {
-        "id": sid,
-        "image": {"w": full_w, "h": full_h},
-        "background": _bg_payload(meta["background"], p),
-        "grid": meta["grid"],
-        "boxes": box_dicts,
-        "params": meta["params"],
-        "region": [ox, oy, int(sub.shape[1]), int(sub.shape[0])] if region else None,
-    }
-
-
-def _bg_payload(bg, p):
-    colors = bg.get("colors") or ([bg["color"]] if bg.get("color") else [])
-    return {
-        "mode": bg["mode"],
-        "colors": [list(c) for c in colors],
-        "hex": ["0x%02X%02X%02X" % tuple(c) for c in colors],
-        "color": ("0x%02X%02X%02X" % tuple(colors[0])) if colors else None,
-        "rgb": list(colors[0]) if colors else None,
-        "tolerance": p.tol,
-        "has_alpha": bg.get("has_alpha", False),
-    }
+# Detection lives in core/detect.py so the batch tools can crop a never-opened
+# sheet exactly the way this endpoint would.
+_detect = D.detect_sheet
 
 
 def _validate_spec(spec):
@@ -530,18 +483,20 @@ def _validate_spec(spec):
     return None
 
 
-def _run_auto_assemble(counts, stage, limit):
-    """Background worker for the Auto-assemble button (same code as the CLI)."""
-    _aa_state.update(running=True, done=0, total=0, fail=0, errors=[])
+def _run_auto_assemble(counts, stage, limit, include_new=False):
+    """Background worker for the Auto-assemble buttons (same code as the CLI)."""
+    _aa_state.update(running=True, phase="scan" if include_new else "assemble",
+                     done=0, total=0, fail=0, cropped=0, errors=[])
 
-    def progress(done, total, fail):
-        _aa_state.update(done=done, total=total, fail=fail)
+    def progress(done, total, fail, phase="assemble"):
+        _aa_state.update(done=done, total=total, fail=fail, phase=phase)
 
     try:
         res = autoassemble.run(counts=counts, limit=limit, stage=stage,
-                               validate=_validate_spec, log=lambda *_: None,
-                               progress=progress)
+                               include_new=include_new, validate=_validate_spec,
+                               log=lambda *_: None, progress=progress)
         _aa_state.update(done=res["ok"], total=res["total"], fail=res["fail"],
+                         cropped=len(res["cropped"]), phase="assemble",
                          errors=res["errors"][:20])
     finally:
         _aa_state["running"] = False

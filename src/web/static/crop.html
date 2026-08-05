@@ -42,6 +42,15 @@
 
       <span class="spacer"></span>
       <span id="status" class="status"></span>
+
+      <!-- New sheets end to end: detect the boxes, and every sheet that lands on
+           15/12/9 sprites is cropped, assembled and baked without being opened.
+           Anything else keeps sitting in To-do for a human to look at. -->
+      <button id="btn-autonew" class="btn primary" title="Detect the un-reviewed sheets and auto-crop + assemble + bake the ones with 15, 12 or 9 sprites">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 1 3 7.5h3L5.5 12 10 5.5H7z"/></svg>
+        Auto-process new <span class="num" id="autonew-count"></span>
+      </button>
+      <span id="autonew-status" class="status"></span>
     </div>
 
     <div class="gallery-body">

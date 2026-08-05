@@ -236,19 +236,28 @@ sprite count already says which facings it carries:
 | **12** | SW · SE · NW · NE (no idle block — the baker holds the first SW pose) |
 | **9** | SW · NW · idle, with **SE mirrored from SW and NE from NW** |
 
-**Auto-assemble** in the gallery appbar (badge = how many sheets are waiting)
-writes each of those sheets the spec the editor would have written and bakes it,
-so they leave the *To animate* chip on their own. Only sheets that are cropped,
-not marked "no sprites" and **not already baked** are touched — a second click is
-harmless, and hand-assembled work is never overwritten. `core/autoassemble.py`
-holds the layout table; the same code backs the CLI below.
+Two buttons run that table, and both skip anything already baked, so clicking
+twice is harmless and hand-assembled work is never overwritten:
+
+- **Animate → Auto-assemble** (badge = sheets waiting): for sheets you have
+  already cropped. Each gets the spec the editor would have written, then a bake,
+  so it leaves the *To animate* chip on its own.
+- **Crop → Auto-process new** (badge = un-reviewed + waiting): for sheets nobody
+  has opened yet — freshly downloaded rips. It runs /crop's own one-click Auto
+  (corner colour → separate → keep the modal sprite size, `core/detect.py`), and
+  a sheet that lands on 15/12/9 sprites is cropped, assembled and baked in the
+  same pass. Any other count is left in **To-do**: an unusual layout is exactly
+  what a person should look at. Sheets whose sprites touch (no background between
+  them) collapse into one box and stay there too.
+
+`core/autoassemble.py` holds the layout table and backs both buttons and the CLI.
 
 ## CLIs
 
 ```bash
 python3 Scripts/download_sheets.py [--limit N] [--urls-only]
 python3 Scripts/autodetect_all.py  [--force]     # warm the box cache
-python3 Scripts/animate_blocks.py  [--dry-run] [--counts 9 12 15] [--limit N] [--stage]
+python3 Scripts/animate_blocks.py  [--new] [--dry-run] [--counts 9 12 15] [--limit N] [--stage]
 python3 Scripts/bake_all.py        [--stage]     # bake every saved spec
 ```
 
