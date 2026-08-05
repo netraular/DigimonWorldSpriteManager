@@ -1,0 +1,169 @@
+{
+  "spec_version": 1,
+  "species": "digimon",
+  "id": 89,
+  "source": "raw_sheets/48690.png",
+  "sheet_id": "48690",
+  "background": "0x008080",
+  "background_tolerance": 40,
+  "background_mode": "solid",
+  "seg_params": {
+    "tol": 40,
+    "extra_bg": []
+  },
+  "trim": true,
+  "export_scale": 1,
+  "pad": 1,
+  "boxes": [
+    {
+      "id": "b1",
+      "x": 308,
+      "y": 2,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "id": "b2",
+      "x": 326,
+      "y": 2,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "id": "b3",
+      "x": 344,
+      "y": 2,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "id": "b4",
+      "x": 308,
+      "y": 20,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "id": "b5",
+      "x": 326,
+      "y": 20,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "id": "b6",
+      "x": 344,
+      "y": 20,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "id": "b7",
+      "x": 308,
+      "y": 38,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "id": "b8",
+      "x": 326,
+      "y": 38,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "id": "b9",
+      "x": 344,
+      "y": 38,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "id": "b10",
+      "x": 308,
+      "y": 56,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "id": "b11",
+      "x": 326,
+      "y": 56,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "id": "b12",
+      "x": 344,
+      "y": 56,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "id": "b16",
+      "x": 308,
+      "y": 76,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "id": "b17",
+      "x": 326,
+      "y": 76,
+      "w": 16,
+      "h": 16
+    },
+    {
+      "id": "b18",
+      "x": 344,
+      "y": 76,
+      "w": 16,
+      "h": 16
+    }
+  ],
+  "clips": {
+    "walk": {
+      "down_left": [
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "down_right": [
+        "b4",
+        "b5",
+        "b6"
+      ],
+      "up_left": [
+        "b7",
+        "b8",
+        "b9"
+      ],
+      "up_right": [
+        "b10",
+        "b11",
+        "b12"
+      ]
+    },
+    "idle": [
+      "b16",
+      "b17",
+      "b18"
+    ],
+    "sleep": []
+  },
+  "mirror": {},
+  "diagonals": true,
+  "anchor": "bottom_center",
+  "walk_style": "stride",
+  "tick_ms": 33,
+  "walk_durations": [
+    6
+  ],
+  "idle_frame_ms": 300,
+  "sleep_frame_ms": 400,
+  "notes": "",
+  "creature_name": "",
+  "creature_type": "Data",
+  "creature_color": "0x8899AA",
+  "creature_stage": 1
+}
