@@ -113,7 +113,7 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "",
+  "creature_name": "Dorumon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
   "creature_stage": 1
