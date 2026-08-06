@@ -23,6 +23,13 @@ import time
 import config
 
 _ICON_RE = re.compile(r"asset_icons/(\d+)/(\d+)\.png")
+# Each gallery tile is an <a href=".../asset/<id>/"> wrapping the sheet's title
+# ("Agumon", "Eggs", …) — the creature name the rip is of.
+_TITLE_RE = re.compile(
+    r'/asset/(\d+)/"[^>]*>\s*<div class="iconcontainer">\s*'
+    r'<div class="iconheader" title="([^"]*)"',
+    re.S,
+)
 
 
 def _curl(url, out_path=None, retries=3, delay=1.0):
@@ -87,6 +94,22 @@ def derive_urls(gallery_path=None, log=print):
             f.write(f"{sid} {url}\n")
     log(f"derived {len(urls)} sheet URLs → {out}")
     return urls
+
+
+def sheet_names(gallery_path=None):
+    """Parse the gallery HTML for ``{sheet_id: title}``.
+
+    The title is the rip's own name — for the creature sheets that is the
+    Digimon's name ("Agumon"), which is the only place the roster's real names
+    exist (the sheet PNGs are anonymous). Returns an empty dict when the gallery
+    HTML has not been downloaded yet.
+    """
+    gallery_path = gallery_path or os.path.join(config.RAW_DIR, "gallery.html")
+    if not os.path.exists(gallery_path):
+        return {}
+    with open(gallery_path, "r", encoding="utf-8", errors="replace") as f:
+        html = f.read()
+    return {sid: title.strip() for sid, title in _TITLE_RE.findall(html) if title.strip()}
 
 
 def download_all(urls=None, log=print, skip_existing=True, delay=0.3, limit=None):

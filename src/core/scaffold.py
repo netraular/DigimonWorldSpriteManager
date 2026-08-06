@@ -10,6 +10,7 @@ import os
 import shutil
 
 import config
+from core import downloader
 
 # Digimon World DS lines run deeper than Pokémon (rookie→champion→ultimate→…).
 # Default to a 6-phase cadence across the 7-day lifespan; editable afterwards.
@@ -60,6 +61,116 @@ def write_creature(creature, species="digimon", out_dir=None):
         json.dump(node, f, indent=2)
         f.write("\n")
     return path
+
+
+def _read_json(path):
+    """Load a JSON file, or return ``None`` when it is absent/unreadable."""
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return None
+
+
+def apply_gallery_names(force=False, spec_dir=None, log=print):
+    """Fill each spec's ``creature_name`` from the gallery's sheet title.
+
+    The rips are anonymous PNGs; the only record of *which* Digimon a sheet is,
+    is the title The Spriters Resource gives it. The name is written into the
+    spec (the committed, editable source) rather than into the baked node, so a
+    re-bake keeps it. Already-named specs are left alone unless ``force``.
+
+    Returns ``(named, unnamed)`` counts.
+    """
+    spec_dir = spec_dir or config.SPEC_DIR
+    names = downloader.sheet_names()
+    if not names:
+        log("no gallery.html in raw_sheets/ — run Scripts/download_sheets.py first")
+        return 0, 0
+    named = unnamed = 0
+    for fname in sorted(os.listdir(spec_dir)):
+        if not fname.endswith(".extract.json"):
+            continue
+        path = os.path.join(spec_dir, fname)
+        spec = _read_json(path)
+        if spec is None:
+            continue
+        title = names.get(str(spec.get("sheet_id")))
+        if not title:
+            unnamed += 1
+            continue
+        if spec.get("creature_name") and not force:
+            continue
+        if spec.get("creature_name") == title:
+            continue
+        spec["creature_name"] = title
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(spec, f, indent=2, ensure_ascii=False)
+            f.write("\n")
+        named += 1
+    log(f"named {named} specs; {unnamed} sheets have no gallery title")
+    return named, unnamed
+
+
+def creature_from_spec(spec, existing=None, species="digimon"):
+    """Build a creature node from a spec's ``creature_*`` fields.
+
+    ``existing`` (a previously written node) wins for the authored fields the
+    spec has no better answer for — type, color, stage and the whole evolution
+    graph — so re-running never flattens work done in the content-editor's
+    codex. The name follows the spec, which is where the gallery title lands.
+    """
+    cid = int(spec["id"])
+    prev = existing or {}
+    name = (spec.get("creature_name") or "").strip()
+    if not name:
+        name = prev.get("name") or f"Digimon {cid:03d}"
+    return {
+        "id": cid,
+        "name": name,
+        "sprite": f"{species}/{cid:03d}.png",
+        "type": prev.get("type") or spec.get("creature_type") or "Data",
+        "color": prev.get("color") or spec.get("creature_color") or "0x8899AA",
+        "stage": int(prev.get("stage") or spec.get("creature_stage") or 1),
+        "evolutions": prev.get("evolutions", []),
+    }
+
+
+def sync_roster(out_dir=None, spec_dir=None, species="digimon", stage=True, log=print):
+    """Give every baked sheet a creature node, then (optionally) stage it.
+
+    A sheet baked from the bulk assembler or from the animate view without the
+    creature form filled in has art but no node, so the codex cannot show it.
+    This walks the baked PNGs, writes the missing/refreshed nodes from their
+    specs and copies sheet + layout + node into the content-editor tree.
+
+    Returns ``(nodes, staged, orphans)`` — orphans being baked PNGs with no spec.
+    """
+    out_dir = out_dir or config.OUT_DIR
+    spec_dir = spec_dir or config.SPEC_DIR
+    nodes = staged = 0
+    orphans = []
+    if stage:
+        ensure_species(species)
+    for fname in sorted(os.listdir(out_dir)):
+        if not fname.endswith(".png") or not fname[:-4].isdigit():
+            continue
+        sid3 = fname[:-4]
+        spec = _read_json(os.path.join(spec_dir, f"{sid3}.extract.json"))
+        if spec is None:
+            orphans.append(sid3)
+            continue
+        existing = _read_json(os.path.join(out_dir, f"pet_{sid3}.json"))
+        write_creature(creature_from_spec(spec, existing, species),
+                       species=species, out_dir=out_dir)
+        nodes += 1
+        if stage:
+            stage_to_content(sid3, out_dir=out_dir, species=species)
+            staged += 1
+    log(f"{nodes} creature nodes; {staged} staged into {config.CONTENT_ROOT}")
+    if orphans:
+        log(f"  ! {len(orphans)} baked sheets have no spec: {', '.join(orphans)}")
+    return nodes, staged, orphans
 
 
 def stage_to_content(sid, out_dir=None, species="digimon", write_creature_node=True):

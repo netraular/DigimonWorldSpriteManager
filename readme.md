@@ -312,7 +312,41 @@ python3 Scripts/download_sheets.py [--limit N] [--urls-only]
 python3 Scripts/autodetect_all.py  [--force]     # warm the box cache
 python3 Scripts/animate_blocks.py  [--new] [--dry-run] [--counts 9 12 15] [--limit N] [--stage] [--rebake]
 python3 Scripts/bake_all.py        [--stage]     # bake every saved spec
+python3 Scripts/sync_roster.py     [--no-stage] [--no-names] [--rename]
+python3 Scripts/bake_eggs.py       [--no-stage]  # the four attribute eggs
 ```
+
+### Shipping the roster · `sync_roster.py`
+
+`bake_all.py` re-renders every sheet; `sync_roster.py` ships what is already
+baked. It does the two things that stand between `output/digimon/` and a species
+the content-editor can open:
+
+- **Names.** The rips are anonymous PNGs — the only record of *which* Digimon a
+  sheet is, is the title The Spriters Resource gives it, which the gallery HTML
+  already on disk carries. The title is written into the spec's `creature_name`
+  (the committed, editable source, so a re-bake keeps it); `--rename` overwrites
+  names you have already saved.
+- **Creature nodes.** A sheet baked from the bulk assembler or from the animate
+  view without the creature form filled in has art but no `pet_<NNN>.json`, so
+  the codex cannot show it. Every baked PNG gets one, built from its spec —
+  keeping the attribute, stage and evolution edges of an existing node, so work
+  done in the codex is never flattened.
+
+Then it copies sheet + layout + node into the editor's dev tree, exactly like
+`--stage` elsewhere. Idempotent: re-run it after any bake.
+
+### Incubator eggs · `bake_eggs.py`
+
+A pet hatches from an egg the editor and the firmware derive from its attribute
+(`species/digimon/eggs/egg_<type>.png`), so the species needs one strip per
+Digimon attribute. DWDS ships its eggs on sheet `48315` ("Eggs"): a grid of 32px
+cells where each group of three columns is one design's squash-and-stretch
+pulse. `core/eggs.py` picks a design per attribute (Data blue, Vaccine green,
+Virus purple, Free rainbow) and lays its frames out 0-1-2-1 as the 128×32
+four-frame strip the editor expects. Keying here is a plain exact-colour match
+rather than `core/extractor.py`: these eggs have no anti-aliased rim, and the
+de-fringe pass would eat their one-pixel black outline.
 
 ## How it works
 
@@ -329,6 +363,12 @@ specs/digimon/<NNN>.extract.json    your editable extraction spec
 output/digimon/<NNN>.png            unified sheet (regular grid, bottom-anchored)
 output/digimon/<NNN>.json           explicit hibitomo SpriteLayout
 output/digimon/pet_<NNN>.json       creature node
+output/digimon/eggs/egg_<attr>.png  incubator egg strip (from sheet 48315)
+        │  core/scaffold.py  (stage_to_content / sync_roster)
+        ▼
+…/hibitomo-content-editor/local-content/projects/default/shared/services/pet/assets
+        data/digimon/{_species,pet_<NNN>}.json
+        graphics/species/digimon/{<NNN>.png,<NNN>.json,eggs/}
 ```
 
 ### Segmentation
