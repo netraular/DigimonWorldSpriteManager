@@ -64,6 +64,7 @@ function rememberFilter(f) { try { localStorage.setItem(FILTER_KEY, f); } catch 
 const state = {
   sheets: [], filter: savedFilter(), search: "",
   sheetId: null,
+  specIndex: null,        // {specs, by_sheet, next_id} — see loadSpecIndex()
   boxes: [],              // read-only cropped sprites [{id,x,y,w,h}]
   bg: null,               // background payload from box cache
   spec: null,
@@ -189,8 +190,10 @@ async function openEditor(sid, push = true) {
   state.boxes = (data.boxes || []).map((b) => ({ id: b.id, x: b.x, y: b.y, w: b.w, h: b.h }));
   state.bg = normalizeBg(data.background) || { colors: [] };
 
-  const info = state.sheets.find((s) => s.id === sid);
-  state.spec = migrateSpec((info && info.has_spec ? await tryLoadSpecForSheet(sid) : null) || freshSpec(sid, data));
+  // Always ask the server which spec owns this sheet (and what the next free
+  // number is), instead of trusting the gallery's has_spec flag: the number is
+  // what a save writes over, so it has to come from disk, not from a stale card.
+  state.spec = migrateSpec((await tryLoadSpecForSheet(sid)) || freshSpec(sid, data));
   pruneClips();
   state.activeClip = "walk";
   if (!activeDirs().includes(state.activeDir)) state.activeDir = ISO_DIRS[0];
@@ -218,18 +221,30 @@ function closeEditor(push = true) {
   loadSheets();
 }
 
+/** The spec of this sheet, or null. Also caches the spec index, whose `next_id`
+ *  is what a sheet with no spec must be numbered. */
+async function loadSpecIndex() {
+  state.specIndex = await fetch("/api/specs").then((x) => x.json()).catch(() => null);
+  return state.specIndex;
+}
 async function tryLoadSpecForSheet(sid) {
-  const list = await fetch("/api/specs").then((x) => x.json());
-  for (const nnn of list.specs) {
-    const s = await fetch(`/api/specs/${nnn}`).then((x) => x.json());
-    if (String(s.sheet_id) === String(sid)) return s;
-  }
-  return null;
+  const idx = await loadSpecIndex();
+  const nnn = idx && idx.by_sheet && idx.by_sheet[String(sid)];
+  if (!nnn) return null;
+  return fetch(`/api/specs/${nnn}`).then((x) => x.json());
+}
+/** A creature number for a sheet that has none: the first one no spec has taken.
+ *  It used to come from the #c-id input, which reads "1" on a fresh page — so
+ *  saving a new sheet overwrote spec 001 and its sheet fell back to "ready". */
+function freshSpecId() {
+  const idx = state.specIndex;
+  if (idx && idx.next_id) return idx.next_id;
+  return parseInt($("#c-id").value || "1", 10);
 }
 function freshSpec(sid, data) {
   const bg = normalizeBg(data.background) || { colors: [] };
   return {
-    spec_version: 1, species: "digimon", id: parseInt($("#c-id").value || "1", 10),
+    spec_version: 1, species: "digimon", id: freshSpecId(),
     source: `raw_sheets/${sid}.png`, sheet_id: sid,
     background: bg.color, background_tolerance: bg.tolerance, background_mode: bg.mode,
     seg_params: { ...(data.params || {}), extra_bg: (bg.colors || []).slice(1) },
@@ -583,7 +598,17 @@ async function saveSpec() {
   const nnn = String(state.spec.id).padStart(3, "0");
   setStatus("saving…");
   const j = await sendJSON(`/api/specs/${nnn}`, "PUT", state.spec);
-  if (j.error) { setStatus("save: " + j.error, true); return false; }
+  if (j.error) {
+    // The server refuses to hand a number that belongs to another sheet: take
+    // the free one it offers, so one more S actually saves.
+    if (j.conflict && j.conflict.next_id) {
+      state.spec.id = j.conflict.next_id;
+      $("#c-id").value = j.conflict.next_id;
+      setStatus(`${j.error} — switched to ${String(j.conflict.next_id).padStart(3, "0")}, press S again`, true);
+    } else setStatus("save: " + j.error, true);
+    return false;
+  }
+  await loadSpecIndex();   // this number is taken now; the next new sheet gets the following one
   setStatus("saved " + j.path);
   return true;
 }

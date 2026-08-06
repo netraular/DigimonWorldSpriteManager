@@ -250,6 +250,16 @@ def create_app():
         if err:
             return jsonify({"error": err}), 400
         path = _spec_path(nnn)
+        # A creature number belongs to ONE sheet. Saving over the spec of a
+        # different sheet is how a whole creature silently disappeared (its sheet
+        # popped back into the gallery as "ready"), so it takes ?force=1.
+        owner = _spec_owner(path)
+        if (owner is not None and str(owner) != str(spec.get("sheet_id"))
+                and request.args.get("force") != "1"):
+            return jsonify({"error": f"spec {int(nnn):03d} already belongs to sheet "
+                                     f"{owner} — next free id is {_next_spec_id()}",
+                            "conflict": {"id": int(nnn), "sheet_id": owner,
+                                         "next_id": _next_spec_id()}}), 409
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w", encoding="utf-8") as f:
             json.dump(spec, f, indent=2)
@@ -258,11 +268,26 @@ def create_app():
 
     @app.get("/api/specs")
     def list_specs():
-        out = []
+        """Every spec, plus which sheet owns it and the first free number.
+
+        ``by_sheet`` saves the animate view a fetch per spec when it looks up the
+        one belonging to a sheet, and ``next_id`` is what a NEW creature must be
+        numbered — never the "1" an empty form would otherwise send.
+        """
+        out, by_sheet = [], {}
         for name in sorted(os.listdir(config.SPEC_DIR)):
-            if name.endswith(".extract.json"):
-                out.append(name[:-len(".extract.json")])
-        return jsonify({"specs": out})
+            if not name.endswith(".extract.json"):
+                continue
+            nnn = name[:-len(".extract.json")]
+            out.append(nnn)
+            try:
+                with open(os.path.join(config.SPEC_DIR, name), "r", encoding="utf-8") as f:
+                    spec = json.load(f)
+                by_sheet[str(spec.get("sheet_id"))] = nnn
+            except Exception:  # noqa: BLE001
+                continue
+        return jsonify({"specs": out, "by_sheet": by_sheet,
+                        "next_id": _next_spec_id()})
 
     @app.post("/api/specs/<nnn>/bake")
     def bake_spec(nnn):
@@ -444,6 +469,32 @@ def _spec_id_for(sheet_id):
 
 def _spec_path(nnn):
     return os.path.join(config.SPEC_DIR, f"{int(nnn):03d}.extract.json")
+
+
+def _spec_owner(path):
+    """The sheet id a spec file on disk belongs to (None if there is no file)."""
+    if not os.path.exists(path):
+        return None
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return str(json.load(f).get("sheet_id"))
+    except Exception:  # noqa: BLE001 — unreadable spec: let the write through
+        return None
+
+
+def _next_spec_id():
+    """Lowest creature number no spec has taken."""
+    taken = set()
+    for name in os.listdir(config.SPEC_DIR):
+        if name.endswith(".extract.json"):
+            try:
+                taken.add(int(name[:-len(".extract.json")]))
+            except ValueError:
+                continue
+    n = 1
+    while n in taken:
+        n += 1
+    return n
 
 
 # Detection lives in core/detect.py so the batch tools can crop a never-opened
