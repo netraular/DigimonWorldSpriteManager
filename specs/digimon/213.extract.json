@@ -2,8 +2,8 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 213,
-  "source": "raw_sheets/48701.png",
-  "sheet_id": "48701",
+  "source": "raw_sheets/48434.png",
+  "sheet_id": "48434",
   "background": "0x008080",
   "background_tolerance": 40,
   "background_mode": "solid",
@@ -18,63 +18,63 @@
     {
       "id": "b6",
       "x": 4,
-      "y": 303,
+      "y": 334,
       "w": 32,
       "h": 64
     },
     {
       "id": "b7",
-      "x": 38,
-      "y": 303,
+      "x": 41,
+      "y": 334,
       "w": 32,
       "h": 64
     },
     {
       "id": "b8",
-      "x": 72,
-      "y": 303,
+      "x": 78,
+      "y": 334,
       "w": 32,
       "h": 64
     },
     {
       "id": "b9",
-      "x": 106,
-      "y": 303,
+      "x": 120,
+      "y": 334,
       "w": 32,
       "h": 64
     },
     {
       "id": "b10",
-      "x": 140,
-      "y": 303,
+      "x": 157,
+      "y": 334,
       "w": 32,
       "h": 64
     },
     {
       "id": "b11",
-      "x": 174,
-      "y": 303,
+      "x": 194,
+      "y": 334,
       "w": 32,
       "h": 64
     },
     {
       "id": "b12",
-      "x": 208,
-      "y": 303,
+      "x": 236,
+      "y": 334,
       "w": 32,
       "h": 64
     },
     {
       "id": "b13",
-      "x": 242,
-      "y": 303,
+      "x": 273,
+      "y": 334,
       "w": 32,
       "h": 64
     },
     {
       "id": "b14",
-      "x": 276,
-      "y": 303,
+      "x": 310,
+      "y": 334,
       "w": 32,
       "h": 64
     }
@@ -113,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "MagnaAngemon",
+  "creature_name": "MetalEtemon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 6
 }

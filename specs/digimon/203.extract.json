@@ -2,9 +2,9 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 203,
-  "source": "raw_sheets/48676.png",
-  "sheet_id": "48676",
-  "background": "0x74EC60",
+  "source": "raw_sheets/48452.png",
+  "sheet_id": "48452",
+  "background": "0x008080",
   "background_tolerance": 40,
   "background_mode": "solid",
   "seg_params": {
@@ -16,93 +16,142 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b25",
-      "x": 1,
-      "y": 190,
+      "id": "b1",
+      "x": 402,
+      "y": 2,
       "w": 32,
-      "h": 47
+      "h": 32
     },
     {
-      "id": "b26",
-      "x": 34,
-      "y": 190,
+      "id": "b2",
+      "x": 436,
+      "y": 2,
       "w": 32,
-      "h": 47
+      "h": 32
     },
     {
-      "id": "b27",
-      "x": 67,
-      "y": 190,
+      "id": "b3",
+      "x": 470,
+      "y": 2,
       "w": 32,
-      "h": 47
+      "h": 32
     },
     {
-      "id": "b28",
-      "x": 100,
-      "y": 190,
+      "id": "b4",
+      "x": 402,
+      "y": 36,
       "w": 32,
-      "h": 47
+      "h": 32
     },
     {
-      "id": "b29",
-      "x": 133,
-      "y": 190,
+      "id": "b5",
+      "x": 436,
+      "y": 36,
       "w": 32,
-      "h": 47
+      "h": 32
     },
     {
-      "id": "b30",
-      "x": 166,
-      "y": 190,
+      "id": "b6",
+      "x": 470,
+      "y": 36,
       "w": 32,
-      "h": 47
+      "h": 32
     },
     {
-      "id": "b31",
-      "x": 199,
-      "y": 190,
+      "id": "b7",
+      "x": 402,
+      "y": 70,
       "w": 32,
-      "h": 47
+      "h": 32
     },
     {
-      "id": "b32",
-      "x": 232,
-      "y": 190,
+      "id": "b8",
+      "x": 436,
+      "y": 70,
       "w": 32,
-      "h": 47
+      "h": 32
     },
     {
-      "id": "b33",
-      "x": 265,
-      "y": 190,
+      "id": "b9",
+      "x": 470,
+      "y": 70,
       "w": 32,
-      "h": 47
+      "h": 32
+    },
+    {
+      "id": "b13",
+      "x": 402,
+      "y": 104,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b14",
+      "x": 436,
+      "y": 104,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b15",
+      "x": 470,
+      "y": 104,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b16",
+      "x": 402,
+      "y": 140,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b17",
+      "x": 436,
+      "y": 140,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b18",
+      "x": 470,
+      "y": 140,
+      "w": 32,
+      "h": 32
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b25",
-        "b26",
-        "b27"
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "down_right": [
+        "b4",
+        "b5",
+        "b6"
       ],
       "up_left": [
-        "b28",
-        "b29",
-        "b30"
+        "b7",
+        "b8",
+        "b9"
+      ],
+      "up_right": [
+        "b13",
+        "b14",
+        "b15"
       ]
     },
     "idle": [
-      "b31",
-      "b32",
-      "b33"
+      "b16",
+      "b17",
+      "b18"
     ],
     "sleep": []
   },
-  "mirror": {
-    "down_right": "down_left",
-    "up_right": "up_left"
-  },
+  "mirror": {},
   "diagonals": true,
   "anchor": "bottom_center",
   "walk_style": "stride",
@@ -113,8 +162,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Darkdramon",
+  "creature_name": "Jijimon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 6
 }

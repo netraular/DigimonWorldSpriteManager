@@ -2,11 +2,11 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 237,
-  "source": "raw_sheets/48818.png",
-  "sheet_id": "48818",
-  "background": "0x74EC60",
+  "source": "raw_sheets/48681.png",
+  "sheet_id": "48681",
+  "background": null,
   "background_tolerance": 40,
-  "background_mode": "solid",
+  "background_mode": "alpha",
   "seg_params": {
     "tol": 40,
     "extra_bg": []
@@ -16,86 +16,86 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b26",
-      "x": 1,
-      "y": 162,
+      "id": "b8",
+      "x": 4,
+      "y": 275,
       "w": 32,
-      "h": 45
+      "h": 64
     },
     {
-      "id": "b27",
-      "x": 34,
-      "y": 162,
+      "id": "b9",
+      "x": 38,
+      "y": 275,
       "w": 32,
-      "h": 45
+      "h": 64
     },
     {
-      "id": "b28",
-      "x": 67,
-      "y": 162,
+      "id": "b10",
+      "x": 72,
+      "y": 275,
       "w": 32,
-      "h": 45
+      "h": 64
     },
     {
-      "id": "b29",
-      "x": 100,
-      "y": 162,
+      "id": "b11",
+      "x": 106,
+      "y": 275,
       "w": 32,
-      "h": 45
+      "h": 64
     },
     {
-      "id": "b30",
-      "x": 133,
-      "y": 162,
+      "id": "b12",
+      "x": 140,
+      "y": 275,
       "w": 32,
-      "h": 45
+      "h": 64
     },
     {
-      "id": "b31",
-      "x": 166,
-      "y": 162,
+      "id": "b13",
+      "x": 174,
+      "y": 275,
       "w": 32,
-      "h": 45
+      "h": 64
     },
     {
-      "id": "b32",
-      "x": 199,
-      "y": 162,
+      "id": "b14",
+      "x": 208,
+      "y": 275,
       "w": 32,
-      "h": 45
+      "h": 64
     },
     {
-      "id": "b33",
-      "x": 232,
-      "y": 162,
+      "id": "b15",
+      "x": 242,
+      "y": 275,
       "w": 32,
-      "h": 45
+      "h": 64
     },
     {
-      "id": "b34",
-      "x": 265,
-      "y": 162,
+      "id": "b16",
+      "x": 276,
+      "y": 275,
       "w": 32,
-      "h": 45
+      "h": 64
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b26",
-        "b27",
-        "b28"
+        "b8",
+        "b9",
+        "b10"
       ],
       "up_left": [
-        "b29",
-        "b30",
-        "b31"
+        "b11",
+        "b12",
+        "b13"
       ]
     },
     "idle": [
-      "b32",
-      "b33",
-      "b34"
+      "b14",
+      "b15",
+      "b16"
     ],
     "sleep": []
   },
@@ -113,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Ghoulmon",
+  "creature_name": "Magnamon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 4
 }

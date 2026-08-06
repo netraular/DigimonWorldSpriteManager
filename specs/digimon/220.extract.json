@@ -2,11 +2,11 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 220,
-  "source": "raw_sheets/48709.png",
-  "sheet_id": "48709",
-  "background": null,
+  "source": "raw_sheets/48435.png",
+  "sheet_id": "48435",
+  "background": "0x008080",
   "background_tolerance": 40,
-  "background_mode": "alpha",
+  "background_mode": "solid",
   "seg_params": {
     "tol": 40,
     "extra_bg": []
@@ -16,65 +16,65 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b44",
+      "id": "b6",
       "x": 4,
-      "y": 269,
+      "y": 334,
       "w": 32,
       "h": 64
     },
     {
-      "id": "b45",
-      "x": 38,
-      "y": 269,
+      "id": "b7",
+      "x": 41,
+      "y": 334,
       "w": 32,
       "h": 64
     },
     {
-      "id": "b46",
-      "x": 72,
-      "y": 269,
+      "id": "b8",
+      "x": 78,
+      "y": 334,
       "w": 32,
       "h": 64
     },
     {
-      "id": "b47",
-      "x": 106,
-      "y": 269,
+      "id": "b9",
+      "x": 120,
+      "y": 334,
       "w": 32,
       "h": 64
     },
     {
-      "id": "b48",
-      "x": 140,
-      "y": 269,
+      "id": "b10",
+      "x": 157,
+      "y": 334,
       "w": 32,
       "h": 64
     },
     {
-      "id": "b49",
-      "x": 174,
-      "y": 269,
+      "id": "b11",
+      "x": 194,
+      "y": 334,
       "w": 32,
       "h": 64
     },
     {
-      "id": "b50",
-      "x": 208,
-      "y": 269,
+      "id": "b12",
+      "x": 236,
+      "y": 334,
       "w": 32,
       "h": 64
     },
     {
-      "id": "b51",
-      "x": 242,
-      "y": 269,
+      "id": "b13",
+      "x": 273,
+      "y": 334,
       "w": 32,
       "h": 64
     },
     {
-      "id": "b52",
-      "x": 276,
-      "y": 269,
+      "id": "b14",
+      "x": 310,
+      "y": 334,
       "w": 32,
       "h": 64
     }
@@ -82,20 +82,20 @@
   "clips": {
     "walk": {
       "down_left": [
-        "b44",
-        "b45",
-        "b46"
+        "b6",
+        "b7",
+        "b8"
       ],
       "up_left": [
-        "b47",
-        "b48",
-        "b49"
+        "b9",
+        "b10",
+        "b11"
       ]
     },
     "idle": [
-      "b50",
-      "b51",
-      "b52"
+      "b12",
+      "b13",
+      "b14"
     ],
     "sleep": []
   },
@@ -113,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Diaboromon",
+  "creature_name": "Piedmon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 6
 }

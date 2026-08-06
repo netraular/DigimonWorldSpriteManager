@@ -2,9 +2,9 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 211,
-  "source": "raw_sheets/48699.png",
-  "sheet_id": "48699",
-  "background": "0x008080",
+  "source": "raw_sheets/48531.png",
+  "sheet_id": "48531",
+  "background": "0x74EC60",
   "background_tolerance": 40,
   "background_mode": "solid",
   "seg_params": {
@@ -16,65 +16,65 @@
   "pad": 1,
   "boxes": [
     {
+      "id": "b5",
+      "x": 57,
+      "y": 69,
+      "w": 32,
+      "h": 32
+    },
+    {
       "id": "b6",
-      "x": 4,
-      "y": 263,
+      "x": 90,
+      "y": 69,
       "w": 32,
       "h": 32
     },
     {
       "id": "b7",
-      "x": 38,
-      "y": 263,
+      "x": 123,
+      "y": 69,
       "w": 32,
       "h": 32
     },
     {
       "id": "b8",
-      "x": 72,
-      "y": 263,
+      "x": 156,
+      "y": 69,
       "w": 32,
       "h": 32
     },
     {
       "id": "b9",
-      "x": 106,
-      "y": 263,
+      "x": 189,
+      "y": 69,
       "w": 32,
       "h": 32
     },
     {
       "id": "b10",
-      "x": 140,
-      "y": 263,
+      "x": 222,
+      "y": 69,
       "w": 32,
       "h": 32
     },
     {
       "id": "b11",
-      "x": 174,
-      "y": 263,
+      "x": 255,
+      "y": 69,
       "w": 32,
       "h": 32
     },
     {
       "id": "b12",
-      "x": 208,
-      "y": 263,
+      "x": 288,
+      "y": 69,
       "w": 32,
       "h": 32
     },
     {
       "id": "b13",
-      "x": 242,
-      "y": 263,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b14",
-      "x": 276,
-      "y": 263,
+      "x": 321,
+      "y": 69,
       "w": 32,
       "h": 32
     }
@@ -82,20 +82,20 @@
   "clips": {
     "walk": {
       "down_left": [
+        "b5",
         "b6",
-        "b7",
-        "b8"
+        "b7"
       ],
       "up_left": [
+        "b8",
         "b9",
-        "b10",
-        "b11"
+        "b10"
       ]
     },
     "idle": [
+      "b11",
       "b12",
-      "b13",
-      "b14"
+      "b13"
     ],
     "sleep": []
   },
@@ -113,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Aruraumon",
+  "creature_name": "MarineAngemon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 6
 }

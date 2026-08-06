@@ -2,13 +2,13 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 168,
-  "source": "raw_sheets/48582.png",
-  "sheet_id": "48582",
+  "source": "raw_sheets/48331.png",
+  "sheet_id": "48331",
   "background": null,
-  "background_tolerance": 40,
+  "background_tolerance": 8,
   "background_mode": "alpha",
   "seg_params": {
-    "tol": 40,
+    "tol": 8,
     "extra_bg": []
   },
   "trim": true,
@@ -16,93 +16,117 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b43",
-      "x": 1,
-      "y": 291,
-      "w": 32,
-      "h": 64
+      "id": "b5",
+      "x": 544,
+      "y": 199,
+      "w": 78,
+      "h": 69
     },
     {
-      "id": "b44",
-      "x": 35,
-      "y": 291,
-      "w": 32,
-      "h": 64
+      "id": "b6",
+      "x": 622,
+      "y": 199,
+      "w": 78,
+      "h": 69
     },
     {
-      "id": "b45",
-      "x": 69,
-      "y": 291,
-      "w": 32,
-      "h": 64
+      "id": "b7",
+      "x": 700,
+      "y": 199,
+      "w": 78,
+      "h": 69
     },
     {
-      "id": "b46",
-      "x": 103,
-      "y": 291,
-      "w": 32,
-      "h": 64
+      "id": "b10",
+      "x": 544,
+      "y": 268,
+      "w": 78,
+      "h": 69
     },
     {
-      "id": "b47",
-      "x": 137,
-      "y": 291,
-      "w": 32,
-      "h": 64
+      "id": "b11",
+      "x": 622,
+      "y": 268,
+      "w": 78,
+      "h": 69
     },
     {
-      "id": "b48",
-      "x": 171,
-      "y": 291,
-      "w": 32,
-      "h": 64
+      "id": "b12",
+      "x": 700,
+      "y": 268,
+      "w": 78,
+      "h": 69
     },
     {
-      "id": "b49",
-      "x": 205,
-      "y": 291,
-      "w": 32,
-      "h": 64
+      "id": "b13",
+      "x": 544,
+      "y": 337,
+      "w": 78,
+      "h": 69
     },
     {
-      "id": "b50",
-      "x": 239,
-      "y": 291,
-      "w": 32,
-      "h": 64
+      "id": "b14",
+      "x": 622,
+      "y": 337,
+      "w": 78,
+      "h": 69
     },
     {
-      "id": "b51",
-      "x": 273,
-      "y": 291,
-      "w": 32,
-      "h": 64
+      "id": "b15",
+      "x": 700,
+      "y": 337,
+      "w": 78,
+      "h": 69
+    },
+    {
+      "id": "b22",
+      "x": 544,
+      "y": 406,
+      "w": 78,
+      "h": 69
+    },
+    {
+      "id": "b23",
+      "x": 622,
+      "y": 406,
+      "w": 78,
+      "h": 69
+    },
+    {
+      "id": "b24",
+      "x": 700,
+      "y": 406,
+      "w": 78,
+      "h": 69
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b43",
-        "b44",
-        "b45"
+        "b5",
+        "b6",
+        "b7"
+      ],
+      "down_right": [
+        "b10",
+        "b11",
+        "b12"
       ],
       "up_left": [
-        "b46",
-        "b47",
-        "b48"
+        "b13",
+        "b14",
+        "b15"
+      ],
+      "up_right": [
+        "b22",
+        "b23",
+        "b24"
       ]
     },
-    "idle": [
-      "b49",
-      "b50",
-      "b51"
-    ],
+    "idle": [],
     "sleep": []
   },
-  "mirror": {
-    "down_right": "down_left",
-    "up_right": "up_left"
-  },
+  "mirror": {},
   "diagonals": true,
   "anchor": "bottom_center",
   "walk_style": "stride",
@@ -113,8 +137,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "BlackImperialdramon",
+  "creature_name": "Azulongmon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 6
 }

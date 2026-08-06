@@ -2,9 +2,9 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 152,
-  "source": "raw_sheets/48529.png",
-  "sheet_id": "48529",
-  "background": "0x74EC60",
+  "source": "raw_sheets/48444.png",
+  "sheet_id": "48444",
+  "background": "0x008080",
   "background_tolerance": 40,
   "background_mode": "solid",
   "seg_params": {
@@ -16,86 +16,86 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b31",
-      "x": 1,
-      "y": 131,
+      "id": "b6",
+      "x": 4,
+      "y": 317,
       "w": 32,
-      "h": 48
+      "h": 32
     },
     {
-      "id": "b32",
-      "x": 34,
-      "y": 131,
+      "id": "b7",
+      "x": 41,
+      "y": 317,
       "w": 32,
-      "h": 48
+      "h": 32
     },
     {
-      "id": "b33",
-      "x": 67,
-      "y": 131,
+      "id": "b8",
+      "x": 78,
+      "y": 317,
       "w": 32,
-      "h": 48
+      "h": 32
     },
     {
-      "id": "b34",
-      "x": 100,
-      "y": 131,
+      "id": "b9",
+      "x": 120,
+      "y": 317,
       "w": 32,
-      "h": 48
+      "h": 32
     },
     {
-      "id": "b35",
-      "x": 133,
-      "y": 131,
+      "id": "b10",
+      "x": 157,
+      "y": 317,
       "w": 32,
-      "h": 48
+      "h": 32
     },
     {
-      "id": "b36",
-      "x": 166,
-      "y": 131,
+      "id": "b11",
+      "x": 194,
+      "y": 317,
       "w": 32,
-      "h": 48
+      "h": 32
     },
     {
-      "id": "b37",
-      "x": 199,
-      "y": 131,
+      "id": "b12",
+      "x": 236,
+      "y": 317,
       "w": 32,
-      "h": 48
+      "h": 32
     },
     {
-      "id": "b38",
-      "x": 232,
-      "y": 131,
+      "id": "b13",
+      "x": 273,
+      "y": 317,
       "w": 32,
-      "h": 48
+      "h": 32
     },
     {
-      "id": "b39",
-      "x": 265,
-      "y": 131,
+      "id": "b14",
+      "x": 310,
+      "y": 317,
       "w": 32,
-      "h": 48
+      "h": 32
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b31",
-        "b32",
-        "b33"
+        "b6",
+        "b7",
+        "b8"
       ],
       "up_left": [
-        "b34",
-        "b35",
-        "b36"
+        "b9",
+        "b10",
+        "b11"
       ]
     },
     "idle": [
-      "b37",
-      "b38",
-      "b39"
+      "b12",
+      "b13",
+      "b14"
     ],
     "sleep": []
   },
@@ -113,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "MegaKabuterimon Red",
+  "creature_name": "Piximon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 5
 }

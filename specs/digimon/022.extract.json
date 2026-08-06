@@ -2,13 +2,35 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 22,
-  "source": "raw_sheets/48332.png",
-  "sheet_id": "48332",
-  "background": "0x000000",
-  "background_tolerance": 40,
+  "source": "raw_sheets/20460.png",
+  "sheet_id": "20460",
+  "background": "0x8003AF",
+  "background_tolerance": 8,
   "background_mode": "solid",
   "seg_params": {
-    "tol": 40,
+    "alpha_thresh": 16,
+    "border_frac": 0.02,
+    "snap_dist": 40,
+    "tol": 8,
+    "use_hsv": true,
+    "hue_tol": 0.05,
+    "sat_min": 0.3,
+    "val_min": 0.15,
+    "morph_px": 1,
+    "dilate_px": 1,
+    "connectivity": 8,
+    "area_min": 20,
+    "wh_min": 4,
+    "fill_min": 0.04,
+    "merge_gap": 2,
+    "row_tol_frac": 0.5,
+    "grid_spread": 0.18,
+    "max_box_frac": 0.9,
+    "crop_pad": 2,
+    "auto_secondary_bg": true,
+    "sec_bg_frac": 0.1,
+    "sec_bg_sat": 46,
+    "max_bg_colors": 3,
     "extra_bg": []
   },
   "trim": true,
@@ -16,139 +38,114 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b0",
-      "x": 293,
-      "y": 8,
-      "w": 31,
-      "h": 31
-    },
-    {
-      "id": "b1",
-      "x": 325,
-      "y": 8,
-      "w": 31,
-      "h": 31
-    },
-    {
-      "id": "b2",
-      "x": 357,
-      "y": 8,
-      "w": 31,
-      "h": 31
-    },
-    {
-      "id": "b6",
-      "x": 293,
-      "y": 42,
-      "w": 31,
-      "h": 31
-    },
-    {
-      "id": "b7",
-      "x": 325,
-      "y": 42,
-      "w": 31,
-      "h": 31
-    },
-    {
-      "id": "b8",
-      "x": 357,
-      "y": 42,
-      "w": 31,
-      "h": 31
-    },
-    {
-      "id": "b9",
-      "x": 293,
-      "y": 81,
-      "w": 31,
-      "h": 31
-    },
-    {
-      "id": "b10",
-      "x": 325,
-      "y": 81,
-      "w": 31,
-      "h": 31
-    },
-    {
-      "id": "b11",
-      "x": 357,
-      "y": 81,
-      "w": 31,
-      "h": 31
-    },
-    {
-      "id": "b15",
-      "x": 293,
-      "y": 115,
-      "w": 31,
-      "h": 31
-    },
-    {
-      "id": "b16",
-      "x": 325,
-      "y": 115,
-      "w": 31,
-      "h": 31
-    },
-    {
-      "id": "b17",
-      "x": 357,
-      "y": 115,
-      "w": 31,
-      "h": 31
+      "id": "b19",
+      "x": 1,
+      "y": 183,
+      "w": 29,
+      "h": 35
     },
     {
       "id": "b20",
-      "x": 293,
-      "y": 157,
-      "w": 31,
-      "h": 32
+      "x": 30,
+      "y": 183,
+      "w": 29,
+      "h": 35
     },
     {
       "id": "b21",
-      "x": 325,
-      "y": 157,
-      "w": 31,
-      "h": 32
+      "x": 59,
+      "y": 183,
+      "w": 29,
+      "h": 35
     },
     {
       "id": "b22",
-      "x": 357,
-      "y": 157,
-      "w": 31,
-      "h": 32
+      "x": 1,
+      "y": 218,
+      "w": 29,
+      "h": 35
+    },
+    {
+      "id": "b23",
+      "x": 30,
+      "y": 218,
+      "w": 29,
+      "h": 35
+    },
+    {
+      "id": "b24",
+      "x": 59,
+      "y": 218,
+      "w": 29,
+      "h": 35
+    },
+    {
+      "id": "b26",
+      "x": 1,
+      "y": 253,
+      "w": 29,
+      "h": 35
+    },
+    {
+      "id": "b27",
+      "x": 30,
+      "y": 253,
+      "w": 29,
+      "h": 35
+    },
+    {
+      "id": "b28",
+      "x": 59,
+      "y": 253,
+      "w": 29,
+      "h": 35
+    },
+    {
+      "id": "b32",
+      "x": 1,
+      "y": 288,
+      "w": 29,
+      "h": 35
+    },
+    {
+      "id": "b33",
+      "x": 30,
+      "y": 288,
+      "w": 29,
+      "h": 35
+    },
+    {
+      "id": "b34",
+      "x": 59,
+      "y": 288,
+      "w": 29,
+      "h": 35
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b0",
-        "b1",
-        "b2"
+        "b19",
+        "b20",
+        "b21"
       ],
       "down_right": [
-        "b6",
-        "b7",
-        "b8"
+        "b22",
+        "b23",
+        "b24"
       ],
       "up_left": [
-        "b9",
-        "b10",
-        "b11"
+        "b26",
+        "b27",
+        "b28"
       ],
       "up_right": [
-        "b15",
-        "b16",
-        "b17"
+        "b32",
+        "b33",
+        "b34"
       ]
     },
-    "idle": [
-      "b20",
-      "b21",
-      "b22"
-    ],
+    "idle": [],
     "sleep": []
   },
   "mirror": {},
@@ -162,8 +159,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "BlackAgumon",
+  "creature_name": "Gaomon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 3
 }

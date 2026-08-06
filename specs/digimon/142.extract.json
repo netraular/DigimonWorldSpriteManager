@@ -2,8 +2,8 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 142,
-  "source": "raw_sheets/48518.png",
-  "sheet_id": "48518",
+  "source": "raw_sheets/48529.png",
+  "sheet_id": "48529",
   "background": "0x74EC60",
   "background_tolerance": 40,
   "background_mode": "solid",
@@ -16,86 +16,86 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b5",
-      "x": 44,
-      "y": 76,
+      "id": "b31",
+      "x": 1,
+      "y": 131,
       "w": 32,
-      "h": 32
+      "h": 48
     },
     {
-      "id": "b6",
-      "x": 77,
-      "y": 76,
+      "id": "b32",
+      "x": 34,
+      "y": 131,
       "w": 32,
-      "h": 32
+      "h": 48
     },
     {
-      "id": "b7",
-      "x": 110,
-      "y": 76,
+      "id": "b33",
+      "x": 67,
+      "y": 131,
       "w": 32,
-      "h": 32
+      "h": 48
     },
     {
-      "id": "b8",
-      "x": 143,
-      "y": 76,
+      "id": "b34",
+      "x": 100,
+      "y": 131,
       "w": 32,
-      "h": 32
+      "h": 48
     },
     {
-      "id": "b9",
-      "x": 176,
-      "y": 76,
+      "id": "b35",
+      "x": 133,
+      "y": 131,
       "w": 32,
-      "h": 32
+      "h": 48
     },
     {
-      "id": "b10",
-      "x": 209,
-      "y": 76,
+      "id": "b36",
+      "x": 166,
+      "y": 131,
       "w": 32,
-      "h": 32
+      "h": 48
     },
     {
-      "id": "b11",
-      "x": 242,
-      "y": 76,
+      "id": "b37",
+      "x": 199,
+      "y": 131,
       "w": 32,
-      "h": 32
+      "h": 48
     },
     {
-      "id": "b12",
-      "x": 275,
-      "y": 76,
+      "id": "b38",
+      "x": 232,
+      "y": 131,
       "w": 32,
-      "h": 32
+      "h": 48
     },
     {
-      "id": "b13",
-      "x": 308,
-      "y": 76,
+      "id": "b39",
+      "x": 265,
+      "y": 131,
       "w": 32,
-      "h": 32
+      "h": 48
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b5",
-        "b6",
-        "b7"
+        "b31",
+        "b32",
+        "b33"
       ],
       "up_left": [
-        "b8",
-        "b9",
-        "b10"
+        "b34",
+        "b35",
+        "b36"
       ]
     },
     "idle": [
-      "b11",
-      "b12",
-      "b13"
+      "b37",
+      "b38",
+      "b39"
     ],
     "sleep": []
   },
@@ -113,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Armadillomon",
+  "creature_name": "MegaKabuterimon Red",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 5
 }

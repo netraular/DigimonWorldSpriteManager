@@ -2,8 +2,8 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 177,
-  "source": "raw_sheets/48591.png",
-  "sheet_id": "48591",
+  "source": "raw_sheets/48585.png",
+  "sheet_id": "48585",
   "background": null,
   "background_tolerance": 40,
   "background_mode": "alpha",
@@ -16,65 +16,65 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b44",
-      "x": 5,
-      "y": 274,
+      "id": "b3",
+      "x": 288,
+      "y": 204,
       "w": 32,
       "h": 64
     },
     {
-      "id": "b45",
-      "x": 39,
-      "y": 274,
+      "id": "b4",
+      "x": 322,
+      "y": 204,
       "w": 32,
       "h": 64
     },
     {
-      "id": "b46",
-      "x": 73,
-      "y": 274,
+      "id": "b5",
+      "x": 356,
+      "y": 204,
       "w": 32,
       "h": 64
     },
     {
-      "id": "b47",
-      "x": 107,
-      "y": 274,
+      "id": "b8",
+      "x": 289,
+      "y": 275,
       "w": 32,
       "h": 64
     },
     {
-      "id": "b48",
-      "x": 141,
-      "y": 274,
+      "id": "b9",
+      "x": 323,
+      "y": 275,
       "w": 32,
       "h": 64
     },
     {
-      "id": "b49",
-      "x": 175,
-      "y": 274,
+      "id": "b10",
+      "x": 357,
+      "y": 275,
       "w": 32,
       "h": 64
     },
     {
-      "id": "b50",
-      "x": 209,
-      "y": 274,
+      "id": "b11",
+      "x": 292,
+      "y": 344,
       "w": 32,
       "h": 64
     },
     {
-      "id": "b51",
-      "x": 243,
-      "y": 274,
+      "id": "b12",
+      "x": 326,
+      "y": 344,
       "w": 32,
       "h": 64
     },
     {
-      "id": "b52",
-      "x": 277,
-      "y": 274,
+      "id": "b13",
+      "x": 360,
+      "y": 344,
       "w": 32,
       "h": 64
     }
@@ -82,20 +82,20 @@
   "clips": {
     "walk": {
       "down_left": [
-        "b44",
-        "b45",
-        "b46"
+        "b3",
+        "b4",
+        "b5"
       ],
       "up_left": [
-        "b47",
-        "b48",
-        "b49"
+        "b8",
+        "b9",
+        "b10"
       ]
     },
     "idle": [
-      "b50",
-      "b51",
-      "b52"
+      "b11",
+      "b12",
+      "b13"
     ],
     "sleep": []
   },
@@ -113,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Stingmon",
+  "creature_name": "BlackWarGreymon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 6
 }

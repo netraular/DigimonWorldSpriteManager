@@ -2,9 +2,9 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 164,
-  "source": "raw_sheets/48563.png",
-  "sheet_id": "48563",
-  "background": "0x74EC60",
+  "source": "raw_sheets/41258.png",
+  "sheet_id": "41258",
+  "background": "0x008080",
   "background_tolerance": 40,
   "background_mode": "solid",
   "seg_params": {
@@ -16,93 +16,142 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b30",
-      "x": 1,
-      "y": 194,
+      "id": "b1",
+      "x": 595,
+      "y": 2,
       "w": 32,
-      "h": 48
+      "h": 64
     },
     {
-      "id": "b31",
-      "x": 34,
-      "y": 194,
+      "id": "b2",
+      "x": 629,
+      "y": 2,
       "w": 32,
-      "h": 48
+      "h": 64
     },
     {
-      "id": "b32",
-      "x": 67,
-      "y": 194,
+      "id": "b3",
+      "x": 663,
+      "y": 2,
       "w": 32,
-      "h": 48
+      "h": 64
     },
     {
-      "id": "b33",
-      "x": 100,
-      "y": 194,
+      "id": "b4",
+      "x": 595,
+      "y": 68,
       "w": 32,
-      "h": 48
+      "h": 64
     },
     {
-      "id": "b34",
-      "x": 133,
-      "y": 194,
+      "id": "b5",
+      "x": 629,
+      "y": 68,
       "w": 32,
-      "h": 48
+      "h": 64
     },
     {
-      "id": "b35",
-      "x": 166,
-      "y": 194,
+      "id": "b6",
+      "x": 663,
+      "y": 68,
       "w": 32,
-      "h": 48
+      "h": 64
     },
     {
-      "id": "b36",
-      "x": 199,
-      "y": 194,
+      "id": "b10",
+      "x": 595,
+      "y": 134,
       "w": 32,
-      "h": 48
+      "h": 64
     },
     {
-      "id": "b37",
-      "x": 232,
-      "y": 194,
+      "id": "b11",
+      "x": 629,
+      "y": 134,
       "w": 32,
-      "h": 48
+      "h": 64
     },
     {
-      "id": "b38",
-      "x": 265,
-      "y": 194,
+      "id": "b12",
+      "x": 663,
+      "y": 134,
       "w": 32,
-      "h": 48
+      "h": 64
+    },
+    {
+      "id": "b13",
+      "x": 595,
+      "y": 200,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b14",
+      "x": 629,
+      "y": 200,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b15",
+      "x": 663,
+      "y": 200,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b16",
+      "x": 595,
+      "y": 268,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b17",
+      "x": 629,
+      "y": 268,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b18",
+      "x": 663,
+      "y": 268,
+      "w": 32,
+      "h": 64
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b30",
-        "b31",
-        "b32"
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "down_right": [
+        "b4",
+        "b5",
+        "b6"
       ],
       "up_left": [
-        "b33",
-        "b34",
-        "b35"
+        "b10",
+        "b11",
+        "b12"
+      ],
+      "up_right": [
+        "b13",
+        "b14",
+        "b15"
       ]
     },
     "idle": [
-      "b36",
-      "b37",
-      "b38"
+      "b16",
+      "b17",
+      "b18"
     ],
     "sleep": []
   },
-  "mirror": {
-    "down_right": "down_left",
-    "up_right": "up_left"
-  },
+  "mirror": {},
   "diagonals": true,
   "anchor": "bottom_center",
   "walk_style": "stride",
@@ -113,8 +162,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Kentaurosmon",
+  "creature_name": "Whamon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 5
 }

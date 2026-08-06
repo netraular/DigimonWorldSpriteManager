@@ -2,8 +2,8 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 102,
-  "source": "raw_sheets/50035.png",
-  "sheet_id": "50035",
+  "source": "raw_sheets/48548.png",
+  "sheet_id": "48548",
   "background": "0x008080",
   "background_tolerance": 40,
   "background_mode": "solid",
@@ -16,107 +16,65 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b0",
-      "x": 2,
-      "y": 34,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b1",
-      "x": 36,
-      "y": 34,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b2",
-      "x": 70,
-      "y": 34,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b3",
-      "x": 2,
-      "y": 68,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b4",
-      "x": 36,
-      "y": 68,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b5",
-      "x": 70,
-      "y": 68,
-      "w": 32,
-      "h": 32
-    },
-    {
       "id": "b6",
-      "x": 2,
-      "y": 102,
+      "x": 4,
+      "y": 303,
       "w": 32,
       "h": 32
     },
     {
       "id": "b7",
-      "x": 36,
-      "y": 102,
+      "x": 38,
+      "y": 303,
       "w": 32,
       "h": 32
     },
     {
       "id": "b8",
-      "x": 70,
-      "y": 102,
+      "x": 72,
+      "y": 303,
       "w": 32,
       "h": 32
     },
     {
       "id": "b9",
-      "x": 2,
-      "y": 136,
+      "x": 106,
+      "y": 303,
       "w": 32,
       "h": 32
     },
     {
       "id": "b10",
-      "x": 36,
-      "y": 136,
+      "x": 140,
+      "y": 303,
       "w": 32,
       "h": 32
     },
     {
       "id": "b11",
-      "x": 70,
-      "y": 136,
+      "x": 174,
+      "y": 303,
       "w": 32,
       "h": 32
     },
     {
       "id": "b12",
-      "x": 2,
-      "y": 172,
+      "x": 208,
+      "y": 303,
       "w": 32,
       "h": 32
     },
     {
       "id": "b13",
-      "x": 36,
-      "y": 172,
+      "x": 242,
+      "y": 303,
       "w": 32,
       "h": 32
     },
     {
       "id": "b14",
-      "x": 70,
-      "y": 172,
+      "x": 276,
+      "y": 303,
       "w": 32,
       "h": 32
     }
@@ -124,21 +82,11 @@
   "clips": {
     "walk": {
       "down_left": [
-        "b0",
-        "b1",
-        "b2"
-      ],
-      "down_right": [
-        "b3",
-        "b4",
-        "b5"
-      ],
-      "up_left": [
         "b6",
         "b7",
         "b8"
       ],
-      "up_right": [
+      "up_left": [
         "b9",
         "b10",
         "b11"
@@ -151,7 +99,10 @@
     ],
     "sleep": []
   },
-  "mirror": {},
+  "mirror": {
+    "down_right": "down_left",
+    "up_right": "up_left"
+  },
   "diagonals": true,
   "anchor": "bottom_center",
   "walk_style": "stride",
@@ -162,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "",
+  "creature_name": "Sukamon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 4
 }

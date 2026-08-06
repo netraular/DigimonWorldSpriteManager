@@ -2,9 +2,9 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 49,
-  "source": "raw_sheets/48552.png",
-  "sheet_id": "48552",
-  "background": "0x008080",
+  "source": "raw_sheets/48419.png",
+  "sheet_id": "48419",
+  "background": "0x74EC60",
   "background_tolerance": 40,
   "background_mode": "solid",
   "seg_params": {
@@ -16,142 +16,93 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b1",
-      "x": 545,
-      "y": 2,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b2",
-      "x": 579,
-      "y": 2,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b3",
-      "x": 613,
-      "y": 2,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b4",
-      "x": 545,
-      "y": 68,
-      "w": 32,
-      "h": 64
-    },
-    {
       "id": "b5",
-      "x": 579,
-      "y": 68,
+      "x": 11,
+      "y": 82,
       "w": 32,
-      "h": 64
+      "h": 32
     },
     {
       "id": "b6",
-      "x": 613,
-      "y": 68,
+      "x": 44,
+      "y": 82,
       "w": 32,
-      "h": 64
+      "h": 32
+    },
+    {
+      "id": "b7",
+      "x": 77,
+      "y": 82,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b8",
+      "x": 110,
+      "y": 82,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b9",
+      "x": 143,
+      "y": 82,
+      "w": 32,
+      "h": 32
     },
     {
       "id": "b10",
-      "x": 545,
-      "y": 134,
+      "x": 176,
+      "y": 82,
       "w": 32,
-      "h": 64
+      "h": 32
     },
     {
       "id": "b11",
-      "x": 579,
-      "y": 134,
+      "x": 209,
+      "y": 82,
       "w": 32,
-      "h": 64
+      "h": 32
     },
     {
       "id": "b12",
-      "x": 613,
-      "y": 134,
+      "x": 242,
+      "y": 82,
       "w": 32,
-      "h": 64
+      "h": 32
     },
     {
       "id": "b13",
-      "x": 545,
-      "y": 200,
+      "x": 275,
+      "y": 82,
       "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b14",
-      "x": 579,
-      "y": 200,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b15",
-      "x": 613,
-      "y": 200,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b16",
-      "x": 545,
-      "y": 268,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b17",
-      "x": 579,
-      "y": 268,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b18",
-      "x": 613,
-      "y": 268,
-      "w": 32,
-      "h": 64
+      "h": 32
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b1",
-        "b2",
-        "b3"
-      ],
-      "down_right": [
-        "b4",
         "b5",
-        "b6"
+        "b6",
+        "b7"
       ],
       "up_left": [
-        "b10",
-        "b11",
-        "b12"
-      ],
-      "up_right": [
-        "b13",
-        "b14",
-        "b15"
+        "b8",
+        "b9",
+        "b10"
       ]
     },
     "idle": [
-      "b16",
-      "b17",
-      "b18"
+      "b11",
+      "b12",
+      "b13"
     ],
     "sleep": []
   },
-  "mirror": {},
+  "mirror": {
+    "down_right": "down_left",
+    "up_right": "up_left"
+  },
   "diagonals": true,
   "anchor": "bottom_center",
   "walk_style": "stride",
@@ -162,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Neptunemon",
+  "creature_name": "Veemon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 3
 }

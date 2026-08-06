@@ -2,11 +2,11 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 236,
-  "source": "raw_sheets/48778.png",
-  "sheet_id": "48778",
-  "background": null,
+  "source": "raw_sheets/48665.png",
+  "sheet_id": "48665",
+  "background": "0x74EC60",
   "background_tolerance": 40,
-  "background_mode": "alpha",
+  "background_mode": "solid",
   "seg_params": {
     "tol": 40,
     "extra_bg": []
@@ -16,86 +16,86 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b44",
-      "x": 3,
-      "y": 312,
+      "id": "b4",
+      "x": 80,
+      "y": 118,
       "w": 32,
-      "h": 64
+      "h": 48
     },
     {
-      "id": "b45",
-      "x": 37,
-      "y": 312,
+      "id": "b5",
+      "x": 113,
+      "y": 118,
       "w": 32,
-      "h": 64
+      "h": 48
     },
     {
-      "id": "b46",
-      "x": 71,
-      "y": 312,
+      "id": "b6",
+      "x": 146,
+      "y": 118,
       "w": 32,
-      "h": 64
+      "h": 48
     },
     {
-      "id": "b47",
-      "x": 105,
-      "y": 312,
+      "id": "b7",
+      "x": 179,
+      "y": 118,
       "w": 32,
-      "h": 64
+      "h": 48
     },
     {
-      "id": "b48",
-      "x": 139,
-      "y": 312,
+      "id": "b8",
+      "x": 212,
+      "y": 118,
       "w": 32,
-      "h": 64
+      "h": 48
     },
     {
-      "id": "b49",
-      "x": 173,
-      "y": 312,
+      "id": "b9",
+      "x": 245,
+      "y": 118,
       "w": 32,
-      "h": 64
+      "h": 48
     },
     {
-      "id": "b50",
-      "x": 207,
-      "y": 312,
+      "id": "b10",
+      "x": 278,
+      "y": 118,
       "w": 32,
-      "h": 64
+      "h": 48
     },
     {
-      "id": "b51",
-      "x": 241,
-      "y": 312,
+      "id": "b11",
+      "x": 311,
+      "y": 118,
       "w": 32,
-      "h": 64
+      "h": 48
     },
     {
-      "id": "b52",
-      "x": 275,
-      "y": 312,
+      "id": "b12",
+      "x": 344,
+      "y": 118,
       "w": 32,
-      "h": 64
+      "h": 48
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b44",
-        "b45",
-        "b46"
+        "b4",
+        "b5",
+        "b6"
       ],
       "up_left": [
-        "b47",
-        "b48",
-        "b49"
+        "b7",
+        "b8",
+        "b9"
       ]
     },
     "idle": [
-      "b50",
-      "b51",
-      "b52"
+      "b10",
+      "b11",
+      "b12"
     ],
     "sleep": []
   },
@@ -113,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Kuzuhamon",
+  "creature_name": "Kongoumon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 4
 }

@@ -2,11 +2,11 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 188,
-  "source": "raw_sheets/48613.png",
-  "sheet_id": "48613",
-  "background": "0x008080",
+  "source": "raw_sheets/48710.png",
+  "sheet_id": "48710",
+  "background": null,
   "background_tolerance": 40,
-  "background_mode": "solid",
+  "background_mode": "alpha",
   "seg_params": {
     "tol": 40,
     "extra_bg": []
@@ -16,65 +16,65 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b6",
-      "x": 4,
-      "y": 435,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b7",
-      "x": 38,
-      "y": 435,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b8",
-      "x": 72,
-      "y": 435,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b9",
-      "x": 106,
-      "y": 435,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b10",
-      "x": 140,
-      "y": 435,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b11",
-      "x": 174,
-      "y": 435,
-      "w": 32,
-      "h": 64
-    },
-    {
       "id": "b12",
-      "x": 208,
-      "y": 435,
+      "x": 3,
+      "y": 337,
       "w": 32,
       "h": 64
     },
     {
       "id": "b13",
-      "x": 242,
-      "y": 435,
+      "x": 37,
+      "y": 337,
       "w": 32,
       "h": 64
     },
     {
       "id": "b14",
-      "x": 276,
-      "y": 435,
+      "x": 71,
+      "y": 337,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b15",
+      "x": 105,
+      "y": 337,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b16",
+      "x": 139,
+      "y": 337,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b17",
+      "x": 173,
+      "y": 337,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b18",
+      "x": 207,
+      "y": 337,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b19",
+      "x": 241,
+      "y": 337,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b20",
+      "x": 275,
+      "y": 337,
       "w": 32,
       "h": 64
     }
@@ -82,20 +82,20 @@
   "clips": {
     "walk": {
       "down_left": [
-        "b6",
-        "b7",
-        "b8"
+        "b12",
+        "b13",
+        "b14"
       ],
       "up_left": [
-        "b9",
-        "b10",
-        "b11"
+        "b15",
+        "b16",
+        "b17"
       ]
     },
     "idle": [
-      "b12",
-      "b13",
-      "b14"
+      "b18",
+      "b19",
+      "b20"
     ],
     "sleep": []
   },
@@ -113,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "WarGreymon",
+  "creature_name": "Dorugoramon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 6
 }

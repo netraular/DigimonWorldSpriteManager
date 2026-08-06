@@ -2,11 +2,11 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 101,
-  "source": "raw_sheets/50034.png",
-  "sheet_id": "50034",
-  "background": "0x008080",
+  "source": "raw_sheets/48591.png",
+  "sheet_id": "48591",
+  "background": null,
   "background_tolerance": 40,
-  "background_mode": "solid",
+  "background_mode": "alpha",
   "seg_params": {
     "tol": 40,
     "extra_bg": []
@@ -16,142 +16,93 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b1",
-      "x": 3,
-      "y": 34,
+      "id": "b44",
+      "x": 5,
+      "y": 274,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b2",
-      "x": 37,
-      "y": 34,
+      "id": "b45",
+      "x": 39,
+      "y": 274,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b3",
-      "x": 71,
-      "y": 34,
+      "id": "b46",
+      "x": 73,
+      "y": 274,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b4",
-      "x": 3,
-      "y": 68,
+      "id": "b47",
+      "x": 107,
+      "y": 274,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b5",
-      "x": 37,
-      "y": 68,
+      "id": "b48",
+      "x": 141,
+      "y": 274,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b6",
-      "x": 71,
-      "y": 68,
+      "id": "b49",
+      "x": 175,
+      "y": 274,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b7",
-      "x": 3,
-      "y": 102,
+      "id": "b50",
+      "x": 209,
+      "y": 274,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b8",
-      "x": 37,
-      "y": 102,
+      "id": "b51",
+      "x": 243,
+      "y": 274,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b9",
-      "x": 71,
-      "y": 102,
+      "id": "b52",
+      "x": 277,
+      "y": 274,
       "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b10",
-      "x": 3,
-      "y": 136,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b11",
-      "x": 37,
-      "y": 136,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b12",
-      "x": 71,
-      "y": 136,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b13",
-      "x": 3,
-      "y": 172,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b14",
-      "x": 37,
-      "y": 172,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b15",
-      "x": 71,
-      "y": 172,
-      "w": 32,
-      "h": 32
+      "h": 64
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b1",
-        "b2",
-        "b3"
-      ],
-      "down_right": [
-        "b4",
-        "b5",
-        "b6"
+        "b44",
+        "b45",
+        "b46"
       ],
       "up_left": [
-        "b7",
-        "b8",
-        "b9"
-      ],
-      "up_right": [
-        "b10",
-        "b11",
-        "b12"
+        "b47",
+        "b48",
+        "b49"
       ]
     },
     "idle": [
-      "b13",
-      "b14",
-      "b15"
+      "b50",
+      "b51",
+      "b52"
     ],
     "sleep": []
   },
-  "mirror": {},
+  "mirror": {
+    "down_right": "down_left",
+    "up_right": "up_left"
+  },
   "diagonals": true,
   "anchor": "bottom_center",
   "walk_style": "stride",
@@ -162,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "",
+  "creature_name": "Stingmon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 4
 }

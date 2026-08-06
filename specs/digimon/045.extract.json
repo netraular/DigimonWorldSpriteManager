@@ -2,9 +2,9 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 45,
-  "source": "raw_sheets/48543.png",
-  "sheet_id": "48543",
-  "background": "0x008080",
+  "source": "raw_sheets/48427.png",
+  "sheet_id": "48427",
+  "background": "0x74EC60",
   "background_tolerance": 40,
   "background_mode": "solid",
   "seg_params": {
@@ -16,142 +16,93 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b1",
-      "x": 500,
-      "y": 2,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b2",
-      "x": 534,
-      "y": 2,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b3",
-      "x": 568,
-      "y": 2,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b4",
-      "x": 500,
-      "y": 68,
-      "w": 32,
-      "h": 64
-    },
-    {
       "id": "b5",
-      "x": 534,
-      "y": 68,
+      "x": 16,
+      "y": 79,
       "w": 32,
-      "h": 64
+      "h": 32
     },
     {
       "id": "b6",
-      "x": 568,
-      "y": 68,
+      "x": 49,
+      "y": 79,
       "w": 32,
-      "h": 64
+      "h": 32
+    },
+    {
+      "id": "b7",
+      "x": 82,
+      "y": 79,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b8",
+      "x": 115,
+      "y": 79,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b9",
+      "x": 148,
+      "y": 79,
+      "w": 32,
+      "h": 32
     },
     {
       "id": "b10",
-      "x": 500,
-      "y": 134,
+      "x": 181,
+      "y": 79,
       "w": 32,
-      "h": 64
+      "h": 32
     },
     {
       "id": "b11",
-      "x": 534,
-      "y": 134,
+      "x": 214,
+      "y": 79,
       "w": 32,
-      "h": 64
+      "h": 32
     },
     {
       "id": "b12",
-      "x": 568,
-      "y": 134,
+      "x": 247,
+      "y": 79,
       "w": 32,
-      "h": 64
+      "h": 32
     },
     {
       "id": "b13",
-      "x": 500,
-      "y": 200,
+      "x": 280,
+      "y": 79,
       "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b14",
-      "x": 534,
-      "y": 200,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b15",
-      "x": 568,
-      "y": 200,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b16",
-      "x": 500,
-      "y": 268,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b17",
-      "x": 534,
-      "y": 268,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b18",
-      "x": 568,
-      "y": 268,
-      "w": 32,
-      "h": 64
+      "h": 32
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b1",
-        "b2",
-        "b3"
-      ],
-      "down_right": [
-        "b4",
         "b5",
-        "b6"
+        "b6",
+        "b7"
       ],
       "up_left": [
-        "b10",
-        "b11",
-        "b12"
-      ],
-      "up_right": [
-        "b13",
-        "b14",
-        "b15"
+        "b8",
+        "b9",
+        "b10"
       ]
     },
     "idle": [
-      "b16",
-      "b17",
-      "b18"
+      "b11",
+      "b12",
+      "b13"
     ],
     "sleep": []
   },
-  "mirror": {},
+  "mirror": {
+    "down_right": "down_left",
+    "up_right": "up_left"
+  },
   "diagonals": true,
   "anchor": "bottom_center",
   "walk_style": "stride",
@@ -162,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "RizeGreymon",
+  "creature_name": "Tapirmon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 3
 }

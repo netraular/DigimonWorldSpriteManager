@@ -2,82 +2,131 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 254,
-  "source": "raw_sheets/48673.png",
-  "sheet_id": "48673",
-  "background": "0x74EC60",
+  "source": "raw_sheets/50043.png",
+  "sheet_id": "50043",
+  "background": "0x008080",
   "background_tolerance": 40,
   "background_mode": "solid",
   "seg_params": {
-    "extra_bg": [],
-    "tol": 40
+    "tol": 40,
+    "extra_bg": []
   },
   "trim": true,
   "export_scale": 1,
   "pad": 1,
   "boxes": [
     {
-      "id": "b15",
-      "x": 1,
-      "y": 216,
-      "w": 47,
-      "h": 48
+      "id": "b1",
+      "x": 4,
+      "y": 35,
+      "w": 32,
+      "h": 64
     },
     {
-      "id": "b16",
-      "x": 49,
-      "y": 216,
-      "w": 47,
-      "h": 48
+      "id": "b2",
+      "x": 38,
+      "y": 35,
+      "w": 32,
+      "h": 64
     },
     {
-      "id": "b17",
-      "x": 97,
-      "y": 216,
-      "w": 47,
-      "h": 48
+      "id": "b3",
+      "x": 72,
+      "y": 35,
+      "w": 32,
+      "h": 64
     },
     {
-      "id": "b18",
-      "x": 145,
-      "y": 216,
-      "w": 47,
-      "h": 48
+      "id": "b4",
+      "x": 4,
+      "y": 101,
+      "w": 32,
+      "h": 64
     },
     {
-      "id": "b19",
-      "x": 193,
-      "y": 216,
-      "w": 47,
-      "h": 48
+      "id": "b5",
+      "x": 38,
+      "y": 101,
+      "w": 32,
+      "h": 64
     },
     {
-      "id": "b20",
-      "x": 241,
-      "y": 216,
-      "w": 47,
-      "h": 48
+      "id": "b6",
+      "x": 72,
+      "y": 101,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b7",
+      "x": 4,
+      "y": 167,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b8",
+      "x": 38,
+      "y": 167,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b9",
+      "x": 72,
+      "y": 167,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b10",
+      "x": 4,
+      "y": 233,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b11",
+      "x": 38,
+      "y": 233,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b12",
+      "x": 72,
+      "y": 233,
+      "w": 32,
+      "h": 64
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b18",
-        "b19",
-        "b20"
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "down_right": [
+        "b4",
+        "b5",
+        "b6"
       ],
       "up_left": [
-        "b15",
-        "b16",
-        "b17"
+        "b7",
+        "b8",
+        "b9"
+      ],
+      "up_right": [
+        "b10",
+        "b11",
+        "b12"
       ]
     },
     "idle": [],
     "sleep": []
   },
-  "mirror": {
-    "up_right": "up_left",
-    "down_right": "down_left"
-  },
+  "mirror": {},
   "diagonals": true,
   "anchor": "bottom_center",
   "walk_style": "stride",
@@ -88,7 +137,7 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Lilithmon",
+  "creature_name": "",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
   "creature_stage": 1

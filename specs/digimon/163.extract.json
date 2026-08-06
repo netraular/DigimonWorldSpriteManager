@@ -2,11 +2,11 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 163,
-  "source": "raw_sheets/48562.png",
-  "sheet_id": "48562",
-  "background": "0x74EC60",
+  "source": "raw_sheets/48684.png",
+  "sheet_id": "48684",
+  "background": null,
   "background_tolerance": 40,
-  "background_mode": "solid",
+  "background_mode": "alpha",
   "seg_params": {
     "tol": 40,
     "extra_bg": []
@@ -16,86 +16,86 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b5",
-      "x": 75,
-      "y": 197,
+      "id": "b44",
+      "x": 8,
+      "y": 289,
       "w": 32,
-      "h": 44
+      "h": 32
     },
     {
-      "id": "b6",
-      "x": 108,
-      "y": 197,
+      "id": "b45",
+      "x": 42,
+      "y": 289,
       "w": 32,
-      "h": 44
+      "h": 32
     },
     {
-      "id": "b7",
-      "x": 141,
-      "y": 197,
+      "id": "b46",
+      "x": 76,
+      "y": 289,
       "w": 32,
-      "h": 44
+      "h": 32
     },
     {
-      "id": "b8",
-      "x": 174,
-      "y": 197,
+      "id": "b47",
+      "x": 110,
+      "y": 289,
       "w": 32,
-      "h": 44
+      "h": 32
     },
     {
-      "id": "b9",
-      "x": 207,
-      "y": 197,
+      "id": "b48",
+      "x": 144,
+      "y": 289,
       "w": 32,
-      "h": 44
+      "h": 32
     },
     {
-      "id": "b10",
-      "x": 240,
-      "y": 197,
+      "id": "b49",
+      "x": 178,
+      "y": 289,
       "w": 32,
-      "h": 44
+      "h": 32
     },
     {
-      "id": "b11",
-      "x": 273,
-      "y": 197,
+      "id": "b50",
+      "x": 212,
+      "y": 289,
       "w": 32,
-      "h": 44
+      "h": 32
     },
     {
-      "id": "b12",
-      "x": 306,
-      "y": 197,
+      "id": "b51",
+      "x": 246,
+      "y": 289,
       "w": 32,
-      "h": 44
+      "h": 32
     },
     {
-      "id": "b13",
-      "x": 339,
-      "y": 197,
+      "id": "b52",
+      "x": 280,
+      "y": 289,
       "w": 32,
-      "h": 44
+      "h": 32
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b5",
-        "b6",
-        "b7"
+        "b44",
+        "b45",
+        "b46"
       ],
       "up_left": [
-        "b8",
-        "b9",
-        "b10"
+        "b47",
+        "b48",
+        "b49"
       ]
     },
     "idle": [
-      "b11",
-      "b12",
-      "b13"
+      "b50",
+      "b51",
+      "b52"
     ],
     "sleep": []
   },
@@ -113,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Chronomon Holy Mode",
+  "creature_name": "WereGarurumon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 5
 }

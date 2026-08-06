@@ -2,9 +2,9 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 59,
-  "source": "raw_sheets/48576.png",
-  "sheet_id": "48576",
-  "background": "0x008080",
+  "source": "raw_sheets/48664.png",
+  "sheet_id": "48664",
+  "background": "0x74EC60",
   "background_tolerance": 40,
   "background_mode": "solid",
   "seg_params": {
@@ -16,142 +16,93 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b1",
-      "x": 473,
-      "y": 2,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b2",
-      "x": 507,
-      "y": 2,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b3",
-      "x": 541,
-      "y": 2,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b4",
-      "x": 473,
-      "y": 68,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b5",
-      "x": 507,
-      "y": 68,
-      "w": 32,
-      "h": 64
-    },
-    {
       "id": "b6",
-      "x": 541,
-      "y": 68,
+      "x": 70,
+      "y": 129,
       "w": 32,
-      "h": 64
+      "h": 45
+    },
+    {
+      "id": "b7",
+      "x": 103,
+      "y": 129,
+      "w": 32,
+      "h": 45
+    },
+    {
+      "id": "b8",
+      "x": 136,
+      "y": 129,
+      "w": 32,
+      "h": 45
+    },
+    {
+      "id": "b9",
+      "x": 169,
+      "y": 129,
+      "w": 32,
+      "h": 45
     },
     {
       "id": "b10",
-      "x": 473,
-      "y": 134,
+      "x": 202,
+      "y": 129,
       "w": 32,
-      "h": 64
+      "h": 45
     },
     {
       "id": "b11",
-      "x": 507,
-      "y": 134,
+      "x": 235,
+      "y": 129,
       "w": 32,
-      "h": 64
+      "h": 45
     },
     {
       "id": "b12",
-      "x": 541,
-      "y": 134,
+      "x": 268,
+      "y": 129,
       "w": 32,
-      "h": 64
+      "h": 45
     },
     {
       "id": "b13",
-      "x": 473,
-      "y": 200,
+      "x": 301,
+      "y": 129,
       "w": 32,
-      "h": 64
+      "h": 45
     },
     {
       "id": "b14",
-      "x": 507,
-      "y": 200,
+      "x": 334,
+      "y": 129,
       "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b15",
-      "x": 541,
-      "y": 200,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b16",
-      "x": 473,
-      "y": 268,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b17",
-      "x": 507,
-      "y": 268,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b18",
-      "x": 541,
-      "y": 268,
-      "w": 32,
-      "h": 64
+      "h": 45
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b1",
-        "b2",
-        "b3"
-      ],
-      "down_right": [
-        "b4",
-        "b5",
-        "b6"
+        "b6",
+        "b7",
+        "b8"
       ],
       "up_left": [
+        "b9",
         "b10",
-        "b11",
-        "b12"
-      ],
-      "up_right": [
-        "b13",
-        "b14",
-        "b15"
+        "b11"
       ]
     },
     "idle": [
-      "b16",
-      "b17",
-      "b18"
+      "b12",
+      "b13",
+      "b14"
     ],
     "sleep": []
   },
-  "mirror": {},
+  "mirror": {
+    "down_right": "down_left",
+    "up_right": "up_left"
+  },
   "diagonals": true,
   "anchor": "bottom_center",
   "walk_style": "stride",
@@ -162,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Gaogamon",
+  "creature_name": "DarkLizardmon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 4
 }

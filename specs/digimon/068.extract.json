@@ -2,11 +2,11 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 68,
-  "source": "raw_sheets/48596.png",
-  "sheet_id": "48596",
-  "background": "0x008080",
+  "source": "raw_sheets/48606.png",
+  "sheet_id": "48606",
+  "background": null,
   "background_tolerance": 40,
-  "background_mode": "solid",
+  "background_mode": "alpha",
   "seg_params": {
     "tol": 40,
     "extra_bg": []
@@ -16,142 +16,93 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b1",
-      "x": 306,
-      "y": 2,
+      "id": "b19",
+      "x": 10,
+      "y": 292,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b2",
-      "x": 340,
-      "y": 2,
+      "id": "b20",
+      "x": 44,
+      "y": 292,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b3",
-      "x": 374,
-      "y": 2,
+      "id": "b21",
+      "x": 78,
+      "y": 292,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b4",
-      "x": 306,
-      "y": 36,
+      "id": "b22",
+      "x": 112,
+      "y": 292,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b5",
-      "x": 340,
-      "y": 36,
+      "id": "b23",
+      "x": 146,
+      "y": 292,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b6",
-      "x": 374,
-      "y": 36,
+      "id": "b24",
+      "x": 180,
+      "y": 292,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b10",
-      "x": 306,
-      "y": 70,
+      "id": "b25",
+      "x": 214,
+      "y": 292,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b11",
-      "x": 340,
-      "y": 70,
+      "id": "b26",
+      "x": 248,
+      "y": 292,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b12",
-      "x": 374,
-      "y": 70,
+      "id": "b27",
+      "x": 282,
+      "y": 292,
       "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b13",
-      "x": 306,
-      "y": 104,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b14",
-      "x": 340,
-      "y": 104,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b15",
-      "x": 374,
-      "y": 104,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b16",
-      "x": 306,
-      "y": 140,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b17",
-      "x": 340,
-      "y": 140,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b18",
-      "x": 374,
-      "y": 140,
-      "w": 32,
-      "h": 32
+      "h": 64
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b1",
-        "b2",
-        "b3"
-      ],
-      "down_right": [
-        "b4",
-        "b5",
-        "b6"
+        "b19",
+        "b20",
+        "b21"
       ],
       "up_left": [
-        "b10",
-        "b11",
-        "b12"
-      ],
-      "up_right": [
-        "b13",
-        "b14",
-        "b15"
+        "b22",
+        "b23",
+        "b24"
       ]
     },
     "idle": [
-      "b16",
-      "b17",
-      "b18"
+      "b25",
+      "b26",
+      "b27"
     ],
     "sleep": []
   },
-  "mirror": {},
+  "mirror": {
+    "down_right": "down_left",
+    "up_right": "up_left"
+  },
   "diagonals": true,
   "anchor": "bottom_center",
   "walk_style": "stride",
@@ -162,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Kokatorimon",
+  "creature_name": "Gargomon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 4
 }

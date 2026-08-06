@@ -2,11 +2,11 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 201,
-  "source": "raw_sheets/48671.png",
-  "sheet_id": "48671",
-  "background": "0x74EC60",
+  "source": "raw_sheets/48680.png",
+  "sheet_id": "48680",
+  "background": null,
   "background_tolerance": 40,
-  "background_mode": "solid",
+  "background_mode": "alpha",
   "seg_params": {
     "tol": 40,
     "extra_bg": []
@@ -16,86 +16,86 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b6",
-      "x": 43,
-      "y": 119,
-      "w": 32,
-      "h": 45
-    },
-    {
-      "id": "b7",
-      "x": 76,
-      "y": 119,
-      "w": 32,
-      "h": 45
-    },
-    {
-      "id": "b8",
-      "x": 109,
-      "y": 119,
-      "w": 32,
-      "h": 45
-    },
-    {
-      "id": "b9",
-      "x": 142,
-      "y": 119,
-      "w": 32,
-      "h": 45
-    },
-    {
-      "id": "b10",
-      "x": 175,
-      "y": 119,
-      "w": 32,
-      "h": 45
-    },
-    {
-      "id": "b11",
-      "x": 208,
-      "y": 119,
-      "w": 32,
-      "h": 45
-    },
-    {
-      "id": "b12",
-      "x": 241,
-      "y": 119,
-      "w": 32,
-      "h": 45
-    },
-    {
-      "id": "b13",
-      "x": 274,
-      "y": 119,
-      "w": 32,
-      "h": 45
-    },
-    {
       "id": "b14",
-      "x": 307,
-      "y": 119,
+      "x": 7,
+      "y": 403,
       "w": 32,
-      "h": 45
+      "h": 64
+    },
+    {
+      "id": "b15",
+      "x": 41,
+      "y": 403,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b16",
+      "x": 75,
+      "y": 403,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b17",
+      "x": 109,
+      "y": 403,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b18",
+      "x": 143,
+      "y": 403,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b19",
+      "x": 177,
+      "y": 403,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b20",
+      "x": 211,
+      "y": 403,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b21",
+      "x": 245,
+      "y": 403,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b22",
+      "x": 279,
+      "y": 403,
+      "w": 32,
+      "h": 64
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b6",
-        "b7",
-        "b8"
+        "b14",
+        "b15",
+        "b16"
       ],
       "up_left": [
-        "b9",
-        "b10",
-        "b11"
+        "b17",
+        "b18",
+        "b19"
       ]
     },
     "idle": [
-      "b12",
-      "b13",
-      "b14"
+      "b20",
+      "b21",
+      "b22"
     ],
     "sleep": []
   },
@@ -113,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Creepymon",
+  "creature_name": "Imperialdramon Fighter Mode",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 6
 }

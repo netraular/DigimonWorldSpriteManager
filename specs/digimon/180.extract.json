@@ -2,11 +2,11 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 180,
-  "source": "raw_sheets/48604.png",
-  "sheet_id": "48604",
-  "background": null,
+  "source": "raw_sheets/48560.png",
+  "sheet_id": "48560",
+  "background": "0x74EC60",
   "background_tolerance": 40,
-  "background_mode": "alpha",
+  "background_mode": "solid",
   "seg_params": {
     "tol": 40,
     "extra_bg": []
@@ -16,86 +16,86 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b43",
-      "x": 4,
-      "y": 309,
+      "id": "b34",
+      "x": 1,
+      "y": 196,
       "w": 32,
-      "h": 64
+      "h": 47
     },
     {
-      "id": "b44",
-      "x": 38,
-      "y": 309,
+      "id": "b35",
+      "x": 34,
+      "y": 196,
       "w": 32,
-      "h": 64
+      "h": 47
     },
     {
-      "id": "b45",
-      "x": 72,
-      "y": 309,
+      "id": "b36",
+      "x": 67,
+      "y": 196,
       "w": 32,
-      "h": 64
+      "h": 47
     },
     {
-      "id": "b46",
-      "x": 106,
-      "y": 309,
+      "id": "b37",
+      "x": 100,
+      "y": 196,
       "w": 32,
-      "h": 64
+      "h": 47
     },
     {
-      "id": "b47",
-      "x": 140,
-      "y": 309,
+      "id": "b38",
+      "x": 133,
+      "y": 196,
       "w": 32,
-      "h": 64
+      "h": 47
     },
     {
-      "id": "b48",
-      "x": 174,
-      "y": 309,
+      "id": "b39",
+      "x": 166,
+      "y": 196,
       "w": 32,
-      "h": 64
+      "h": 47
     },
     {
-      "id": "b49",
-      "x": 208,
-      "y": 309,
+      "id": "b40",
+      "x": 199,
+      "y": 196,
       "w": 32,
-      "h": 64
+      "h": 47
     },
     {
-      "id": "b50",
-      "x": 242,
-      "y": 309,
+      "id": "b41",
+      "x": 232,
+      "y": 196,
       "w": 32,
-      "h": 64
+      "h": 47
     },
     {
-      "id": "b51",
-      "x": 276,
-      "y": 309,
+      "id": "b42",
+      "x": 265,
+      "y": 196,
       "w": 32,
-      "h": 64
+      "h": 47
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b43",
-        "b44",
-        "b45"
+        "b34",
+        "b35",
+        "b36"
       ],
       "up_left": [
-        "b46",
-        "b47",
-        "b48"
+        "b37",
+        "b38",
+        "b39"
       ]
     },
     "idle": [
-      "b49",
-      "b50",
-      "b51"
+      "b40",
+      "b41",
+      "b42"
     ],
     "sleep": []
   },
@@ -113,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Birdramon",
+  "creature_name": "Cherubimon Vaccine",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 6
 }

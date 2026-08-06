@@ -2,9 +2,9 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 154,
-  "source": "raw_sheets/48531.png",
-  "sheet_id": "48531",
-  "background": "0x74EC60",
+  "source": "raw_sheets/48543.png",
+  "sheet_id": "48543",
+  "background": "0x008080",
   "background_tolerance": 40,
   "background_mode": "solid",
   "seg_params": {
@@ -16,93 +16,142 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b5",
-      "x": 57,
-      "y": 69,
+      "id": "b1",
+      "x": 500,
+      "y": 2,
       "w": 32,
-      "h": 32
+      "h": 64
+    },
+    {
+      "id": "b2",
+      "x": 534,
+      "y": 2,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b3",
+      "x": 568,
+      "y": 2,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b4",
+      "x": 500,
+      "y": 68,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b5",
+      "x": 534,
+      "y": 68,
+      "w": 32,
+      "h": 64
     },
     {
       "id": "b6",
-      "x": 90,
-      "y": 69,
+      "x": 568,
+      "y": 68,
       "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b7",
-      "x": 123,
-      "y": 69,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b8",
-      "x": 156,
-      "y": 69,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b9",
-      "x": 189,
-      "y": 69,
-      "w": 32,
-      "h": 32
+      "h": 64
     },
     {
       "id": "b10",
-      "x": 222,
-      "y": 69,
+      "x": 500,
+      "y": 134,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
       "id": "b11",
-      "x": 255,
-      "y": 69,
+      "x": 534,
+      "y": 134,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
       "id": "b12",
-      "x": 288,
-      "y": 69,
+      "x": 568,
+      "y": 134,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
       "id": "b13",
-      "x": 321,
-      "y": 69,
+      "x": 500,
+      "y": 200,
       "w": 32,
-      "h": 32
+      "h": 64
+    },
+    {
+      "id": "b14",
+      "x": 534,
+      "y": 200,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b15",
+      "x": 568,
+      "y": 200,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b16",
+      "x": 500,
+      "y": 268,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b17",
+      "x": 534,
+      "y": 268,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b18",
+      "x": 568,
+      "y": 268,
+      "w": 32,
+      "h": 64
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "down_right": [
+        "b4",
         "b5",
-        "b6",
-        "b7"
+        "b6"
       ],
       "up_left": [
-        "b8",
-        "b9",
-        "b10"
+        "b10",
+        "b11",
+        "b12"
+      ],
+      "up_right": [
+        "b13",
+        "b14",
+        "b15"
       ]
     },
     "idle": [
-      "b11",
-      "b12",
-      "b13"
+      "b16",
+      "b17",
+      "b18"
     ],
     "sleep": []
   },
-  "mirror": {
-    "down_right": "down_left",
-    "up_right": "up_left"
-  },
+  "mirror": {},
   "diagonals": true,
   "anchor": "bottom_center",
   "walk_style": "stride",
@@ -113,8 +162,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "MarineAngemon",
+  "creature_name": "RizeGreymon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 5
 }

@@ -2,9 +2,9 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 5,
-  "source": "raw_sheets/41252.png",
-  "sheet_id": "41252",
-  "background": "0x008080",
+  "source": "raw_sheets/48415.png",
+  "sheet_id": "48415",
+  "background": "0x74EC60",
   "background_tolerance": 40,
   "background_mode": "solid",
   "seg_params": {
@@ -16,107 +16,65 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b1",
-      "x": 259,
-      "y": 2,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b2",
-      "x": 293,
-      "y": 2,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b3",
-      "x": 327,
-      "y": 2,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b4",
-      "x": 259,
-      "y": 36,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b5",
-      "x": 293,
-      "y": 36,
-      "w": 32,
-      "h": 32
-    },
-    {
       "id": "b6",
-      "x": 327,
-      "y": 36,
+      "x": 27,
+      "y": 51,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b7",
+      "x": 60,
+      "y": 51,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b8",
+      "x": 93,
+      "y": 51,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b9",
+      "x": 126,
+      "y": 51,
       "w": 32,
       "h": 32
     },
     {
       "id": "b10",
-      "x": 259,
-      "y": 70,
+      "x": 159,
+      "y": 51,
       "w": 32,
       "h": 32
     },
     {
       "id": "b11",
-      "x": 293,
-      "y": 70,
+      "x": 192,
+      "y": 51,
       "w": 32,
       "h": 32
     },
     {
       "id": "b12",
-      "x": 327,
-      "y": 70,
+      "x": 225,
+      "y": 51,
       "w": 32,
       "h": 32
     },
     {
       "id": "b13",
-      "x": 259,
-      "y": 104,
+      "x": 258,
+      "y": 51,
       "w": 32,
       "h": 32
     },
     {
       "id": "b14",
-      "x": 293,
-      "y": 104,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b15",
-      "x": 327,
-      "y": 104,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b18",
-      "x": 259,
-      "y": 140,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b19",
-      "x": 293,
-      "y": 140,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b20",
-      "x": 327,
-      "y": 140,
+      "x": 291,
+      "y": 51,
       "w": 32,
       "h": 32
     }
@@ -124,34 +82,27 @@
   "clips": {
     "walk": {
       "down_left": [
-        "b1",
-        "b2",
-        "b3"
-      ],
-      "down_right": [
-        "b4",
-        "b5",
-        "b6"
+        "b6",
+        "b7",
+        "b8"
       ],
       "up_left": [
+        "b9",
         "b10",
-        "b11",
-        "b12"
-      ],
-      "up_right": [
-        "b13",
-        "b14",
-        "b15"
+        "b11"
       ]
     },
     "idle": [
-      "b18",
-      "b19",
-      "b20"
+      "b12",
+      "b13",
+      "b14"
     ],
     "sleep": []
   },
-  "mirror": {},
+  "mirror": {
+    "down_right": "down_left",
+    "up_right": "up_left"
+  },
   "diagonals": true,
   "anchor": "bottom_center",
   "walk_style": "stride",
@@ -162,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Kiwimon",
+  "creature_name": "Kapurimon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 2
 }

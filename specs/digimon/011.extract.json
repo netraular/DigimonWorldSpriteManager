@@ -2,8 +2,8 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 11,
-  "source": "raw_sheets/48283.png",
-  "sheet_id": "48283",
+  "source": "raw_sheets/48699.png",
+  "sheet_id": "48699",
   "background": "0x008080",
   "background_tolerance": 40,
   "background_mode": "solid",
@@ -16,107 +16,65 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b1",
-      "x": 216,
-      "y": 2,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b2",
-      "x": 250,
-      "y": 2,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b3",
-      "x": 284,
-      "y": 2,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b4",
-      "x": 216,
-      "y": 36,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b5",
-      "x": 250,
-      "y": 36,
-      "w": 32,
-      "h": 32
-    },
-    {
       "id": "b6",
-      "x": 284,
-      "y": 36,
+      "x": 4,
+      "y": 263,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b7",
+      "x": 38,
+      "y": 263,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b8",
+      "x": 72,
+      "y": 263,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b9",
+      "x": 106,
+      "y": 263,
       "w": 32,
       "h": 32
     },
     {
       "id": "b10",
-      "x": 216,
-      "y": 70,
+      "x": 140,
+      "y": 263,
       "w": 32,
       "h": 32
     },
     {
       "id": "b11",
-      "x": 250,
-      "y": 70,
+      "x": 174,
+      "y": 263,
       "w": 32,
       "h": 32
     },
     {
       "id": "b12",
-      "x": 284,
-      "y": 70,
+      "x": 208,
+      "y": 263,
       "w": 32,
       "h": 32
     },
     {
       "id": "b13",
-      "x": 216,
-      "y": 104,
+      "x": 242,
+      "y": 263,
       "w": 32,
       "h": 32
     },
     {
       "id": "b14",
-      "x": 250,
-      "y": 104,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b15",
-      "x": 284,
-      "y": 104,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b18",
-      "x": 216,
-      "y": 140,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b19",
-      "x": 250,
-      "y": 140,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b20",
-      "x": 284,
-      "y": 140,
+      "x": 276,
+      "y": 263,
       "w": 32,
       "h": 32
     }
@@ -124,34 +82,27 @@
   "clips": {
     "walk": {
       "down_left": [
-        "b1",
-        "b2",
-        "b3"
-      ],
-      "down_right": [
-        "b4",
-        "b5",
-        "b6"
+        "b6",
+        "b7",
+        "b8"
       ],
       "up_left": [
+        "b9",
         "b10",
-        "b11",
-        "b12"
-      ],
-      "up_right": [
-        "b13",
-        "b14",
-        "b15"
+        "b11"
       ]
     },
     "idle": [
-      "b18",
-      "b19",
-      "b20"
+      "b12",
+      "b13",
+      "b14"
     ],
     "sleep": []
   },
-  "mirror": {},
+  "mirror": {
+    "down_right": "down_left",
+    "up_right": "up_left"
+  },
   "diagonals": true,
   "anchor": "bottom_center",
   "walk_style": "stride",
@@ -162,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Palmon",
+  "creature_name": "Aruraumon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 3
 }

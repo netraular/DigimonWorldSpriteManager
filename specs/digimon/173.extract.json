@@ -2,11 +2,11 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 173,
-  "source": "raw_sheets/48587.png",
-  "sheet_id": "48587",
-  "background": null,
+  "source": "raw_sheets/48550.png",
+  "sheet_id": "48550",
+  "background": "0x008080",
   "background_tolerance": 40,
-  "background_mode": "alpha",
+  "background_mode": "solid",
   "seg_params": {
     "tol": 40,
     "extra_bg": []
@@ -16,93 +16,142 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b44",
-      "x": 2,
-      "y": 246,
+      "id": "b1",
+      "x": 547,
+      "y": 2,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b45",
-      "x": 36,
-      "y": 246,
+      "id": "b2",
+      "x": 581,
+      "y": 2,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b46",
-      "x": 70,
-      "y": 246,
+      "id": "b3",
+      "x": 615,
+      "y": 2,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b47",
-      "x": 104,
-      "y": 246,
+      "id": "b4",
+      "x": 547,
+      "y": 68,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b48",
-      "x": 138,
-      "y": 246,
+      "id": "b5",
+      "x": 581,
+      "y": 68,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b49",
-      "x": 172,
-      "y": 246,
+      "id": "b6",
+      "x": 615,
+      "y": 68,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b50",
-      "x": 206,
-      "y": 246,
+      "id": "b10",
+      "x": 547,
+      "y": 134,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b51",
-      "x": 240,
-      "y": 246,
+      "id": "b11",
+      "x": 581,
+      "y": 134,
       "w": 32,
-      "h": 32
+      "h": 64
     },
     {
-      "id": "b52",
-      "x": 274,
-      "y": 246,
+      "id": "b12",
+      "x": 615,
+      "y": 134,
       "w": 32,
-      "h": 32
+      "h": 64
+    },
+    {
+      "id": "b13",
+      "x": 547,
+      "y": 200,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b14",
+      "x": 581,
+      "y": 200,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b15",
+      "x": 615,
+      "y": 200,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b18",
+      "x": 547,
+      "y": 268,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b19",
+      "x": 581,
+      "y": 268,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b20",
+      "x": 615,
+      "y": 268,
+      "w": 32,
+      "h": 64
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b44",
-        "b45",
-        "b46"
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "down_right": [
+        "b4",
+        "b5",
+        "b6"
       ],
       "up_left": [
-        "b47",
-        "b48",
-        "b49"
+        "b10",
+        "b11",
+        "b12"
+      ],
+      "up_right": [
+        "b13",
+        "b14",
+        "b15"
       ]
     },
     "idle": [
-      "b50",
-      "b51",
-      "b52"
+      "b18",
+      "b19",
+      "b20"
     ],
     "sleep": []
   },
-  "mirror": {
-    "down_right": "down_left",
-    "up_right": "up_left"
-  },
+  "mirror": {},
   "diagonals": true,
   "anchor": "bottom_center",
   "walk_style": "stride",
@@ -113,8 +162,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Falcomon",
+  "creature_name": "Beelzemon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 6
 }

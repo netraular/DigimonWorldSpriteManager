@@ -2,11 +2,11 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 218,
-  "source": "raw_sheets/48707.png",
-  "sheet_id": "48707",
-  "background": null,
+  "source": "raw_sheets/48553.png",
+  "sheet_id": "48553",
+  "background": "0x008080",
   "background_tolerance": 40,
-  "background_mode": "alpha",
+  "background_mode": "solid",
   "seg_params": {
     "tol": 40,
     "extra_bg": []
@@ -16,93 +16,142 @@
   "pad": 1,
   "boxes": [
     {
-      "id": "b43",
-      "x": 2,
-      "y": 271,
+      "id": "b1",
+      "x": 499,
+      "y": 2,
       "w": 32,
-      "h": 64
+      "h": 32
     },
     {
-      "id": "b44",
-      "x": 36,
-      "y": 271,
+      "id": "b2",
+      "x": 533,
+      "y": 2,
       "w": 32,
-      "h": 64
+      "h": 32
     },
     {
-      "id": "b45",
-      "x": 70,
-      "y": 271,
+      "id": "b3",
+      "x": 567,
+      "y": 2,
       "w": 32,
-      "h": 64
+      "h": 32
     },
     {
-      "id": "b46",
-      "x": 104,
-      "y": 271,
+      "id": "b4",
+      "x": 499,
+      "y": 36,
       "w": 32,
-      "h": 64
+      "h": 32
     },
     {
-      "id": "b47",
-      "x": 138,
-      "y": 271,
+      "id": "b5",
+      "x": 533,
+      "y": 36,
       "w": 32,
-      "h": 64
+      "h": 32
     },
     {
-      "id": "b48",
-      "x": 172,
-      "y": 271,
+      "id": "b6",
+      "x": 567,
+      "y": 36,
       "w": 32,
-      "h": 64
+      "h": 32
     },
     {
-      "id": "b49",
-      "x": 206,
-      "y": 271,
+      "id": "b7",
+      "x": 499,
+      "y": 70,
       "w": 32,
-      "h": 64
+      "h": 32
     },
     {
-      "id": "b50",
-      "x": 240,
-      "y": 271,
+      "id": "b8",
+      "x": 533,
+      "y": 70,
       "w": 32,
-      "h": 64
+      "h": 32
     },
     {
-      "id": "b51",
-      "x": 274,
-      "y": 271,
+      "id": "b9",
+      "x": 567,
+      "y": 70,
       "w": 32,
-      "h": 64
+      "h": 32
+    },
+    {
+      "id": "b13",
+      "x": 499,
+      "y": 104,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b14",
+      "x": 533,
+      "y": 104,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b15",
+      "x": 567,
+      "y": 104,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b16",
+      "x": 499,
+      "y": 140,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b17",
+      "x": 533,
+      "y": 140,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "id": "b18",
+      "x": 567,
+      "y": 140,
+      "w": 32,
+      "h": 32
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b43",
-        "b44",
-        "b45"
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "down_right": [
+        "b4",
+        "b5",
+        "b6"
       ],
       "up_left": [
-        "b46",
-        "b47",
-        "b48"
+        "b7",
+        "b8",
+        "b9"
+      ],
+      "up_right": [
+        "b13",
+        "b14",
+        "b15"
       ]
     },
     "idle": [
-      "b49",
-      "b50",
-      "b51"
+      "b16",
+      "b17",
+      "b18"
     ],
     "sleep": []
   },
-  "mirror": {
-    "down_right": "down_left",
-    "up_right": "up_left"
-  },
+  "mirror": {},
   "diagonals": true,
   "anchor": "bottom_center",
   "walk_style": "stride",
@@ -113,8 +162,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "BlackWarGrowlmon",
+  "creature_name": "Parasimon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 6
 }

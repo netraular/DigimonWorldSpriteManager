@@ -2,11 +2,11 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 179,
-  "source": "raw_sheets/48603.png",
-  "sheet_id": "48603",
-  "background": null,
+  "source": "raw_sheets/48621.png",
+  "sheet_id": "48621",
+  "background": "0x74EC60",
   "background_tolerance": 40,
-  "background_mode": "alpha",
+  "background_mode": "solid",
   "seg_params": {
     "tol": 40,
     "extra_bg": []
@@ -16,86 +16,86 @@
   "pad": 1,
   "boxes": [
     {
+      "id": "b35",
+      "x": 1,
+      "y": 123,
+      "w": 32,
+      "h": 48
+    },
+    {
+      "id": "b36",
+      "x": 34,
+      "y": 123,
+      "w": 32,
+      "h": 48
+    },
+    {
+      "id": "b37",
+      "x": 67,
+      "y": 123,
+      "w": 32,
+      "h": 48
+    },
+    {
+      "id": "b38",
+      "x": 100,
+      "y": 123,
+      "w": 32,
+      "h": 48
+    },
+    {
+      "id": "b39",
+      "x": 133,
+      "y": 123,
+      "w": 32,
+      "h": 48
+    },
+    {
+      "id": "b40",
+      "x": 166,
+      "y": 123,
+      "w": 32,
+      "h": 48
+    },
+    {
+      "id": "b41",
+      "x": 199,
+      "y": 123,
+      "w": 32,
+      "h": 48
+    },
+    {
+      "id": "b42",
+      "x": 232,
+      "y": 123,
+      "w": 32,
+      "h": 48
+    },
+    {
       "id": "b43",
-      "x": 5,
-      "y": 297,
+      "x": 265,
+      "y": 123,
       "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b44",
-      "x": 39,
-      "y": 297,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b45",
-      "x": 73,
-      "y": 297,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b46",
-      "x": 107,
-      "y": 297,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b47",
-      "x": 141,
-      "y": 297,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b48",
-      "x": 175,
-      "y": 297,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b49",
-      "x": 209,
-      "y": 297,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b50",
-      "x": 243,
-      "y": 297,
-      "w": 32,
-      "h": 64
-    },
-    {
-      "id": "b51",
-      "x": 277,
-      "y": 297,
-      "w": 32,
-      "h": 64
+      "h": 48
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b43",
-        "b44",
-        "b45"
+        "b35",
+        "b36",
+        "b37"
       ],
       "up_left": [
-        "b46",
-        "b47",
-        "b48"
+        "b38",
+        "b39",
+        "b40"
       ]
     },
     "idle": [
-      "b49",
-      "b50",
-      "b51"
+      "b41",
+      "b42",
+      "b43"
     ],
     "sleep": []
   },
@@ -113,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Ankylomon",
+  "creature_name": "ChaosGallantmon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 6
 }

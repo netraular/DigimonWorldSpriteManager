@@ -2,101 +2,76 @@
   "spec_version": 1,
   "species": "digimon",
   "id": 155,
-  "source": "raw_sheets/48532.png",
-  "sheet_id": "48532",
-  "background": "0x74EC60",
+  "source": "raw_sheets/48612.png",
+  "sheet_id": "48612",
+  "background": "0x008080",
   "background_tolerance": 40,
   "background_mode": "solid",
   "seg_params": {
-    "tol": 40,
-    "extra_bg": []
+    "extra_bg": [],
+    "tol": 40
   },
   "trim": true,
   "export_scale": 1,
   "pad": 1,
   "boxes": [
     {
-      "id": "b29",
-      "x": 1,
-      "y": 146,
-      "w": 32,
-      "h": 32
+      "id": "b6",
+      "x": 4,
+      "y": 377,
+      "w": 64,
+      "h": 64
     },
     {
-      "id": "b30",
-      "x": 34,
-      "y": 146,
-      "w": 32,
-      "h": 32
+      "id": "b7",
+      "x": 70,
+      "y": 377,
+      "w": 64,
+      "h": 64
     },
     {
-      "id": "b31",
-      "x": 67,
-      "y": 146,
-      "w": 32,
-      "h": 32
+      "id": "b8",
+      "x": 136,
+      "y": 377,
+      "w": 64,
+      "h": 64
     },
     {
-      "id": "b32",
-      "x": 100,
-      "y": 146,
-      "w": 32,
-      "h": 32
+      "id": "b9",
+      "x": 202,
+      "y": 377,
+      "w": 64,
+      "h": 64
     },
     {
-      "id": "b33",
-      "x": 133,
-      "y": 146,
-      "w": 32,
-      "h": 32
+      "id": "b10",
+      "x": 268,
+      "y": 377,
+      "w": 64,
+      "h": 64
     },
     {
-      "id": "b34",
-      "x": 166,
-      "y": 146,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b35",
-      "x": 199,
-      "y": 146,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b36",
-      "x": 232,
-      "y": 146,
-      "w": 32,
-      "h": 32
-    },
-    {
-      "id": "b37",
-      "x": 265,
-      "y": 146,
-      "w": 32,
-      "h": 32
+      "id": "b11",
+      "x": 334,
+      "y": 377,
+      "w": 64,
+      "h": 64
     }
   ],
   "clips": {
     "walk": {
       "down_left": [
-        "b29",
-        "b30",
-        "b31"
+        "b9",
+        "b10",
+        "b11"
       ],
       "up_left": [
-        "b32",
-        "b33",
-        "b34"
+        "b6",
+        "b7",
+        "b8"
       ]
     },
-    "idle": [
-      "b35",
-      "b36",
-      "b37"
-    ],
+    "idle": [],
     "sleep": []
   },
   "mirror": {
@@ -113,8 +88,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Puppetmon",
+  "creature_name": "ShogunGekomon",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "creature_stage": 5
 }
