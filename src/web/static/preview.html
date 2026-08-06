@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Preview — Digimon Sprite Manager</title>
+  <link rel="stylesheet" href="/static/theme.css" />
+  <link rel="stylesheet" href="/static/preview.css" />
+</head>
+<body>
+
+  <div class="appbar">
+    <div class="brand">
+      <span class="logo">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+          <rect x="1" y="1" width="4" height="4" fill="#06201e"/>
+          <rect x="8" y="1" width="4" height="4" fill="#06201e"/>
+          <rect x="1" y="8" width="4" height="4" fill="#06201e"/>
+          <rect x="8" y="8" width="4" height="4" fill="#06201e" opacity=".45"/>
+        </svg>
+      </span>
+      <span class="name">Preview<small>baked creatures</small></span>
+    </div>
+
+    <nav class="viewnav">
+      <a href="/">▶ Animate</a>
+      <a href="/crop">✂ Crop sheets</a>
+      <a href="/preview" class="active">◉ Preview</a>
+    </nav>
+
+    <span class="count mono" id="count">0 creatures</span>
+
+    <!-- Facing: the four iso views the sheets are assembled for, plus the two
+         non-directional clips. "all facings" cycles each creature through
+         SW→SE→NW→NE, which is how you spot a mirrored row that came out wrong. -->
+    <div class="chips" id="clips">
+      <span class="chip active" data-clip="down_left">SW</span>
+      <span class="chip" data-clip="down_right">SE</span>
+      <span class="chip" data-clip="up_left">NW</span>
+      <span class="chip" data-clip="up_right">NE</span>
+      <span class="chip" data-clip="cycle">all facings</span>
+      <span class="chip" data-clip="idle">idle</span>
+      <span class="chip" data-clip="sleep">sleep</span>
+    </div>
+
+    <label class="ctl"><span>speed</span>
+      <input id="speed" type="range" min="25" max="300" step="5" value="100" />
+      <b id="speed-val">1.0×</b>
+    </label>
+    <label class="ctl"><span>size</span>
+      <input id="size" type="range" min="64" max="320" step="8" value="128" />
+    </label>
+
+    <span class="spacer"></span>
+    <button id="btn-play" class="btn ghost">❚❚ pause</button>
+
+    <label class="search">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="#6b727b" stroke-width="1.6"><circle cx="5.5" cy="5.5" r="4"/><line x1="8.5" y1="8.5" x2="12" y2="12"/></svg>
+      <input id="search" placeholder="Search id or sheet…" />
+    </label>
+  </div>
+
+  <div class="wall-body">
+    <div id="wall" class="wall"></div>
+    <div id="empty" class="empty" hidden></div>
+  </div>
+
+  <script src="/static/preview.js"></script>
+</body>
+</html>

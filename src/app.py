@@ -48,6 +48,11 @@ def create_app():
     def crop():
         return send_from_directory(_STATIC, "crop.html")
 
+    # The wall of baked creatures, all animating at once.
+    @app.get("/preview")
+    def preview():
+        return send_from_directory(_STATIC, "preview.html")
+
     @app.get("/crop/<sid>")
     def crop_sheet(sid):
         return send_from_directory(_STATIC, "crop.html")
@@ -309,6 +314,54 @@ def create_app():
         for k in ("png", "layout"):
             res[k] = os.path.relpath(res[k], config.ROOT)
         return jsonify(res)
+
+    # ---- baked creatures (the /preview wall) ----
+    @app.get("/api/baked")
+    def list_baked():
+        """Every baked creature, with what it takes to animate it in the browser.
+
+        The layout's cells are ``{col,row}`` into a uniform grid, so the cell size
+        is the sheet's size over cols/rows — the client needs no extra request per
+        creature. Only the iso facings are sent: the cardinals the schema requires
+        are aliases of those same rows (see ``core/baker.py``).
+        """
+        out = []
+        for name in sorted(os.listdir(config.SPEC_DIR)):
+            if not name.endswith(".extract.json"):
+                continue
+            nnn = name[:-len(".extract.json")]
+            png = os.path.join(config.OUT_DIR, f"{nnn}.png")
+            lay_path = os.path.join(config.OUT_DIR, f"{nnn}.json")
+            if not (os.path.exists(png) and os.path.exists(lay_path)):
+                continue
+            try:
+                with open(os.path.join(config.SPEC_DIR, name), "r", encoding="utf-8") as f:
+                    spec = json.load(f)
+                with open(lay_path, "r", encoding="utf-8") as f:
+                    lay = json.load(f)
+                with Image.open(png) as im:
+                    w, h = im.size
+            except Exception:  # noqa: BLE001 — a half-written bake must not 500 the wall
+                continue
+            cols, rows = int(lay.get("cols") or 1), int(lay.get("rows") or 1)
+            out.append({
+                "id": int(nnn), "sheet_id": str(spec.get("sheet_id")),
+                "name": spec.get("creature_name") or "",
+                "sprites": len(spec.get("boxes") or []),
+                "png": f"/output/digimon/{nnn}.png",
+                "cols": cols, "rows": rows,
+                "cell_w": w // cols, "cell_h": h // rows,
+                "tick_ms": lay.get("tick_ms", 33),
+                "walk_durations": lay.get("walk_durations"),
+                "idle_frame_ms": lay.get("idle_frame_ms"),
+                "sleep_frame_ms": lay.get("sleep_frame_ms"),
+                "walk": {d: lay["walk"][d] for d in baker.ISO_DIRS
+                         if d in lay.get("walk", {})},
+                "idle": (lay.get("idle") or {}).get("down_left")
+                        or next(iter((lay.get("idle") or {}).values()), []),
+                "sleep": lay.get("sleep") or [],
+            })
+        return jsonify({"creatures": out, "count": len(out)})
 
     # ---- bulk auto-assembler ----
     @app.get("/api/auto-assemble")

@@ -252,6 +252,22 @@ twice is harmless and hand-assembled work is never overwritten:
 
 `core/autoassemble.py` holds the layout table and backs both buttons and the CLI.
 
+### Step 3 · `/preview` — the wall of baked creatures
+
+Every baked creature animating at once, all playing the same clip, so a batch is
+judged at a glance instead of one editor at a time: a mirrored facing that came
+out backwards, a walk cycle assembled out of order, a sheet whose keying ate the
+outline. Pick a facing (**SW / SE / NW / NE**, or `1`–`4`), **all facings** to
+cycle each card SW→SE→NW→NE, or **idle** / **sleep**; a clip a creature does not
+have shows as a dimmed card labelled *no SE* / *no sleep* rather than a frozen
+frame. Speed and size are sliders, space bar pauses, the search box takes a
+creature number or a sheet id, and clicking a card opens that sheet in `/`.
+
+It draws straight from `output/digimon/<NNN>.png` + the layout's `{col,row}`
+cells — the very asset hibitomo consumes, not a re-render of the spec — so what
+animates here is what ships. Only the cards on screen animate (and only they
+load their sheet), so a wall of 250+ creatures costs one timer.
+
 ## CLIs
 
 ```bash
