@@ -387,12 +387,44 @@ function deleteSelected() { if (!S.selected.length) return; const n = S.selected
 // ended up on top of each other. Nothing goes under MIN_BOX or off the sheet.
 const SIDE_NAME = { t: "top", r: "right", b: "bottom", l: "left", a: "all sides" };
 
+const SIZE_LINES = 4;             // distinct sizes the cell lists before it summarises
+
+/** Distinct sizes in the selection, biggest first, each with how many boxes have it. */
+function sizeTally(boxes) {
+  const t = new Map();
+  for (const b of boxes) {
+    const k = `${b.w}×${b.h}`;
+    const e = t.get(k) || { w: b.w, h: b.h, n: 0 };
+    e.n += 1;
+    t.set(k, e);
+  }
+  return [...t.values()].sort((a, b) => b.w * b.h - a.w * a.h || b.w - a.w);
+}
+
 function renderSizePanel() {
   const sel = selBoxes();
   $("#size-sec").hidden = !sel.length;
   if (!sel.length) return;
-  const sizes = new Set(sel.map((b) => `${b.w} × ${b.h} px`));
-  $("#size-now").textContent = sizes.size === 1 ? [...sizes][0] : `${sizes.size} different sizes`;
+  // The sizes themselves, not just how many there are: a nudge moves each box's
+  // own edge, so every line here shifts by the same px and these are the numbers
+  // you are steering toward. Past a handful they stop fitting, and the point is
+  // the span you have to close anyway, so the tail collapses to a range.
+  const sizes = sizeTally(sel);
+  const el = $("#size-now");
+  el.textContent = "";
+  const line = (text, dim) => {
+    const s = document.createElement("span");
+    s.className = "size-row" + (dim ? " dim" : "");
+    s.textContent = text;
+    el.appendChild(s);
+  };
+  if (sizes.length <= SIZE_LINES) {
+    for (const s of sizes) line(`${s.w} × ${s.h} px` + (sizes.length > 1 && s.n > 1 ? `  ×${s.n}` : ""));
+  } else {
+    const w = sel.map((b) => b.w), h = sel.map((b) => b.h);
+    line(`${Math.min(...w)}–${Math.max(...w)} × ${Math.min(...h)}–${Math.max(...h)} px`);
+    line(`${sizes.length} different sizes`, true);
+  }
   $("#size-count").textContent = sel.length > 1 ? `${sel.length} selected` : "";
 }
 
@@ -410,10 +442,12 @@ function nudge(side, d) {
     Object.assign(b, r); moved += 1;
   }
   if (moved) { S.dirty = true; draw(); }
-  const sizes = new Set(sel.map((b) => `${b.w}×${b.h}px`));
+  const sizes = sizeTally(sel);
   const hits = S.boxes.filter((a) => S.boxes.some((c) => a !== c && overlaps(a, c))).length;
   growResult(`${SIDE_NAME[side]} ${d > 0 ? "+" : "−"}1 · ${sel.length} ${sel.length === 1 ? "sprite" : "sprites"} at ` +
-    (sizes.size === 1 ? [...sizes][0] : `${sizes.size} sizes`) +
+    (sizes.length <= SIZE_LINES
+      ? sizes.map((s) => `${s.w}×${s.h}px`).join(" · ")
+      : `${sizes.length} sizes`) +
     (blocked ? ` · ${blocked} at the limit` : "") + (hits ? ` · ${hits} overlap` : ""),
     !!(blocked || hits));
 }
