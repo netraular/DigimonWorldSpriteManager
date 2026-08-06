@@ -1,42 +1,8 @@
 {
-  "spec_version": 1,
-  "species": "digimon",
-  "id": 3,
-  "source": "raw_sheets/41250.png",
-  "sheet_id": "41250",
+  "anchor": "bottom_center",
   "background": "0x008080",
-  "background_tolerance": 40,
   "background_mode": "solid",
-  "seg_params": {
-    "alpha_thresh": 16,
-    "border_frac": 0.02,
-    "snap_dist": 40,
-    "tol": 40,
-    "use_hsv": true,
-    "hue_tol": 0.05,
-    "sat_min": 0.3,
-    "val_min": 0.15,
-    "morph_px": 1,
-    "dilate_px": 1,
-    "connectivity": 8,
-    "area_min": 20,
-    "wh_min": 4,
-    "fill_min": 0.04,
-    "merge_gap": 2,
-    "row_tol_frac": 0.5,
-    "grid_spread": 0.18,
-    "max_box_frac": 0.9,
-    "crop_pad": 2,
-    "auto_secondary_bg": true,
-    "sec_bg_frac": 0.1,
-    "sec_bg_sat": 46,
-    "max_bg_colors": 3,
-    "extra_bg": [],
-    "explicit_bg_only": false
-  },
-  "trim": true,
-  "export_scale": 1,
-  "pad": 1,
+  "background_tolerance": 40,
   "boxes": [
     {
       "id": "b1",
@@ -145,6 +111,12 @@
     }
   ],
   "clips": {
+    "idle": [
+      "b16",
+      "b17",
+      "b18"
+    ],
+    "sleep": [],
     "walk": {
       "down_left": [
         "b1",
@@ -166,27 +138,55 @@
         "b14",
         "b15"
       ]
-    },
-    "idle": [
-      "b16",
-      "b17",
-      "b18"
-    ],
-    "sleep": []
+    }
   },
-  "mirror": {},
+  "creature_color": "0x8899AA",
+  "creature_name": "test",
+  "creature_stage": 1,
+  "creature_type": "Data",
   "diagonals": true,
-  "anchor": "bottom_center",
-  "walk_style": "stride",
+  "export_scale": 1,
+  "id": 3,
+  "idle_frame_ms": 300,
+  "mirror": {},
+  "notes": "",
+  "pad": 1,
+  "seg_params": {
+    "alpha_thresh": 16,
+    "area_min": 20,
+    "auto_secondary_bg": true,
+    "border_frac": 0.02,
+    "connectivity": 8,
+    "crop_pad": 2,
+    "dilate_px": 1,
+    "explicit_bg_only": false,
+    "extra_bg": [],
+    "fill_min": 0.04,
+    "grid_spread": 0.18,
+    "hue_tol": 0.05,
+    "max_bg_colors": 3,
+    "max_box_frac": 0.9,
+    "merge_gap": 2,
+    "morph_px": 1,
+    "row_tol_frac": 0.5,
+    "sat_min": 0.3,
+    "sec_bg_frac": 0.1,
+    "sec_bg_sat": 46,
+    "snap_dist": 40,
+    "tol": 40,
+    "use_hsv": true,
+    "val_min": 0.15,
+    "wh_min": 4
+  },
+  "sheet_id": "41250",
+  "sleep_frame_ms": 400,
+  "source": "raw_sheets/41250.png",
+  "spec_version": 1,
+  "species": "digimon",
   "tick_ms": 33,
+  "trim": true,
   "walk_durations": [
     6
   ],
-  "idle_frame_ms": 300,
-  "sleep_frame_ms": 400,
-  "notes": "",
-  "creature_name": "",
-  "creature_type": "Data",
-  "creature_color": "0x8899AA",
-  "creature_stage": 1
+  "walk_style": "stride"
 }
