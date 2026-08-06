@@ -219,6 +219,16 @@ Assembling a creature:
 > Digimon's body sits well within 40 of a teal key. The survival guard above runs on
 > this pass as well.
 >
+> **An alpha channel is not a cut-out.** A rip whose PNG carries alpha is detected as
+> `mode: alpha`, and the keying used to stop there and trust it — but most of those
+> sheets are transparent *between* the cells and flat-coloured *inside* them, so every
+> sprite kept its cell (50 of the 256 creatures). The per-box cell keying now runs for
+> them too, over the sheet's own alpha; pixels alpha already drops stay out of the
+> ring vote, so the nothing hiding under them can elect itself "the cell".
+>
+> Re-run the keying over everything already assembled with `python3 Scripts/bake_all.py`:
+> the specs (boxes, clips, timing) are untouched, only the extraction is redone.
+>
 > The one case it cannot judge is a sheet keyed on a colour the artist also drew with —
 > a **black** key on black outlines. Set `"enclosed": false` in that sheet's
 > `boxcache/<id>.boxes.json` background payload to fall back to the border flood; the
