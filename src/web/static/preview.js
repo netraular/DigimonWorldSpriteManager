@@ -62,7 +62,10 @@ function visible() {
 function render() {
   const wall = $("#wall");
   wall.innerHTML = "";
-  state.cards.forEach((card) => card.io && card.io.disconnect());
+  state.cards.forEach((card) => {
+    if (card.io) card.io.disconnect();
+    sizer.unobserve(card.canvas);
+  });
   state.cards = [];
   const list = visible();
   const empty = $("#empty");
@@ -79,12 +82,29 @@ function render() {
   wall.appendChild(frag);
 }
 
+// Cells are as tall and wide as the sheet's biggest sprite, so they are rarely
+// the shape of the card box: the backing store follows the laid-out box and the
+// frame is centred inside it, instead of being stretched to fill it.
+const sizer = new ResizeObserver((entries) => {
+  for (const e of entries) if (e.target._card) fitCanvas(e.target._card);
+});
+
+function fitCanvas(card) {
+  const w = Math.max(1, Math.round(card.canvas.clientWidth));
+  const h = Math.max(1, Math.round(card.canvas.clientHeight));
+  if (card.canvas.width === w && card.canvas.height === h) return;
+  card.canvas.width = w;
+  card.canvas.height = h;
+  card.ctx.imageSmoothingEnabled = false;   // a resize resets the context state
+  if (card.on) drawCard(card, clock);
+}
+
 function cardFor(c) {
   const el = document.createElement("div");
   el.className = "card";
   el.title = `${String(c.id).padStart(3, "0")} — sheet ${c.sheet_id} · ${c.sprites} sprites\nclick to open in Animate`;
   el.innerHTML =
-    `<canvas width="${c.cell_w}" height="${c.cell_h}"></canvas>` +
+    `<canvas></canvas>` +
     `<div class="cap"><b>${String(c.id).padStart(3, "0")}</b>` +
     `<span class="sheet">${c.name || c.sheet_id}</span></div>`;
   el.onclick = () => { location.href = "/animate/" + encodeURIComponent(c.sheet_id); };
@@ -92,6 +112,8 @@ function cardFor(c) {
   const card = { c, el, canvas: el.querySelector("canvas"), img: null, on: false };
   card.ctx = card.canvas.getContext("2d");
   card.ctx.imageSmoothingEnabled = false;
+  card.canvas._card = card;
+  sizer.observe(card.canvas);
   // Only cards you can see load their sheet and get drawn.
   card.io = new IntersectionObserver((entries) => {
     for (const e of entries) {
@@ -135,8 +157,17 @@ function drawCard(card, t) {
   while (i < frames.length - 1 && rest >= ms[i]) { rest -= ms[i]; i++; }
   const cell = frames[i];
   const cw = c.cell_w, ch = c.cell_h;
-  card.ctx.clearRect(0, 0, cw, ch);
-  card.ctx.drawImage(card.img, cell.col * cw, cell.row * ch, cw, ch, 0, 0, cw, ch);
+  const bw = card.canvas.width, bh = card.canvas.height;
+  // One scale for both axes, so a 96x64 cell stays 3:2 in a square-ish box: the
+  // frame is fit to the box (never cropped) and centred, the leftover is the
+  // card's checkerboard. Snapped to whole pixels, and an integer scale when one
+  // is within reach, so nearest-neighbour keeps the pixels even.
+  const fit = Math.min(bw / cw, bh / ch);
+  const s = fit >= 1 && fit - Math.floor(fit) < 0.34 ? Math.floor(fit) : fit;
+  const dw = Math.round(cw * s), dh = Math.round(ch * s);
+  card.ctx.clearRect(0, 0, bw, bh);
+  card.ctx.drawImage(card.img, cell.col * cw, cell.row * ch, cw, ch,
+                     Math.round((bw - dw) / 2), Math.round((bh - dh) / 2), dw, dh);
   // In cycle mode the facing changes under you, so the card says which one it is
   // showing; with a facing picked by hand the chip already says it.
   let badge = card.el.querySelector(".facing");

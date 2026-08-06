@@ -8,8 +8,9 @@
 .appbar .ctl b{color:var(--ink-dim);font-weight:600;min-width:30px}
 
 .wall-body{padding:16px}
-/* The cell size IS the zoom: tiles are square-ish and the canvas is drawn at an
-   integer nearest-neighbour scale inside them, so nothing goes soft. */
+/* The cell size IS the zoom: tiles are square-ish and the frame is fit inside
+   them on both axes at once (see fitCanvas/drawCard in preview.js), so a cell
+   that is not the shape of the tile is letterboxed, never squashed. */
 .wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--cell,128px),1fr));gap:10px}
 .card{position:relative;border:1px solid var(--line);border-radius:8px;overflow:hidden;
   background-color:#0e1013;background-image:var(--check);
