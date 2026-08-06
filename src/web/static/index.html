@@ -148,6 +148,8 @@
             </div>
             <div id="slot-rows" class="slot-rows"></div>
             <div class="slot-actions">
+              <button id="btn-ed-auto" class="btn" title="A — fill walk/idle from this sheet's sprite count, the same block plan the bulk Auto-assemble uses (15/12/9 sprites). Nothing is saved: review the preview, then Save &amp; bake.">⚡ auto blocks <span class="num" id="ed-auto-plan"></span></button>
+              <span class="spacer"></span>
               <button id="btn-clear-active" class="btn" title="Drop every frame of the slot shown above">clear slot</button>
             </div>
           </div>
@@ -176,10 +178,11 @@
       <!-- The gallery appbar (with #status) is off screen in the editor, so Save
            and Bake report right here — see setStatus in app.js. -->
       <span id="ed-status" class="ed-status"></span>
-      <span class="kbd-hint">click add · <kbd>⇧</kbd>click remove · <kbd>1</kbd>–<kbd>4</kbd> facing · <kbd>S</kbd> save &amp; bake · <kbd>Esc</kbd> back</span>
+      <span class="kbd-hint">click add · <kbd>⇧</kbd>click remove · <kbd>1</kbd>–<kbd>4</kbd> facing · <kbd>A</kbd> auto blocks · <kbd>S</kbd> save &amp; bake · <kbd>Esc</kbd> back</span>
     </div>
   </div>
 
+  <script src="/static/nav.js"></script>
   <script src="/static/app.js"></script>
 </body>
 </html>

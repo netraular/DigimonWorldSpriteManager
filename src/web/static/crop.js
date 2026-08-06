@@ -105,12 +105,18 @@ function tileFor(s) {
         ? `<span class="qbtn go" data-act="open">Open</span><span class="qbtn" data-act="todo">To-do</span><span class="qbtn rm" data-act="delete">Delete</span>`
         : `<span class="qbtn go" data-act="open">Open</span><span class="qbtn rm" data-act="delete">Delete</span>`) +
     `</div>`;
-  tile.onclick = (e) => {
-    const act = e.target.closest("[data-act]") && e.target.closest("[data-act]").dataset.act;
-    if (act === "delete") { e.stopPropagation(); setState(s.id, "deleted"); return; }
-    if (act === "todo") { e.stopPropagation(); setState(s.id, "todo"); return; }
-    openEditor(s.id);
+  const actOf = (e) => {
+    const hit = e.target.closest("[data-act]");
+    return hit ? hit.dataset.act : null;
   };
+  bindOpen(tile,
+    (e) => (["delete", "todo"].includes(actOf(e)) ? null : "/crop/" + encodeURIComponent(s.id)),
+    (e) => {
+      const act = actOf(e);
+      if (act === "delete") { e.stopPropagation(); setState(s.id, "deleted"); return; }
+      if (act === "todo") { e.stopPropagation(); setState(s.id, "todo"); return; }
+      openEditor(s.id);
+    });
   return tile;
 }
 

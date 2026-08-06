@@ -115,12 +115,13 @@ function fitCanvas(card) {
 function cardFor(c) {
   const el = document.createElement("div");
   el.className = "card";
-  el.title = `${String(c.id).padStart(3, "0")} — sheet ${c.sheet_id} · ${c.sprites} sprites\nclick to open in Animate`;
+  el.title = `${String(c.id).padStart(3, "0")} — sheet ${c.sheet_id} · ${c.sprites} sprites\nclick to open in Animate (middle click: new tab)`;
   el.innerHTML =
     `<canvas></canvas>` +
     `<div class="cap"><b>${String(c.id).padStart(3, "0")}</b>` +
     `<span class="sheet">${c.name || c.sheet_id}</span></div>`;
-  el.onclick = () => { location.href = "/animate/" + encodeURIComponent(c.sheet_id); };
+  const url = "/animate/" + encodeURIComponent(c.sheet_id);
+  bindOpen(el, url, () => { location.href = url; });
 
   const card = { c, el, canvas: el.querySelector("canvas"), img: null, on: false };
   card.ctx = card.canvas.getContext("2d");

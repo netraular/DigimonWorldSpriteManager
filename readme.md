@@ -189,6 +189,13 @@ Assembling a creature:
   and one back view fills all four slots with two ticks.
 - **idle = SW walk[0]** — one click fills the idle clip with the front walk's first
   frame. Leaving idle empty bakes that same pose.
+- **⚡ auto blocks** (or <kbd>A</kbd>) — the bulk auto-assembler's table applied to
+  **this sheet alone**: if its sprite count is a known block layout (15/12/9, see
+  below) the walk facings, the idle clip and the mirrors are filled in for you. The
+  button shows the plan it would apply and is disabled on any other count. Nothing
+  is written — review the preview and press *Save & bake*, so you can use it on the
+  creatures you pick instead of the whole backlog (it works on already-baked sheets
+  too, which the bulk button skips).
 - Fill in the creature (id, name, type, color, stage) + timing, then **Save & bake**
   (or press <kbd>S</kbd>, as in `/crop`). One action, because the spec IS the recipe
   for the bake: it writes `specs/digimon/<id>.extract.json` (boxes, clip assignments,
@@ -246,8 +253,9 @@ sprite count already says which facings it carries:
 | **12** | SW · SE · NW · NE (no idle block — the baker holds the first SW pose) |
 | **9** | NW · SW · idle, with **SE mirrored from SW and NE from NW** |
 
-Two buttons run that table, and both skip anything already baked, so clicking
-twice is harmless and hand-assembled work is never overwritten:
+Two buttons run that table over the whole backlog, and both skip anything already
+baked, so clicking twice is harmless and hand-assembled work is never overwritten
+(for a single creature, use the editor's **⚡ auto blocks** instead):
 
 - **Animate → Auto-assemble** (badge = sheets waiting): for sheets you have
   already cropped. Each gets the spec the editor would have written, then a bake,
@@ -260,7 +268,10 @@ twice is harmless and hand-assembled work is never overwritten:
   what a person should look at. Sheets whose sprites touch (no background between
   them) collapse into one box and stay there too.
 
-`core/autoassemble.py` holds the layout table and backs both buttons and the CLI.
+`core/autoassemble.py` holds the layout table and backs both buttons and the CLI
+(the editor reads the same table over `GET /api/layouts`). Pass `--rebake` to the
+CLI to replay the table over sheets that are already baked — what a fix to a
+layout needs.
 
 ### Step 3 · `/preview` — the wall of baked creatures
 
@@ -272,6 +283,8 @@ cycle each card SW→SE→NW→NE, or **idle** / **sleep**; a clip a creature do
 have shows as a dimmed card labelled *no SE* / *no sleep* rather than a frozen
 frame. Speed and size are sliders, space bar pauses, the search box takes a
 creature number or a sheet id, and clicking a card opens that sheet in `/`.
+**Middle click** (or ctrl/⌘/shift+click) opens it in a **new tab** instead — in
+all three galleries, so you can fan a batch out across tabs.
 
 It draws straight from `output/digimon/<NNN>.png` + the layout's `{col,row}`
 cells — the very asset hibitomo consumes, not a re-render of the spec — so what
@@ -283,7 +296,7 @@ load their sheet), so a wall of 250+ creatures costs one timer.
 ```bash
 python3 Scripts/download_sheets.py [--limit N] [--urls-only]
 python3 Scripts/autodetect_all.py  [--force]     # warm the box cache
-python3 Scripts/animate_blocks.py  [--new] [--dry-run] [--counts 9 12 15] [--limit N] [--stage]
+python3 Scripts/animate_blocks.py  [--new] [--dry-run] [--counts 9 12 15] [--limit N] [--stage] [--rebake]
 python3 Scripts/bake_all.py        [--stage]     # bake every saved spec
 ```
 

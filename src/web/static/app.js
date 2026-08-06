@@ -163,11 +163,13 @@ function cardFor(s) {
       `<span class="qbtn go" data-act="open">▶ Animate</span>` +
       `<a class="qbtn" href="/crop/${s.id}" data-act="crop">✂ crop</a>` +
     `</div>`;
-  tile.addEventListener("click", (e) => {
-    const act = e.target.closest("[data-act]");
-    if (act && act.dataset.act === "crop") return; // let the link navigate
-    openEditor(s.id);
-  });
+  bindOpen(tile,
+    (e) => (e.target.closest("a") ? null : "/animate/" + encodeURIComponent(s.id)),
+    (e) => {
+      const act = e.target.closest("[data-act]");
+      if (act && act.dataset.act === "crop") return; // let the link navigate
+      openEditor(s.id);
+    });
   return tile;
 }
 
@@ -204,6 +206,7 @@ async function openEditor(sid, push = true) {
   renderPalette();
   renderSlots();
   refreshAssignHint();
+  refreshAutoBlocks();
   buildPvDir();
   restartPreview();
 
@@ -432,6 +435,50 @@ function pruneClips() {
   for (const dir of Object.keys(walk)) walk[dir] = (walk[dir] || []).filter((id) => ids.has(id));
   for (const clip of FLAT_CLIPS)
     state.spec.clips[clip] = (state.spec.clips[clip] || []).filter((id) => ids.has(id));
+}
+
+// ---- auto blocks (this sheet only) ----
+// The same table the bulk Auto-assemble runs on (core/autoassemble.py), applied
+// to the open sheet and nothing else: the frames are laid into the slots, but
+// nothing is written — you still review the preview and press Save & bake.
+let blockTable = null;
+async function blockLayouts() {
+  if (!blockTable) blockTable = await fetch("/api/layouts").then((x) => x.json()).catch(() => null);
+  return blockTable;
+}
+function layoutForCount(n) {
+  return blockTable && blockTable.layouts ? blockTable.layouts[String(n)] : null;
+}
+/** Label the editor's ⚡ button with the plan for this sheet, or disable it. */
+async function refreshAutoBlocks() {
+  await blockLayouts();
+  const btn = $("#btn-ed-auto");
+  const lay = layoutForCount(state.boxes.length);
+  btn.disabled = !lay;
+  $("#ed-auto-plan").textContent = lay ? lay.plan : "";
+  btn.title = lay
+    ? `A — fill walk/idle with this sheet's block plan: ${lay.plan}. Nothing is saved until you press Save & bake.`
+    : `${state.boxes.length} sprites is not a known block layout (${Object.keys((blockTable && blockTable.layouts) || {}).join("/")}) — assemble this one by hand.`;
+}
+async function autoBlocks() {
+  if (!state.spec) return;
+  await blockLayouts();
+  const lay = layoutForCount(state.boxes.length);
+  if (!lay) { setStatus(`${state.boxes.length} sprites is not a known block layout — assemble this sheet by hand`, true); return; }
+  const ids = state.boxes.map((b) => b.id);
+  const size = (blockTable && blockTable.block) || 3;
+  const walk = {};
+  let idle = [];
+  lay.slots.forEach(([clip, dir], i) => {
+    const frames = ids.slice(i * size, (i + 1) * size);
+    if (clip === "walk") walk[dir] = frames; else idle = frames;
+  });
+  state.spec.clips.walk = walk;
+  state.spec.clips.idle = idle;
+  state.spec.mirror = { ...lay.mirror };
+  afterAssignChange();
+  refreshAssignHint();
+  setStatus(`auto blocks: ${lay.plan} — check the preview, then Save & bake`);
 }
 
 // ---- live preview ----
@@ -669,6 +716,7 @@ $("#btn-clear-active").onclick = () => {
   if (isFlatClip(clip)) state.spec.clips[clip] = []; else state.spec.clips[clip][state.activeDir] = [];
   afterAssignChange();
 };
+$("#btn-ed-auto").onclick = autoBlocks;
 $("#pal-zoom").oninput = (e) => { document.documentElement.style.setProperty("--pal-cell", e.target.value + "px"); };
 $("#pv-dir").onchange = (e) => { state.pvDir = e.target.value; restartPreview(); };
 $("#pv-toggle").onclick = () => {
@@ -689,6 +737,7 @@ document.addEventListener("keydown", (e) => {
   if (document.activeElement && /INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return;
   if (e.key === "Escape") { closeEditor(); return; }
   if (e.key === "s" || e.key === "S") { bake(); return; }
+  if (e.key === "a" || e.key === "A") { autoBlocks(); return; }
   if (state.spec && e.key >= "1" && e.key <= "4" && !isFlatClip(state.activeClip)) {
     const idx = +e.key - 1, dirs = activeDirs();
     if (idx < dirs.length) { state.activeDir = dirs[idx]; state.pvDir = dirs[idx]; syncPvDir(); renderSlots(); renderPalette(); refreshAssignHint(); restartPreview(); }

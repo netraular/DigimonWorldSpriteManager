@@ -363,6 +363,18 @@ def create_app():
             })
         return jsonify({"creatures": out, "count": len(out)})
 
+    # ---- block layouts ----
+    @app.get("/api/layouts")
+    def block_layouts():
+        """The sprite-count → block plan table, so the animate editor can apply
+        the very same assembly to a single sheet."""
+        return jsonify({
+            "block": autoassemble.BLOCK_SIZE,
+            "layouts": {str(n): {"slots": lay["slots"], "mirror": lay["mirror"],
+                                 "plan": autoassemble.describe(n)}
+                        for n, lay in autoassemble.LAYOUTS.items()},
+        })
+
     # ---- bulk auto-assembler ----
     @app.get("/api/auto-assemble")
     def auto_assemble_preview():
