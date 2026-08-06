@@ -481,7 +481,10 @@ def _bg_from_payload(payload, arr, p):
 
     Mirrors ``baker.bake``: an explicit colour set (primary + extras) keys to
     transparent; ``alpha`` mode uses the image's own alpha; missing/legacy
-    payloads fall back to auto-inference.
+    payloads fall back to auto-inference. ``has_alpha`` is read off the sheet,
+    not off the payload — a cache written before alpha keying existed labels a
+    transparent rip "solid" (46749, 48330, 48332) and the extractor has to know
+    better.
     """
     if payload and payload.get("mode") == "alpha":
         return {"mode": "alpha", "colors": [], "color": None, "has_alpha": True}
@@ -493,7 +496,7 @@ def _bg_from_payload(payload, arr, p):
             continue
     if colors:
         return {"mode": "solid", "colors": colors, "color": colors[0],
-                "has_alpha": False}
+                "has_alpha": S.sheet_uses_alpha(arr, p)}
     return S.infer_background(arr, p)
 
 

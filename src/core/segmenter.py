@@ -26,6 +26,10 @@ _CANONICAL = [
     (128, 3, 175),    # DWDS purple (observed)
 ]
 
+# Share of a sheet that has to be fully clear before its alpha channel counts as
+# a cut-out rather than a handful of stray soft pixels.
+ALPHA_SHEET_FRAC = 0.05
+
 
 @dataclass
 class SegParams:
@@ -176,6 +180,19 @@ def _explicit_colors(p):
     return out
 
 
+def sheet_uses_alpha(arr, p):
+    """Is this sheet genuinely CUT OUT, rather than merely carrying an alpha channel?
+
+    A stray semi-transparent pixel or two is not a cut-out; a rip whose sprites
+    sit on transparency has a large share of the sheet fully clear. The same
+    test decides ``infer_background``'s alpha mode and, in ``extractor``,
+    whether the sheet's own alpha is a fact to be honoured whatever a stored
+    background payload claims.
+    """
+    alpha = arr[:, :, 3]
+    return bool(alpha.min() < 250) and float((alpha < p.alpha_thresh).mean()) > ALPHA_SHEET_FRAC
+
+
 def infer_background(arr, p):
     """Infer the sheet background colour(s).
 
@@ -189,9 +206,8 @@ def infer_background(arr, p):
     already-transparent sheet.
     """
     explicit = _explicit_colors(p)
-    alpha = arr[:, :, 3]
-    has_alpha = bool(alpha.min() < 250)
-    transparent_frac = float((alpha < p.alpha_thresh).mean())
+    has_alpha = bool(arr[:, :, 3].min() < 250)
+    cut_out = sheet_uses_alpha(arr, p)
 
     # Explicit-only: the operator's picks ARE the background, nothing else — but
     # transparency is background whatever anyone picks. On a genuinely transparent
@@ -200,13 +216,13 @@ def infer_background(arr, p):
     # and those faint pixels bridge sprites that the eye sees clearly apart, so the
     # components come out fused. Alpha mode keys the picks on top of transparency.
     if p.explicit_bg_only:
-        if has_alpha and transparent_frac > 0.05:
+        if cut_out:
             return {"mode": "alpha", "colors": explicit,
                     "color": explicit[0] if explicit else None, "has_alpha": True}
         return {"mode": "solid", "colors": explicit,
                 "color": explicit[0] if explicit else None, "has_alpha": has_alpha}
 
-    if has_alpha and transparent_frac > 0.05:
+    if cut_out:
         return {"mode": "alpha", "colors": explicit,
                 "color": explicit[0] if explicit else None, "has_alpha": True}
 

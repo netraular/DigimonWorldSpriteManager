@@ -233,6 +233,20 @@ Assembling a creature:
 > them too, over the sheet's own alpha; pixels alpha already drops stay out of the
 > ring vote, so the nothing hiding under them can elect itself "the cell".
 >
+> **A cut-out sheet stays cut out, whatever its saved background says.** Whether a rip
+> is transparent is read off the pixels, not off the `mode` its box cache recorded: a
+> sheet cropped before alpha keying existed is stored as `solid` with a black
+> background, and taking that at its word forced every clear pixel opaque *and* keyed
+> black — which on these rips is the outline colour, so the last frames of 48330
+> (Airdramon) came back with their wings and half the body eaten. Two rules, both in
+> `extractor.py` where the palette and the baker meet, so old caches and the specs
+> baked from them are healed without editing either: the sheet's own alpha wins
+> whenever the sheet is genuinely cut out (`segmenter.sheet_uses_alpha`), and a keyed
+> colour that is the RGB the transparent pixels carry — black, here — is **dropped**
+> (`_phantom_color`). A transparent pixel has no colour to key; /crop's eyedropper
+> already refuses to pick one, and the extractor now refuses to honour an old pick of
+> one. Three sheets carried it: 46749, 48330, 48332.
+>
 > Re-run the keying over everything already assembled with `python3 Scripts/bake_all.py`:
 > the specs (boxes, clips, timing) are untouched, only the extraction is redone.
 >

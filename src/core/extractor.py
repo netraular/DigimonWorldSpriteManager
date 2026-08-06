@@ -20,9 +20,36 @@ import numpy as np
 from PIL import Image
 from scipy import ndimage
 
+from core import segmenter as S
+
 
 def _clamp(v, lo, hi):
     return max(lo, min(hi, v))
+
+
+def _phantom_color(arr, p):
+    """The RGB the sheet's fully-transparent pixels carry, or ``None``.
+
+    A transparent pixel has no colour: its RGB is whatever the encoder left
+    under it, which on these rips is always black. That value is not a
+    background colour anybody could have meant to pick, and keying it takes
+    every OPAQUE pixel the artist drew in it — on a black-under-alpha rip, every
+    outline, and with it the wing or the tail the outline was holding together.
+    /crop's eyedropper already refuses to pick a transparent pixel, but sheets
+    keyed before that guard existed still carry the colour in their box cache
+    (46749, 48330, 48332), so it is dropped here too — at the one place the
+    palette and the baker share, which is what heals the old caches and the
+    specs baked from them without touching either.
+    """
+    if not S.sheet_uses_alpha(arr, p):
+        return None
+    px = arr[:, :, :3][arr[:, :, 3] < p.alpha_thresh].astype(np.int32)
+    if not len(px):
+        return None
+    packed = (px[:, 0] << 16) | (px[:, 1] << 8) | px[:, 2]
+    vals, counts = np.unique(packed, return_counts=True)
+    top = int(vals[counts.argmax()])
+    return ((top >> 16) & 255, (top >> 8) & 255, top & 255)
 
 
 def _ring_mask(shape, rect, width=1):
@@ -146,12 +173,23 @@ def extract_box(arr, bg, box, p):
     # NOT mean "is cut out": plenty of these sheets are transparent between the
     # cells and flat-coloured inside them, so the per-box cell keying below has
     # to run for them too, or every sprite keeps its cell (48582 and 49 more).
+    #
+    # Whether the sheet is cut out is read off the PIXELS, never off ``mode``: a
+    # box cache written before alpha keying existed labels a 70%-transparent rip
+    # "solid", and taking it at its word forces every clear pixel opaque and
+    # hands the sprite back on a black slab.
+    cut_out = S.sheet_uses_alpha(arr, p)
     if bg["mode"] == "alpha":
         sheet_alpha = sub[:, :, 3].copy()
         colors = []
     else:
-        sheet_alpha = np.full(sub.shape[:2], 255, np.uint8)
+        sheet_alpha = sub[:, :, 3].copy() if cut_out else np.full(sub.shape[:2], 255, np.uint8)
         colors = bg.get("colors") or ([bg["color"]] if bg.get("color") else [])
+        # Never key the colour transparency reads as — see ``_phantom_color``.
+        phantom = _phantom_color(arr, p) if cut_out else None
+        if phantom is not None:
+            colors = [c for c in colors
+                      if np.linalg.norm(np.array(c, float) - phantom) > p.tol]
 
     def matching(cols, tol=None):
         """Pixels within ``tol`` (default ``p.tol``) of any of ``cols``."""

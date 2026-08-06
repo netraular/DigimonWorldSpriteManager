@@ -130,6 +130,8 @@ def bake(spec_path, out_dir=None, log=print):
         # Reconstruct the exact colour set the operator curated: the primary
         # background plus every extra_bg colour (e.g. the per-cell gray). If we
         # only keyed the primary, sprites would keep their cell backdrop.
+        # ``has_alpha`` comes off the sheet rather than the spec: a spec written
+        # before alpha keying existed says "solid" about a transparent rip.
         colors = []
         prim = _parse_color(spec.get("background"))
         if prim:
@@ -139,7 +141,8 @@ def bake(spec_path, out_dir=None, log=print):
             if t and t not in colors:
                 colors.append(t)
         bg = {"mode": "solid", "colors": colors,
-              "color": colors[0] if colors else None, "has_alpha": False}
+              "color": colors[0] if colors else None,
+              "has_alpha": S.sheet_uses_alpha(arr, p)}
     else:
         bg = S.infer_background(arr, p)
 
