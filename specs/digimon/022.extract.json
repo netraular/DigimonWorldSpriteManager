@@ -1,41 +1,8 @@
 {
-  "spec_version": 1,
-  "species": "digimon",
-  "id": 22,
-  "source": "raw_sheets/20460.png",
-  "sheet_id": "20460",
+  "anchor": "bottom_center",
   "background": "0x8003AF",
-  "background_tolerance": 8,
   "background_mode": "solid",
-  "seg_params": {
-    "alpha_thresh": 16,
-    "border_frac": 0.02,
-    "snap_dist": 40,
-    "tol": 8,
-    "use_hsv": true,
-    "hue_tol": 0.05,
-    "sat_min": 0.3,
-    "val_min": 0.15,
-    "morph_px": 1,
-    "dilate_px": 1,
-    "connectivity": 8,
-    "area_min": 20,
-    "wh_min": 4,
-    "fill_min": 0.04,
-    "merge_gap": 2,
-    "row_tol_frac": 0.5,
-    "grid_spread": 0.18,
-    "max_box_frac": 0.9,
-    "crop_pad": 2,
-    "auto_secondary_bg": true,
-    "sec_bg_frac": 0.1,
-    "sec_bg_sat": 46,
-    "max_bg_colors": 3,
-    "extra_bg": []
-  },
-  "trim": true,
-  "export_scale": 1,
-  "pad": 1,
+  "background_tolerance": 8,
   "boxes": [
     {
       "id": "b19",
@@ -123,44 +90,77 @@
     }
   ],
   "clips": {
+    "idle": [],
+    "sleep": [],
     "walk": {
       "down_left": [
-        "b19",
-        "b20",
-        "b21"
-      ],
-      "down_right": [
         "b22",
         "b23",
         "b24"
       ],
-      "up_left": [
-        "b26",
-        "b27",
-        "b28"
+      "down_right": [
+        "b19",
+        "b20",
+        "b21"
       ],
-      "up_right": [
+      "up_left": [
         "b32",
         "b33",
         "b34"
+      ],
+      "up_right": [
+        "b26",
+        "b27",
+        "b28"
       ]
-    },
-    "idle": [],
-    "sleep": []
+    }
   },
-  "mirror": {},
+  "creature_color": "0x8899AA",
+  "creature_name": "Gaomon",
+  "creature_stage": 3,
+  "creature_type": "Data",
   "diagonals": true,
-  "anchor": "bottom_center",
-  "walk_style": "stride",
+  "export_scale": 1,
+  "id": 22,
+  "idle_frame_ms": 300,
+  "mirror": {},
+  "notes": "",
+  "pad": 1,
+  "seg_params": {
+    "alpha_thresh": 16,
+    "area_min": 20,
+    "auto_secondary_bg": true,
+    "border_frac": 0.02,
+    "connectivity": 8,
+    "crop_pad": 2,
+    "dilate_px": 1,
+    "extra_bg": [],
+    "fill_min": 0.04,
+    "grid_spread": 0.18,
+    "hue_tol": 0.05,
+    "max_bg_colors": 3,
+    "max_box_frac": 0.9,
+    "merge_gap": 2,
+    "morph_px": 1,
+    "row_tol_frac": 0.5,
+    "sat_min": 0.3,
+    "sec_bg_frac": 0.1,
+    "sec_bg_sat": 46,
+    "snap_dist": 40,
+    "tol": 8,
+    "use_hsv": true,
+    "val_min": 0.15,
+    "wh_min": 4
+  },
+  "sheet_id": "20460",
+  "sleep_frame_ms": 400,
+  "source": "raw_sheets/20460.png",
+  "spec_version": 1,
+  "species": "digimon",
   "tick_ms": 33,
+  "trim": true,
   "walk_durations": [
     6
   ],
-  "idle_frame_ms": 300,
-  "sleep_frame_ms": 400,
-  "notes": "",
-  "creature_name": "Gaomon",
-  "creature_type": "Data",
-  "creature_color": "0x8899AA",
-  "creature_stage": 3
+  "walk_style": "stride"
 }
