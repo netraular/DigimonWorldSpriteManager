@@ -1,0 +1,151 @@
+{
+  "spec_version": 1,
+  "species": "digimon",
+  "id": 250,
+  "source": "raw_sheets/50046.png",
+  "sheet_id": "50046",
+  "background": "0x008080",
+  "background_tolerance": 40,
+  "background_mode": "solid",
+  "seg_params": {
+    "extra_bg": [],
+    "tol": 40
+  },
+  "trim": true,
+  "export_scale": 1,
+  "pad": 1,
+  "boxes": [
+    {
+      "id": "b0",
+      "x": 3,
+      "y": 6,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b1",
+      "x": 37,
+      "y": 6,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b2",
+      "x": 71,
+      "y": 6,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b3",
+      "x": 3,
+      "y": 72,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b4",
+      "x": 37,
+      "y": 72,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b5",
+      "x": 71,
+      "y": 72,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b6",
+      "x": 3,
+      "y": 138,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b7",
+      "x": 37,
+      "y": 138,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b8",
+      "x": 71,
+      "y": 138,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b9",
+      "x": 3,
+      "y": 204,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b10",
+      "x": 37,
+      "y": 204,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b11",
+      "x": 71,
+      "y": 204,
+      "w": 32,
+      "h": 64
+    },
+    {
+      "id": "b12",
+      "x": 3,
+      "y": 272,
+      "w": 32,
+      "h": 64
+    }
+  ],
+  "clips": {
+    "walk": {
+      "down_left": [
+        "b0",
+        "b1",
+        "b2"
+      ],
+      "down_right": [
+        "b3",
+        "b4",
+        "b5"
+      ],
+      "up_left": [
+        "b6",
+        "b7",
+        "b8"
+      ],
+      "up_right": [
+        "b9",
+        "b10",
+        "b11"
+      ]
+    },
+    "idle": [],
+    "sleep": []
+  },
+  "mirror": {},
+  "diagonals": true,
+  "anchor": "bottom_center",
+  "walk_style": "stride",
+  "tick_ms": 33,
+  "walk_durations": [
+    6
+  ],
+  "idle_frame_ms": 300,
+  "sleep_frame_ms": 400,
+  "notes": "",
+  "creature_name": "",
+  "creature_type": "Data",
+  "creature_color": "0x8899AA",
+  "creature_stage": 1
+}
