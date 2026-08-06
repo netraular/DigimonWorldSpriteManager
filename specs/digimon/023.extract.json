@@ -81,12 +81,12 @@
   ],
   "clips": {
     "walk": {
-      "down_left": [
+      "up_left": [
         "b44",
         "b45",
         "b46"
       ],
-      "up_left": [
+      "down_left": [
         "b47",
         "b48",
         "b49"
@@ -113,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Gizamon",
+  "creature_name": "",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 3
+  "creature_stage": 1
 }

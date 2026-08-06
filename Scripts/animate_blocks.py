@@ -15,6 +15,7 @@ baked are skipped, so re-running is safe.
     python3 Scripts/animate_blocks.py --dry-run       # list what would be assembled
     python3 Scripts/animate_blocks.py                 # assemble + bake them
     python3 Scripts/animate_blocks.py --counts 9      # only the 9-sprite sheets
+    python3 Scripts/animate_blocks.py --counts 9 --rebake   # …redo the baked ones too
     python3 Scripts/animate_blocks.py --stage         # …and copy into the content-editor
 
 The gallery's "Auto-assemble" button runs exactly this over 15/12/9.
@@ -41,6 +42,8 @@ def main():
                     help="also detect never-reviewed sheets and crop the matching ones")
     ap.add_argument("--stage", action="store_true",
                     help="also copy each baked asset into the content-editor tree")
+    ap.add_argument("--rebake", action="store_true",
+                    help="also redo the sheets already baked (overwrites their spec)")
     args = ap.parse_args()
 
     counts = args.counts or sorted(autoassemble.LAYOUTS)
@@ -48,11 +51,11 @@ def main():
         print(f"  {n:>2} sprites → {autoassemble.describe(n)}")
     if args.new:
         print(f"{len(autoassemble.unreviewed())} un-reviewed sheets to detect")
-    print(f"{len(autoassemble.candidates(counts))} cropped sheets to animate")
+    print(f"{len(autoassemble.candidates(counts, rebake=args.rebake))} cropped sheets to animate")
 
     res = autoassemble.run(counts=counts, limit=args.limit, stage=args.stage,
                            dry_run=args.dry_run, include_new=args.new,
-                           validate=_validate_spec)
+                           rebake=args.rebake, validate=_validate_spec)
     if args.dry_run:
         for it in res["items"]:
             nnn = "%03d" % it["id"] if it["id"] else " new"

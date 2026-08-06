@@ -81,12 +81,12 @@
   ],
   "clips": {
     "walk": {
-      "down_left": [
+      "up_left": [
         "b34",
         "b35",
         "b36"
       ],
-      "up_left": [
+      "down_left": [
         "b37",
         "b38",
         "b39"
@@ -113,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "BlackRapidmon",
+  "creature_name": "",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 5
+  "creature_stage": 1
 }

@@ -81,12 +81,12 @@
   ],
   "clips": {
     "walk": {
-      "down_left": [
+      "up_left": [
         "b26",
         "b27",
         "b28"
       ],
-      "up_left": [
+      "down_left": [
         "b29",
         "b30",
         "b31"
@@ -113,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Ghoulmon",
+  "creature_name": "",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 6
+  "creature_stage": 1
 }

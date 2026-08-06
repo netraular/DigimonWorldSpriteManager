@@ -81,12 +81,12 @@
   ],
   "clips": {
     "walk": {
-      "down_left": [
+      "up_left": [
         "b43",
         "b44",
         "b45"
       ],
-      "up_left": [
+      "down_left": [
         "b46",
         "b47",
         "b48"
@@ -113,8 +113,8 @@
   "idle_frame_ms": 300,
   "sleep_frame_ms": 400,
   "notes": "",
-  "creature_name": "Kyubimon",
+  "creature_name": "",
   "creature_type": "Data",
   "creature_color": "0x8899AA",
-  "creature_stage": 4
+  "creature_stage": 1
 }

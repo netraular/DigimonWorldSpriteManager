@@ -87,11 +87,13 @@ def _free_ids(taken):
         n += 1
 
 
-def candidates(counts=None):
+def candidates(counts=None, rebake=False):
     """Cropped, unbaked sheets whose sprite count has a layout.
 
     Returns ``[{sheet_id, count, cache, spec_id}]`` in sheet order; ``spec_id`` is
     the number an existing draft spec already claimed, else ``None``.
+    ``rebake`` also returns the sheets already baked, so a layout fix can be
+    replayed over them (it overwrites their spec).
     """
     counts = set(counts or LAYOUTS)
     specs_by_sheet = _specs_by_sheet()
@@ -111,7 +113,8 @@ def candidates(counts=None):
         if n not in counts:
             continue
         nnn = specs_by_sheet.get(sheet_id)
-        if nnn is not None and os.path.exists(os.path.join(config.OUT_DIR, "%03d.png" % nnn)):
+        if (not rebake and nnn is not None
+                and os.path.exists(os.path.join(config.OUT_DIR, "%03d.png" % nnn))):
             continue          # already baked = already done
         out.append({"sheet_id": sheet_id, "count": n, "cache": cache, "spec_id": nnn})
     out.sort(key=lambda c: int(c["sheet_id"]) if c["sheet_id"].isdigit() else 0)
@@ -228,7 +231,7 @@ def build_spec(sheet_id, cache, spec_id):
 
 
 def run(counts=None, limit=None, stage=False, dry_run=False, include_new=False,
-        validate=None, log=print, progress=None):
+        validate=None, log=print, progress=None, rebake=False):
     """Assemble + bake every candidate. Returns a summary dict.
 
     ``include_new`` first runs ``scan_new``, so a batch of freshly downloaded
@@ -240,7 +243,7 @@ def run(counts=None, limit=None, stage=False, dry_run=False, include_new=False,
     config.ensure_dirs()
     cropped = scan_new(counts, dry_run=dry_run, log=log,
                        progress=progress) if include_new else []
-    todo = candidates(counts)
+    todo = candidates(counts, rebake=rebake)
     if dry_run and include_new:
         # Nothing was written, so the sheets scan_new picked are not candidates
         # yet — report them as what the run would take on.
