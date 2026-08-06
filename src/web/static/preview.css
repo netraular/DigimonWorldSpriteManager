@@ -7,6 +7,9 @@
 .appbar .ctl input[type=range]{width:88px;accent-color:var(--accent)}
 .appbar .ctl b{color:var(--ink-dim);font-weight:600;min-width:30px}
 
+/* The zoom toggle is a state, not an action: lit while the wall shares a zoom. */
+.appbar .btn.ghost.active{color:var(--accent);background:#22282a}
+
 .wall-body{padding:16px}
 /* The cell size IS the zoom: tiles are square-ish and the frame is fit inside
    them on both axes at once (see fitCanvas/drawCard in preview.js), so a cell

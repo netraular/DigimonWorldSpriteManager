@@ -23,6 +23,10 @@ const $ = (s) => document.querySelector(s);
 const state = {
   creatures: [], cards: [], clip: "down_left", speed: 1, cell: 128,
   playing: true, search: "", t0: performance.now(),
+  // One zoom for the whole wall (see refCell): a 34x34 creature next to a 66x66
+  // one reads as half its size, the way it will on the device. Off = every card
+  // fills its own tile, which is the better look at a single sheet's details.
+  uniform: true, refW: 1, refH: 1,
 };
 
 // ---------------------------------------------------------------- data
@@ -30,7 +34,16 @@ async function load() {
   const r = await fetch("/api/baked").then((x) => x.json()).catch(() => null);
   state.creatures = (r && r.creatures) || [];
   $("#count").textContent = `${state.creatures.length} creature${state.creatures.length === 1 ? "" : "s"}`;
+  refCell();
   render();
+}
+
+// The shared zoom is whatever makes the biggest baked cell fit its tile, so no
+// creature is ever cropped. Measured over every creature, not the search hits,
+// so filtering the wall does not silently rescale it.
+function refCell() {
+  state.refW = Math.max(1, ...state.creatures.map((c) => c.cell_w || 1));
+  state.refH = Math.max(1, ...state.creatures.map((c) => c.cell_h || 1));
 }
 
 /** Frames + per-frame durations (ms) of the clip a card is showing right now. */
@@ -161,8 +174,10 @@ function drawCard(card, t) {
   // One scale for both axes, so a 96x64 cell stays 3:2 in a square-ish box: the
   // frame is fit to the box (never cropped) and centred, the leftover is the
   // card's checkerboard. Snapped to whole pixels, and an integer scale when one
-  // is within reach, so nearest-neighbour keeps the pixels even.
-  const fit = Math.min(bw / cw, bh / ch);
+  // is within reach, so nearest-neighbour keeps the pixels even. The fit is
+  // measured against the wall's reference cell when the zoom is shared.
+  const rw = state.uniform ? state.refW : cw, rh = state.uniform ? state.refH : ch;
+  const fit = Math.min(bw / rw, bh / rh);
   const s = fit >= 1 && fit - Math.floor(fit) < 0.34 ? Math.floor(fit) : fit;
   const dw = Math.round(cw * s), dh = Math.round(ch * s);
   card.ctx.clearRect(0, 0, bw, bh);
@@ -212,10 +227,17 @@ $("#btn-play").onclick = () => {
   state.playing = !state.playing;
   $("#btn-play").textContent = state.playing ? "❚❚ pause" : "► play";
 };
+$("#btn-zoom").onclick = () => {
+  state.uniform = !state.uniform;
+  $("#btn-zoom").classList.toggle("active", state.uniform);
+  $("#btn-zoom").textContent = state.uniform ? "⇔ same zoom" : "⤢ fill tile";
+  for (const card of state.cards) if (card.on) drawCard(card, clock);
+};
 $("#search").oninput = (e) => { state.search = e.target.value; render(); };
 document.addEventListener("keydown", (e) => {
   if (document.activeElement && /INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return;
   if (e.key === " ") { e.preventDefault(); $("#btn-play").click(); return; }
+  if (e.key === "z" || e.key === "Z") { $("#btn-zoom").click(); return; }
   // 1–4 pick a facing, the same numbers the animate editor uses.
   if (e.key >= "1" && e.key <= "4") {
     const chip = $("#clips").querySelector(`[data-clip="${ISO[+e.key - 1]}"]`);
