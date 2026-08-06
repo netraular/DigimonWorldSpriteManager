@@ -1,0 +1,95 @@
+{
+  "spec_version": 1,
+  "species": "digimon",
+  "id": 256,
+  "source": "raw_sheets/46749.png",
+  "sheet_id": "46749",
+  "background": "0x000000",
+  "background_tolerance": 8,
+  "background_mode": "solid",
+  "seg_params": {
+    "extra_bg": [],
+    "tol": 8
+  },
+  "trim": true,
+  "export_scale": 1,
+  "pad": 1,
+  "boxes": [
+    {
+      "id": "b4",
+      "x": 273,
+      "y": 102,
+      "w": 35,
+      "h": 40
+    },
+    {
+      "id": "b5",
+      "x": 308,
+      "y": 102,
+      "w": 35,
+      "h": 40
+    },
+    {
+      "id": "b6",
+      "x": 343,
+      "y": 102,
+      "w": 35,
+      "h": 40
+    },
+    {
+      "id": "b11",
+      "x": 273,
+      "y": 142,
+      "w": 35,
+      "h": 40
+    },
+    {
+      "id": "b12",
+      "x": 308,
+      "y": 142,
+      "w": 35,
+      "h": 40
+    },
+    {
+      "id": "b13",
+      "x": 343,
+      "y": 142,
+      "w": 35,
+      "h": 40
+    }
+  ],
+  "clips": {
+    "walk": {
+      "down_right": [
+        "b4",
+        "b5",
+        "b6"
+      ],
+      "up_right": [
+        "b11",
+        "b12",
+        "b13"
+      ]
+    },
+    "idle": [],
+    "sleep": []
+  },
+  "mirror": {
+    "up_left": "up_right",
+    "down_left": "down_right"
+  },
+  "diagonals": true,
+  "anchor": "bottom_center",
+  "walk_style": "stride",
+  "tick_ms": 33,
+  "walk_durations": [
+    6
+  ],
+  "idle_frame_ms": 300,
+  "sleep_frame_ms": 400,
+  "notes": "",
+  "creature_name": "",
+  "creature_type": "Data",
+  "creature_color": "0x8899AA",
+  "creature_stage": 1
+}
