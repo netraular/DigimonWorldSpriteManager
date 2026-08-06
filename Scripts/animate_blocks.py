@@ -6,7 +6,7 @@ a sheet carries (see ``core/autoassemble.py``):
 
     15 sprites → SW · SE · NW · NE · idle
     12 sprites → SW · SE · NW · NE
-     9 sprites → SW · NW · idle, with SE/NE baked as the mirror of SW/NW
+     9 sprites → NW · SW · idle, with SE/NE baked as the mirror of SW/NW
 
 Each sheet gets the spec the editor would have written, then the same save +
 bake, so it leaves the gallery's "To animate" chip on its own. Sheets already

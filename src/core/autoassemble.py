@@ -6,7 +6,7 @@ and the sprite count tells you which blocks a sheet carries:
     15 sprites   SW · SE · NW · NE · idle
     12 sprites   SW · SE · NW · NE           (no idle block — the baker holds the
                                               first SW pose while standing still)
-     9 sprites   SW · NW · idle              (only the two left-facing views are
+     9 sprites   NW · SW · idle              (only the two left-facing views are
                                               drawn; SE mirrors SW and NE mirrors
                                               NW, which is what the animate view's
                                               mirror checkbox does by hand)
@@ -43,7 +43,7 @@ LAYOUTS = {
     12: {"slots": [("walk", "down_left"), ("walk", "down_right"),
                    ("walk", "up_left"), ("walk", "up_right")],
          "mirror": {}},
-    9:  {"slots": [("walk", "down_left"), ("walk", "up_left"), ("idle", None)],
+    9:  {"slots": [("walk", "up_left"), ("walk", "down_left"), ("idle", None)],
          "mirror": {"down_right": "down_left", "up_right": "up_left"}},
 }
 
@@ -52,7 +52,7 @@ DIR_LABEL = {"down_left": "SW", "down_right": "SE",
 
 
 def describe(count):
-    """Human-readable block plan for a sprite count, e.g. "SW · NW · idle (+mirrors)"."""
+    """Human-readable block plan for a sprite count, e.g. "NW · SW · idle (+mirrors)"."""
     lay = LAYOUTS[count]
     parts = [DIR_LABEL.get(d, d) if c == "walk" else c for c, d in lay["slots"]]
     txt = " · ".join(parts)

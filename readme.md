@@ -244,7 +244,7 @@ sprite count already says which facings it carries:
 |---|---|
 | **15** | SW · SE · NW · NE · idle |
 | **12** | SW · SE · NW · NE (no idle block — the baker holds the first SW pose) |
-| **9** | SW · NW · idle, with **SE mirrored from SW and NE from NW** |
+| **9** | NW · SW · idle, with **SE mirrored from SW and NE from NW** |
 
 Two buttons run that table, and both skip anything already baked, so clicking
 twice is harmless and hand-assembled work is never overwritten:
