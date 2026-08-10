@@ -145,7 +145,7 @@
   "creature_stage": 4,
   "creature_type": "Data",
   "diagonals": true,
-  "export_scale": 1,
+  "export_scale": 2,
   "id": 51,
   "idle_frame_ms": 300,
   "mirror": {},

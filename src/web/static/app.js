@@ -251,7 +251,7 @@ function freshSpec(sid, data) {
     source: `raw_sheets/${sid}.png`, sheet_id: sid,
     background: bg.color, background_tolerance: bg.tolerance, background_mode: bg.mode,
     seg_params: { ...(data.params || {}), extra_bg: (bg.colors || []).slice(1) },
-    trim: true, export_scale: 1, pad: 1,
+    trim: true, export_scale: 2, pad: 1,
     boxes: [], clips: { walk: {}, idle: [], sleep: [] }, mirror: {},
     // `diagonals` = the sheet declares the 8-direction shape. Always true here:
     // the iso facings ARE the diagonal keys, and the baker aliases the cardinals.

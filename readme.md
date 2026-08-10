@@ -401,6 +401,14 @@ top-down spec (four cardinals, no diagonals) still bakes exactly as before.
 The emitted `SpriteLayout` matches `packages/schema/src/pets.ts` (`.strict()`)
 and the hand-authored `pokemon/001.json`.
 
+Every frame is magnified by the spec's **`export_scale` (2 by default)** with
+nearest-neighbour, so the pixel art stays crisp. Digimon World DS draws its
+overworld sprites at about half the size of the Pokémon Mystery Dungeon rips the
+sibling PMDSpriteManager exports (which magnifies by 2 too, see its
+`firmware_exporter.DEFAULT_SCALE`), and hibitomo blits a sheet cell 1:1 — at 1x a
+digimon shows up tiny next to a pokémon. The layout JSON is scale-free (it only
+names `{col,row}` cells), so changing `export_scale` only re-sizes the PNG.
+
 ## Output format
 
 `output/digimon/<NNN>.json` is an explicit `SpriteLayout`:

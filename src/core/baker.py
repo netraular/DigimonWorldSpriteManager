@@ -23,7 +23,8 @@ Emitted grid (matching hibitomo ``pokemon/001.json``):
   last row     : sleep (non-directional), if the spec has sleep frames
 Every cell is the same size; frames are anchor-aligned (bottom-center default)
 and left-packed from column 0. Trailing cells in short rows stay transparent
-and are never referenced by the layout.
+and are never referenced by the layout. Frames are magnified by the spec's
+``export_scale`` (2 by default, see ``DEFAULT_EXPORT_SCALE``) before placement.
 """
 import json
 import os
@@ -53,6 +54,14 @@ ISO_LABEL = {"down_right": "SE", "up_right": "NE", "up_left": "NW",
 # schema-required cardinals onto the iso rows.
 ISO_TO_CARDINAL = {"down_right": "right", "up_right": "up",
                    "up_left": "left", "down_left": "down"}
+
+# Digimon World DS draws its overworld sprites at roughly half the size of the
+# Pokémon Mystery Dungeon rips the sibling tool exports, and hibitomo renders a
+# sheet cell 1:1 on screen — so a 1x digimon shows up tiny next to a pokémon.
+# PMDSpriteManager magnifies by 2 on export (`firmware_exporter.DEFAULT_SCALE`);
+# match it here so both rosters land in the content-editor at the same apparent
+# size. Nearest-neighbour, so the pixel art stays crisp.
+DEFAULT_EXPORT_SCALE = 2
 
 
 def _is_iso(spec):
@@ -147,7 +156,7 @@ def bake(spec_path, out_dir=None, log=print):
         bg = S.infer_background(arr, p)
 
     boxes_by_id = {b["id"]: b for b in spec.get("boxes", [])}
-    export_scale = int(spec.get("export_scale", 1))
+    export_scale = int(spec.get("export_scale") or DEFAULT_EXPORT_SCALE)
     pad = int(spec.get("pad", 1))
     anchor = spec.get("anchor", "bottom_center")
     iso = _is_iso(spec)

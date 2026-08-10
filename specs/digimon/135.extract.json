@@ -12,7 +12,7 @@
     "tol": 40
   },
   "trim": true,
-  "export_scale": 1,
+  "export_scale": 2,
   "pad": 1,
   "boxes": [
     {

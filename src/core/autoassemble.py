@@ -217,7 +217,7 @@ def build_spec(sheet_id, cache, spec_id):
         "source": f"raw_sheets/{sheet_id}.png", "sheet_id": sheet_id,
         "background": bg.get("color"), "background_tolerance": bg.get("tolerance"),
         "background_mode": bg.get("mode"), "seg_params": seg,
-        "trim": True, "export_scale": 1, "pad": 1,
+        "trim": True, "export_scale": 2, "pad": 1,
         "boxes": [{"id": b["id"], "x": b["x"], "y": b["y"], "w": b["w"], "h": b["h"]}
                   for b in boxes],
         "clips": {"walk": walk, "idle": idle, "sleep": []},
