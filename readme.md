@@ -411,6 +411,36 @@ names `{col,row}` cells), so changing `export_scale` only re-sizes the PNG.
 
 ## Output format
 
+### Current firmware asset package
+
+Export **existing local bakes**, without downloading art or modifying firmware:
+
+```bash
+python3 Scripts/export_firmware_assets.py /path/to/new/digimon-firmware-assets
+python3 -m unittest discover -s tests -p 'test_firmware_exporter.py'
+```
+
+The destination must not exist. The package mirrors `shared/services/`: Digimon
+sprites under `pet/assets/graphics/species/digimon`, named clips with
+`sheet_split: "clips"` and `clip_files`, original sheets for fallback, and
+32/64 px bottom-aligned portraits derived from the first front idle frame under
+`creatures/assets/graphics/portraits`. Existing egg strips are also included.
+Frames, direction aliases and animation timing are preserved; unsupported grids
+or frame counts fail explicitly rather than being truncated.
+
+Source IDs are offset by 1000 (configurable with `--id-offset`) to avoid the
+current Gen-1 IDs. `manifest.json` maps source IDs to exported IDs and preserves
+source metadata for reference. IDs must still be checked against any future
+catalogue before import. This is **not a game catalogue**: current firmware
+needs a sprite-path-aware roster plus habitats, rarity, needs and evolution
+chains. The old `pet_<NNN>.json` nodes and day-based `_species.json` are not
+installed as if the current firmware consumed them.
+
+No expression portraits or new sleep animations are fabricated. Missing sleep
+uses the firmware's existing idle fallback; expression-based views retain their
+body-sprite fallback. Copyright and redistribution restrictions of the local
+source art still apply.
+
 `output/digimon/<NNN>.json` is an explicit `SpriteLayout`:
 
 ```json
