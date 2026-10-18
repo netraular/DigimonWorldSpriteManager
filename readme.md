@@ -444,7 +444,31 @@ uses the firmware's existing idle fallback; expression-based views retain their
 body-sprite fallback. Copyright and redistribution restrictions of the local
 source art still apply.
 
-#### Personal native deployment
+#### Normal firmware and device delivery
+
+The canonical HibiTomo content now includes Pokemon and Digimon together.
+Firmware v1.0.109 or newer receives both through the ordinary content/asset
+sync; a firmware OTA alone does not update the ESP32 SD card. Complete the
+device's Sync / Update device action before switching Creature saga.
+Normal delivery does not require a private ZIP, copied save or personal launcher,
+and automatic content installation should remain enabled.
+
+This exporter is an **authoring tool**, not a publishing command. To serve new
+exports, install their runtime files and matching catalogue in `hibitomo-content`,
+validate the complete pack, and commit/push a content task branch. Only merging
+the approved publication branch lets content-sync publish the update. Also
+advance the firmware's `resources` gitlink when fresh native releases must bundle
+the assets. Follow the [canonical publication and verification guide](https://github.com/netraular/hibitomo-content#serving-new-assets);
+it covers compatibility metadata, release snapshots, streamed ESP32 manifests
+and the overlay that can hide older baked files.
+
+#### Personal native deployment (optional custom packs)
+
+The following alternative is for private previews or locally modified packs
+that differ from canonical content, not the normal Digimon delivery path above.
+Its launchers deliberately disable automatic content installation so that the
+canonical mirror cannot overwrite those custom files. Do not use them when
+testing ordinary device updates.
 
 Firmware v1.0.108 supports the authored optional Digimon catalogue installed by
 `hibitomo-content/tools/install-digimon.mjs`. After that local installation, run
