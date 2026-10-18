@@ -453,8 +453,15 @@ firmware checkout. Extract that inventory into a matching native simulator
 bundle; it contains `resources/` and the native bundle stamp, but no player saves.
 Linux also needs the relaunch-watchdog fix: unpatched v1.0.108 Linux builds exit
 about five seconds after a saga restart when the old shutdown alarm fires.
+With the app stopped, also copy the private catalogue to
+`content/services/creatures/assets/data/lines.json` inside the native bundle.
+Keep it identical to `resources/services/creatures/assets/data/lines.json`.
+This replaces any previous public catalogue overlay without modifying its
+saved index or any player state; the existing resolver discovers a fresh
+overlay without an index migration.
 For an SD card, the same assets use paths without the leading `resources/`;
-the native-only `hibitomo-data.version` stamp is not an SD asset.
+the `content/` catalogue overlay keeps its path and the native-only
+`hibitomo-data.version` stamp is not an SD asset.
 
 Copy `Scripts/start-personal.sh` beside the Linux `main` executable, or
 `Scripts/Start-Personal.ps1` and `Scripts/Start-Personal.cmd` beside Windows
