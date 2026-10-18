@@ -444,6 +444,38 @@ uses the firmware's existing idle fallback; expression-based views retain their
 body-sprite fallback. Copyright and redistribution restrictions of the local
 source art still apply.
 
+#### Personal native deployment
+
+Firmware v1.0.108 supports the authored optional Digimon catalogue installed by
+`hibitomo-content/tools/install-digimon.mjs`. After that local installation, run
+`python3 scripts/package_android_assets.py --out /personal/content.zip` from the
+firmware checkout. Extract that inventory into a matching native simulator
+bundle; it contains `resources/` and the native bundle stamp, but no player saves.
+Linux also needs the relaunch-watchdog fix: unpatched v1.0.108 Linux builds exit
+about five seconds after a saga restart when the old shutdown alarm fires.
+For an SD card, the same assets use paths without the leading `resources/`;
+the native-only `hibitomo-data.version` stamp is not an SD asset.
+
+Copy `Scripts/start-personal.sh` beside the Linux `main` executable, or
+`Scripts/Start-Personal.ps1` and `Scripts/Start-Personal.cmd` beside Windows
+`main.exe`. Always start a personal bundle with the corresponding launcher.
+They use the existing `online autosync off` console control before automatic
+downloads can replace or shadow the private catalogue. Online features remain
+enabled; saga selection remains the user's setting. The Windows launcher requires
+the explicit acknowledgement and stops on failure. Its process-scoped
+`RemoteSigned` setting does not override organization-wide PowerShell policies.
+
+Do not package or copy a simulator's `user_data`, identity or tokens. Plaintext
+`user_data` templates are invalid authenticated-save containers, not a supported
+way to configure the app. For an existing SD installation, disable automatic
+content installation before merging the asset folders, and preserve every
+`user_data` folder. Do not use manual Sync or re-enable automatic content
+installation against a public mirror that lacks the private catalogue.
+
+Keep these generated packages local and ignored until redistribution rights
+are established. The public firmware release can remain unchanged; the personal
+asset package and launchers are separate local deliverables.
+
 `output/digimon/<NNN>.json` is an explicit `SpriteLayout`:
 
 ```json
