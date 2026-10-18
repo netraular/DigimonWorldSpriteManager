@@ -102,7 +102,7 @@ def _portrait(frame, size):
     return result
 
 
-def export_assets(source_dir, destination, id_offset=DEFAULT_ID_OFFSET):
+def export_assets(source_dir, destination, id_offset=DEFAULT_ID_OFFSET, *, legacy_shared=False):
     """Create a new package; never overwrite an existing directory or source."""
     source_dir = Path(source_dir).resolve()
     destination = Path(destination).resolve()
@@ -129,11 +129,13 @@ def export_assets(source_dir, destination, id_offset=DEFAULT_ID_OFFSET):
         names, columns = _row_clips(document)
         sources.append((path, asset_id, document, node, names, columns))
 
-    graphics = destination / "shared/services/pet/assets/graphics/species/digimon"
-    portraits = destination / "shared/services/creatures/assets/graphics/portraits"
+    runtime_root = destination / "shared" if legacy_shared else destination
+    graphics = runtime_root / "services/pet/assets/graphics/species/digimon"
+    portraits = runtime_root / "services/creatures/assets/graphics/portraits"
     manifest = {
         "version": 1,
         "species": "digimon",
+        "runtime_root": "shared" if legacy_shared else ".",
         "id_offset": id_offset,
         "catalogue_included": False,
         "notes": [

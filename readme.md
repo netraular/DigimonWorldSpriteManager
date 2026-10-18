@@ -420,7 +420,10 @@ python3 Scripts/export_firmware_assets.py /path/to/new/digimon-firmware-assets
 python3 -m unittest discover -s tests -p 'test_firmware_exporter.py'
 ```
 
-The destination must not exist. The package mirrors `shared/services/`: Digimon
+The destination must not exist. The package mirrors canonical `services/`
+inside `hibitomo-content` (the firmware's `resources/` submodule). Pass
+`--legacy-shared` only for consumers of the retired `shared/services/` layout.
+The manifest records `runtime_root` so importers can distinguish both formats. Digimon
 sprites under `pet/assets/graphics/species/digimon`, named clips with
 `sheet_split: "clips"` and `clip_files`, original sheets for fallback, and
 32/64 px bottom-aligned portraits derived from the first front idle frame under

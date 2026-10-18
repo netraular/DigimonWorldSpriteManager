@@ -20,8 +20,11 @@ def main():
                         help="directory containing existing baked PNGs and JSON")
     parser.add_argument("--id-offset", type=int, default=DEFAULT_ID_OFFSET,
                         help="offset added to source IDs (default: 1000)")
+    parser.add_argument("--legacy-shared", action="store_true",
+                        help="use the old shared/services tree instead of canonical services/")
     args = parser.parse_args()
-    manifest = export_assets(args.source, args.destination, args.id_offset)
+    manifest = export_assets(args.source, args.destination, args.id_offset,
+                             legacy_shared=args.legacy_shared)
     print(json.dumps(manifest["summary"], indent=2))
     print(f"Exported to {os.path.abspath(args.destination)}")
     generic = [c["source_id"] for c in manifest["creatures"]

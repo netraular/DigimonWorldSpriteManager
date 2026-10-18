@@ -49,7 +49,7 @@ class FirmwareExporterTest(unittest.TestCase):
     def test_export_preserves_frames_timing_and_source(self):
         original = (self.source / "001.json").read_bytes()
         manifest = export_assets(self.source, self.destination)
-        graphics = self.destination / "shared/services/pet/assets/graphics/species/digimon"
+        graphics = self.destination / "services/pet/assets/graphics/species/digimon"
         layout = json.loads((graphics / "1001.json").read_text())
         self.assertEqual(layout["sheet_split"], "clips")
         self.assertEqual(layout["walk_durations"], [6, 6, 6])
@@ -72,7 +72,7 @@ class FirmwareExporterTest(unittest.TestCase):
         with Image.open(graphics / "1001/idle.png") as idle:
             self.assertEqual(idle.size, (4, 2))
         for kind, size in (("small", 32), ("full", 64)):
-            path = self.destination / f"shared/services/creatures/assets/graphics/portraits/{kind}/1001.png"
+            path = self.destination / f"services/creatures/assets/graphics/portraits/{kind}/1001.png"
             with Image.open(path) as portrait:
                 self.assertEqual(portrait.size, (size, size))
                 self.assertEqual(portrait.getchannel("A").getbbox()[3], size)
@@ -116,10 +116,16 @@ class FirmwareExporterTest(unittest.TestCase):
         self.layout["sleep_durations"] = [10]
         self.write_layout()
         export_assets(self.source, self.destination)
-        path = self.destination / "shared/services/pet/assets/graphics/species/digimon/1001.json"
+        path = self.destination / "services/pet/assets/graphics/species/digimon/1001.json"
         layout = json.loads(path.read_text())
         self.assertEqual(layout["sleep"], self.layout["sleep"])
         self.assertEqual(layout["sleep_durations"], [10])
+
+    def test_legacy_shared_layout_is_explicitly_opt_in(self):
+        manifest = export_assets(self.source, self.destination, legacy_shared=True)
+        self.assertEqual(manifest["runtime_root"], "shared")
+        self.assertTrue((self.destination / "shared/services/pet/assets/graphics/species/digimon/1001.json").is_file())
+        self.assertFalse((self.destination / "services").exists())
 
 
 if __name__ == "__main__":
