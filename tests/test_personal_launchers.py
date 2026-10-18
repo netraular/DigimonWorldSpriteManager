@@ -86,6 +86,25 @@ sys.exit({exit_code!r})
         result, _ = self.run_launcher(exit_code=7)
         self.assertEqual(result.returncode, 7, result.stderr)
 
+    def test_linux_rejects_existing_console_directory_without_deleting_it(self):
+        with tempfile.TemporaryDirectory(prefix="personal collision ") as temporary:
+            runtime = pathlib.Path(temporary)
+            launcher = runtime / "start-personal.sh"
+            shutil.copy2(SCRIPTS / launcher.name, launcher)
+            result = subprocess.run(
+                [
+                    "bash", "-c",
+                    'cd "$1"; mkdir -p "var/tmp/personal-console.$$"; '
+                    'printf existing > "var/tmp/personal-console.$$/marker"; exec bash "$2"',
+                    "fixture", str(runtime), str(launcher),
+                ],
+                capture_output=True, text=True, timeout=10,
+            )
+            self.assertNotEqual(result.returncode, 0)
+            markers = list((runtime / "var/tmp").glob("personal-console.*/marker"))
+            self.assertEqual(len(markers), 1)
+            self.assertEqual(markers[0].read_text(), "existing")
+
     @unittest.skipUnless(shutil.which("pwsh"), "PowerShell is not installed")
     def test_windows_keeps_input_open_and_acknowledges(self):
         result, _ = self.run_launcher(windows=True)

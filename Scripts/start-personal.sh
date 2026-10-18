@@ -3,7 +3,8 @@ set -euo pipefail
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
 
 mkdir -p -- var/tmp
-input_dir="$(mktemp -d -- var/tmp/personal-console.XXXXXX)"
+input_dir="var/tmp/personal-console.$$"
+mkdir -m 700 -- "$input_dir"
 cleanup() {
     exec 3>&-
     rm -f -- "$input_dir/console"
